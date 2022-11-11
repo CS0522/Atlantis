@@ -309,7 +309,7 @@ export default {
 
         // 功能函数，CRUD
         // 发送表单
-        // TODO 表单检验
+        // 表单检验
         doInsert() {
             // 先进行校验
             // is invalid
@@ -380,7 +380,7 @@ export default {
         },
 
         doUpdateInfo() {
-            // TODO 需要表单检验
+            // 需要表单检验
             // is invalid
             if (!checkIsValid([this.item.username]))
             {
@@ -440,7 +440,7 @@ export default {
         // 管理员修改密码无需比较原密码
         doUpdatePwd() {
             // 输入正确
-            // TODO 需要表单检验
+            // 需要表单检验
             // is invalid
             if (!checkIsValid([this.newPwd, this.confirmPwd]))
                 {

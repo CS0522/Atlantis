@@ -66,7 +66,7 @@
                                             @click="doOperation('updatepwd', type, item.id)">修改密码</button>
                                     </div>
 
-                                    <!-- TODO 最后一个管理员账户不能禁用 -->
+                                    <!-- 最后一个管理员账户不能禁用 -->
                                     <div class="item-detail-status">
                                         <el-switch 
                                             id="switch"
@@ -219,7 +219,7 @@ export default {
             if (type === 'admin')
             {
                 let canChange = false;
-                // TODO 管理员账户关闭前检查是否还有其他启用账户，若无，不能禁用
+                // 管理员账户关闭前检查是否还有其他启用账户，若无，不能禁用
                 for (let i = 0; i < this.items.length; i ++)
                 {
                     // 存在账户为启用且不是正在修改状态的自己

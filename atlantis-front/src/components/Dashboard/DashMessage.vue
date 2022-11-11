@@ -194,7 +194,7 @@ export default {
                 request.get("/" + this.typeStr + "/agree/" + objId).then(res => {
                     if (res.code === code.GET_OK)
                     {
-                        // TODO 同意成功
+                        // 同意成功
                         // 进行apply删除
                         request.delete("/applies/" + objId).then(res => {
                             if (res.code === code.DELETE_OK) {
@@ -237,7 +237,6 @@ export default {
                 this.load();
                 return;
             }
-            // TODO
             request.get("/" + this.typeStr + "/" + this.searchInput.trim() + 
                         "/" + this.currentPage + "/" + this.pageSize).then(res => {
                         if (res.code === code.GET_OK && res.data.total)
@@ -303,7 +302,6 @@ export default {
             }
             // 延迟 0.2s 进行实时显示
             setTimeout(() => {
-                // TODO
                 request.get("/" + this.typeStr + "/" + val.trim() + 
                         "/" + this.currentPage + "/" + this.pageSize).then(res => {
                         if (res.code === code.GET_OK && res.data.total)

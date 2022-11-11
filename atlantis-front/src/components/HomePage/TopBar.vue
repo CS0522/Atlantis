@@ -35,7 +35,7 @@
                     </th>
                     <th>
                         <router-link to="/login/user" target="_blank" v-if="!isLogin">登录/注册</router-link>
-                        <!-- TODO 点击用户名，出现问候语 -->
+                        <!-- 点击用户名，出现问候语 -->
                         <a v-if="isLogin && adminOrUser === 'admins'" @click="greeting()">
                             {{ info.username }}</a>
                         <a v-if="isLogin && adminOrUser === 'users'" @click="greeting()">
@@ -141,7 +141,7 @@ export default {
             })
         },
 
-        // TODO greetings
+        // greetings
         greeting() {
             this.getCityAndWeather();
         },
