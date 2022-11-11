@@ -1,0 +1,69 @@
+.hr
+{
+    margin-top: 20px;
+    border: none; 
+    border-top: solid #8beeff;
+}
+
+#content-box
+{
+    /* border: solid; */
+    font-size: 30px;
+}
+
+#userprofile-form
+{
+    /* border: solid; */
+    margin: auto auto;
+}
+
+#operation-box
+{
+    /* border: solid red; */
+    margin: 20px 20px;
+    height: 120px;
+}
+
+.operation
+{
+    display: inline;
+    height: 70px;
+    line-height: 40px;
+    width: 100px;
+    font-size: 30px;
+    border-radius: 15px;
+    border: none;
+    overflow: hidden;
+}
+
+.table-operation
+{
+    margin: auto auto;
+}
+
+.table
+{
+    /* border: solid blue; */
+    /* 自动对齐 */
+    margin: auto auto;
+    border-radius: 15px;
+    /* 加入底色 */
+    background-color: rgba(252, 242, 241, 0.3);
+    box-shadow: 5px 15px 15px 5px #888888;
+
+}
+
+.form-input
+{
+    font-size: 40px;
+    border-radius: 15px;
+    border: solid #8beeff;
+    font-family: 'Microsoft YaHei';
+    width: 100%;
+}
+
+#changepwd-form
+{
+    /* border: solid red; */
+    margin: auto auto;
+}

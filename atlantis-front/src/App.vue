@@ -1,0 +1,63 @@
+<template>
+    <div id="app">
+        <!-- <router-view ></router-view> -->
+        <router-view v-if="!toReload" :key="$route.fullPath"></router-view>
+    </div>
+</template>
+
+<script>
+export default {
+    name: 'App',
+    components: {
+
+    },
+    data() {
+        return {
+            toReload: false,
+        }
+    },
+    provide() {
+        return {
+            reload: this.reload
+        }
+    },
+
+  methods: {
+        reload() {
+            this.toReload = true;
+            this.$nextTick(function() {
+                this.toReload = false;
+            })
+        }
+    }
+}
+</script>
+
+<style>
+#app {
+    font-family: 'Microsoft YaHei';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    margin-top: 60px;
+
+    /* 设置全局文字不能被选中 */
+    -webkit-user-select: none;
+
+    -moz-user-select: none;
+
+    -ms-user-select: none;
+
+    user-select: none;
+}
+
+@import url("@/../public/css/global-style.css");
+
+/* 嵌入全局字体 */
+
+/* 选定的链接 */
+/* a:active {
+  color: #F0F;
+} */
+</style>

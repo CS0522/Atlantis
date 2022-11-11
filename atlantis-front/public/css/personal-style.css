@@ -1,0 +1,133 @@
+#personal
+{
+    /* border: solid; */
+    height: max-content;
+    min-height: 1600px;
+    margin-top: 200px;
+    padding: 50px 50px;
+
+    background-color: rgba(252, 242, 241, 0.7);
+    border-radius: 15px;
+    animation: shadow 3s ease;
+    animation-iteration-count: infinite;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);  /* css滤镜 */
+
+    box-shadow: 5px 15px 15px 5px rgba(252, 242, 241, 0.7);
+}
+
+#personal::after {
+    content:"";
+    /*清除浮动*/
+    clear: both;
+    /*确保该元素是一个块级元素*/
+    display: block;
+}
+
+#personal-nav-box
+{
+    /* border: solid; */
+    display: inline;
+    width: 20%;
+    float: left;
+}
+
+#personal-content-box
+{
+    /* border: solid; */
+    display: inline;
+    width: 70%;
+    float: right;
+}
+
+
+#personal-title
+{
+    font-size: 90px;
+    margin-bottom: 40px;
+}
+
+.sub-tab
+{
+    background-color: #8beeff;
+    font-size: 50px;
+    height: 130px;
+    line-height: 130px;
+    /* margin-bottom: 10px; */
+}
+
+.sub-tab:hover
+{
+    background-color: #53c1ff;
+}
+
+#personal-sub-nav
+{
+    /* border: red; */
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+#title-box
+{
+    margin-top: -120px;
+    /* 与img-box保持一致 */
+    height: 350px;
+    /* border: solid red; */
+    /* margin-bottom: 100px; */
+}
+
+#img-box
+{
+    /* display: inline;  */
+    float: left;
+    margin: 30px;
+    width: 300px;
+    /* 与title-box保持一致 */
+    height: 300px;
+    border: solid #8beeff;
+    /* radius过width或height一半就是圆形 */
+    border-radius: 150px;
+    overflow: hidden;
+    /* 设置阴影 */
+    box-shadow: 5px 15px 15px 5px #888888;
+}
+
+#welcome-box
+{
+    font-size: 50px;
+    /* border: solid;  */
+    /* display: inline;  */
+    margin: 30px;
+    height: 300px; 
+    line-height: 400px;
+    text-align: left;
+}
+
+.operation-box
+{
+    /* border: solid red; */
+    margin-top: -70px;
+    height: 120px;
+    position: absolute;
+    right: 1cm;
+}
+
+.operation
+{
+    display: inline;
+    height: 70px;
+    line-height: 40px;
+    width: 300px;
+    font-size: 30px;
+
+    border: solid;
+    border-radius: 15px;
+    border: none;
+    overflow: hidden;
+}
+
+.table-operation
+{
+    margin: auto auto;
+}

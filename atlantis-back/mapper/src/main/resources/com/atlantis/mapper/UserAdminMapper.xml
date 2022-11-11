@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- SQL映射文件 -->
+
+
+<!-- namespace: 名称空间-->
+<!-- 设置SQL映射文件的 namespace 属性为Mapper接口的全限定名: com.mapper.UsersMapper-->
+<mapper namespace="com.atlantis.mapper.UserAdminMapper">
+    <!--    id: 该select语句的唯一标识
+        result type: 返回结果的类型，属性为全限定名
+-->
+
+    <!--    结果映射：用于表中的列名和实体类中的成员属性名不一致的情况
+            ResultMap：
+                id: resultMap 唯一标识
+                type: 返回的结果类型
+
+                result: 一般字段的映射
+                id: 主键字段的映射
+                    column: 表的列名
+                    property: 要映射到的实体类中的成员属性名
+
+-->
+    <resultMap id="userAdminResultMap" type="com.atlantis.pojo.UserAdmin">
+        <id column="user_id" property="userId"></id>
+        <result column="admin_id" property="adminId"></result>
+    </resultMap>
+
+    <select id="getAll" resultMap="userAdminResultMap">
+        select * from user_admin
+    </select>
+
+    <select id="getById" resultMap="userAdminResultMap">
+        select * from user_admin where user_id = #{userId}
+    </select>
+
+    <insert id="insert">
+        insert into user_admin values(#{userId}, #{adminId})
+    </insert>
+
+    <delete id="delete">
+        delete from user_admin where user_id = #{userId}
+    </delete>
+
+    <!--    ${}: 用于表名、列名
+        #{}: 用于参数
+-->
+</mapper>

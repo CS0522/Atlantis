@@ -1,0 +1,63 @@
+#bottom-bar 
+{
+    background-color: #222433;
+    height: 450px;
+    position: relative;
+    width: 100%;
+    /* left: 0cm;
+    right: 0cm; */
+    margin: auto;
+    text-align: center;
+
+    border-radius: 15px;
+    /* 设置top bar背景色 */
+    background-color: rgba(34, 36, 51, 0.85);
+    /* 设置top bar阴影 */
+    box-shadow: 5px 15px 15px 5px #888888;
+    
+    animation: shadow 3s ease;
+    animation-iteration-count: infinite;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px); 
+}
+
+.bottom-nav 
+{
+    vertical-align:top;
+    display: inline-block;
+    font-size: 45px;
+    color: #fff;
+    margin: 3px 100px;
+}
+
+.bottom-nav-table 
+{
+    margin:10px 0cm auto auto;
+    border-spacing: 10px 20px;
+}
+
+.admin-login-box 
+{
+    /* 设置div处于下方居中位置 */
+    position: absolute;
+    bottom: -10px;
+    left:50%;
+    transform: translate(-50%, -50%);
+    font-size: 30px;
+    color: #999;
+}
+
+.admin-login-box .alink, .bottom-nav .routerlink
+{
+    text-decoration: underline;
+}
+
+.alink:hover, .bottom-nav .routerlink
+{
+    color: #999;
+}
+
+.td
+{
+    font-size: 30px;
+}

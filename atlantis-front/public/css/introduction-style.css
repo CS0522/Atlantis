@@ -1,0 +1,57 @@
+#introduction-box {
+    /* border: solid; */
+    min-height: 1000px;
+}
+
+#video-box {
+    /* border: solid red; */
+    width: 1280px;
+    height: 720px;
+    margin: auto auto;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+/* #video-box:hover {
+    display: block;
+} */
+
+
+.introduction-part {
+    /* border: solid blue; */
+    margin-top: 50px;
+}
+
+.title-box
+{
+    /* border: solid red; */
+    margin: 20px auto;
+    overflow: hidden;
+    width: 50%;
+}
+
+.title-img
+{
+    zoom: 150%;
+    /* margin: auto auto; */
+}
+
+.paragraph-box
+{
+    /* border: solid red; */
+    width: 70%;
+    margin: auto auto;
+    margin-top: 20px;
+
+    font-size: 40px;
+    font-family: 'Microsoft YaHei';
+    text-align: justify;
+    line-height: 80px;
+}
+
+.paragraph-img
+{
+    margin: 20px 20px;
+    height: 1000px;
+    border-radius: 15px;
+}

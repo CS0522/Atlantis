@@ -1,0 +1,114 @@
+.top-bar
+{
+  /* 设置边框为圆角 */
+  border-radius: 15px;
+  /* float: left; */
+  text-align: left;
+  /* overflow: hidden; */
+  height: 150px;
+  width: auto;
+  /* top bar始终处于浏览器顶端 */
+  position: fixed;
+  /* 设置top bar位置 */
+  top: 0cm;
+  left: 1cm;
+  right: 1cm;
+  /* border: solid; */
+  /* 设置top bar背景色 */
+  background-color: rgba(252, 242, 241, 0.85);
+  /* 设置top bar阴影 */
+  box-shadow: 5px 15px 15px 5px #888888;
+  /* 设置层级为1000，最大 */
+  z-index: 1000;
+
+  border-radius: 15px;
+  animation: shadow 3s ease;
+  animation-iteration-count: infinite;
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px); 
+}
+
+.top-bar::after {
+    content:"";
+    /*清除浮动*/
+    clear: both;
+    /*确保该元素是一个块级元素*/
+    display: block;
+}
+
+.search-bar
+{
+    /* border: solid; */
+    border-radius: 15px;
+    width: 30%;
+    display: inline-block;
+    zoom: 200%;
+    position: fixed;
+    top: 18px;
+    left: 200px;
+    /* z-index: 10000; */
+    font-family: 'Microsoft YaHei';
+}
+
+.search-input
+{
+    border-radius: 15px;
+}
+
+.tool-bar
+{
+  /* 右对齐 */
+  float: right;
+  height: 100px;
+  line-height: 100px;
+  font-size: 30px;
+}
+
+/* dropdownmenu */
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+
+}
+
+.dropdown-content {
+  border-radius: 15px;
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  width: 200px;
+  box-shadow: 5px 15px 15px 5px #888888;
+  overflow: hidden;
+  
+  /* padding: 12px 1px; */
+  font-size: 25px;
+
+  animation: shadow 3s ease;
+  animation-iteration-count: infinite;
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px); 
+  background-color: rgba(252, 242, 241, 0.9);
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+  border-radius: 15px;
+}
+
+.content {
+  text-align: left;
+  font-family: 'Microsoft YaHei';
+}
+
+.content:hover {
+  background-color: #53c1ff;
+}
+
+.outLogin
+{
+   /* border: solid; */
+   height: 45px;
+   margin-bottom: -12px;
+   margin-left: 0px;
+}

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- SQL映射文件 -->
+
+
+<!-- namespace: 名称空间-->
+<!-- 设置SQL映射文件的 namespace 属性为Mapper接口的全限定名: com.mapper.UsersMapper-->
+<mapper namespace="com.atlantis.mapper.AdminMapper">
+    <!--    id: 该select语句的唯一标识
+        result type: 返回结果的类型，属性为全限定名
+-->
+
+    <!--    结果映射：用于表中的列名和实体类中的成员属性名不一致的情况
+            ResultMap：
+                id: resultMap 唯一标识
+                type: 返回的结果类型
+
+                result: 一般字段的映射
+                id: 主键字段的映射
+                    column: 表的列名
+                    property: 要映射到的实体类中的成员属性名
+
+-->
+
+    <!--    ${}: 用于表名、列名
+    #{}: 用于参数
+-->
+    <resultMap id="adminResultMap" type="com.atlantis.pojo.Admin">
+        <result property="joinDate" column="join_date"></result>
+    </resultMap>
+
+    <select id="getById" resultMap="adminResultMap">
+        select * from admin where id = #{id}
+    </select>
+
+    <select id="getAll" resultMap="adminResultMap">
+        select * from admin
+    </select>
+
+    <select id="getByName" resultMap="adminResultMap">
+        select * from admin where username = #{name}
+    </select>
+
+    <select id="getByUsernameAndPassword" resultMap="adminResultMap">
+        select * from admin where username = #{username} and password = #{password}
+    </select>
+
+<!--    模糊查询-->
+    <select id="fuzzyQuery" resultMap="adminResultMap">
+        select * from admin where username like concat('%', #{name}, '%')
+    </select>
+    
+    
+<!--    返回主键-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into admin(username, password, description)
+            values(#{username}, #{password}, #{description})
+    </insert>
+
+    <!--    TODO @Dynamic SQL is needed-->
+    <update id="update">
+        update admin set username = #{username},
+                         password = #{password},
+                         description = #{description},
+                         status = #{status} where id = #{id}
+    </update>
+
+    <update id="updateInfo">
+        update admin set username = #{username},
+                         description = #{description},
+                         status = #{status} where id = #{id}
+    </update>
+
+    <update id="updatePwd">
+        update admin set password = #{password} where id = #{id}
+    </update>
+
+    <delete id="delete">
+        delete from admin where id = #{id}
+    </delete>
+
+<!--    TODO @Dynamic SQL is needed-->
+
+</mapper>

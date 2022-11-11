@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- SQL映射文件 -->
+
+
+<!-- namespace: 名称空间-->
+<!-- 设置SQL映射文件的 namespace 属性为Mapper接口的全限定名: com.mapper.UsersMapper-->
+<mapper namespace="com.atlantis.mapper.UserMapper">
+    <!--    id: 该select语句的唯一标识
+        result type: 返回结果的类型，属性为全限定名
+-->
+
+    <!--    结果映射：用于表中的列名和实体类中的成员属性名不一致的情况
+            ResultMap：
+                id: resultMap 唯一标识
+                type: 返回的结果类型
+
+                result: 一般字段的映射
+                id: 主键字段的映射
+                    column: 表的列名
+                    property: 要映射到的实体类中的成员属性名
+
+-->
+
+    <!--    ${}: 用于表名、列名
+    #{}: 用于参数
+-->
+    <resultMap id="userResultMap" type="com.atlantis.pojo.User">
+        <result property="joinDate" column="join_date"></result>
+    </resultMap>
+
+    <select id="getById" resultMap="userResultMap">
+        select * from user where id = #{id}
+    </select>
+
+    <select id="getAll" resultMap="userResultMap">
+        select * from user
+    </select>
+
+    <select id="getByName" resultMap="userResultMap">
+        select * from user where username = #{name}
+    </select>
+
+    <select id="getByUsernameAndPassword" resultMap="userResultMap">
+        select * from user where username = #{username} and password = #{password}
+    </select>
+
+<!--    模糊查询-->
+    <select id="fuzzyQuery" resultMap="userResultMap">
+        select * from user where username like concat('%', #{name}, '%')
+                            or nickname like concat('%', #{name}, '%')
+    </select>
+
+
+<!--    返回主键-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into user (username, password, nickname, description, gender, birth)
+            values(#{username}, #{password}, #{nickname},
+                   #{description}, #{gender}, #{birth})
+    </insert>
+
+    <!--    TODO @Dynamic SQL is needed-->
+    <update id="update">
+        update user set username = #{username},
+                        password = #{password},
+                        nickname = #{nickname},
+                        description = #{description},
+                        gender = #{gender},
+                        birth = #{birth},
+                        status = #{status} where id = #{id}
+    </update>
+
+    <update id="updateInfo">
+        update user set username = #{username},
+                        nickname = #{nickname},
+                        description = #{description},
+                        gender = #{gender},
+                        birth = #{birth},
+                        status = #{status} where id = #{id}
+    </update>
+
+    <update id="updatePwd">
+        update user set password = #{password} where id = #{id}
+    </update>
+
+    <delete id="delete">
+        delete from user where id = #{id}
+    </delete>
+
+<!--    TODO @Dynamic SQL is needed-->
+
+</mapper>

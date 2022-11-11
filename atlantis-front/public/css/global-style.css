@@ -1,0 +1,105 @@
+input:focus
+{
+    outline: none !important;
+}
+
+textarea:focus
+{
+    outline: none !important;
+}
+
+select:focus
+{
+    outline: none !important;
+}
+
+a {
+    color: #999;
+    text-decoration: none;
+}
+
+/* 未访问的链接 */
+a:link {
+    color: #999;
+    text-decoration: none;
+}
+
+/* 已访问的链接 */
+a:visited {
+    color: #999;
+}
+
+/* 鼠标移动到链接上 */
+a:hover {
+    color: #F00;
+}
+
+.el-notification.right {
+    width: 500px;
+    padding-top: 20px;
+    padding-left: 0px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+
+    text-align: left;
+
+    font-family: 'Microsoft YaHei';
+}
+
+.el-pager li
+{
+    background: none !important;
+}
+
+.el-pagination .btn-next, .el-pagination .btn-prev
+{
+    background: none !important;
+}
+
+.el-pagination button:disabled
+{
+    background: none !important;
+}
+
+button
+{
+    cursor: pointer;
+}
+
+button:hover
+{
+    background: rgba(0, 0, 0, 10%) !important
+}
+
+.avatar-uploader .el-upload {
+    /* border: 2px dashed #d9d9d9; */
+    border-radius: 15px;
+    cursor: pointer;
+    position: relative;
+    width: 300px;
+    height: 300px;
+    border-radius: 150px;
+    line-height: 320px;
+}
+
+.avatar-uploader .el-upload:hover {
+    border-color: #8beeff;
+}
+
+.avatar-uploader-icon {
+    font-size: 100px;
+    color: #999;
+}
+
+.avatar {
+    width: 300px;
+    height: 300px;
+    border-radius: 150px;
+    object-fit: cover;
+}
+
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+    appearance: none;
+}

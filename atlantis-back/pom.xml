@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.5</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.atlantis</groupId>
+    <artifactId>atlantis-back</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+<!--    修改打包方式-->
+    <packaging>pom</packaging>
+    <name>atlantis-back</name>
+    <description>atlantis-back</description>
+
+    <properties>
+        <java.version>11</java.version>
+        <atlantis.version>0.0.1-SNAPSHOT</atlantis.version>
+        <mybatis.spring.version>2.2.2</mybatis.spring.version>
+        <mybatis.plus.version>3.5.2</mybatis.plus.version>
+        <pagehelper.version>1.4.5</pagehelper.version>
+        <mysql.version>8.0.30</mysql.version>
+        <jackson.version>2.13.4</jackson.version>
+        <druid.version>1.2.13-SNSAPSHOT</druid.version>
+    </properties>
+
+<!--    declare modules-->
+    <modules>
+        <module>controller</module>
+        <module>mapper</module>
+        <module>pojo</module>
+        <module>service</module>
+        <module>util</module>
+        <module>exception</module>
+        <module>common</module>
+        <module>config</module>
+        <module>filter</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>${mybatis.spring.version}</version>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.baomidou</groupId>-->
+<!--            <artifactId>mybatis-plus-boot-starter</artifactId>-->
+<!--            <version>${mybatis.plus.version}</version>-->
+<!--        </dependency>-->
+
+<!--        分页工具-->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>${pagehelper.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>${druid.version}</version>
+        </dependency>
+    </dependencies>
+
+    <!-- 版本说明：这里统一管理依赖的版本号 -->
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>com.atlantis</groupId>
+                <artifactId>mapper</artifactId>
+                <version>${atlantis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.atlantis</groupId>
+                <artifactId>pojo</artifactId>
+                <version>${atlantis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.atlantis</groupId>
+                <artifactId>service</artifactId>
+                <version>${atlantis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.atlantis</groupId>
+                <artifactId>controller</artifactId>
+                <version>${atlantis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.atlantis</groupId>
+                <artifactId>exception</artifactId>
+                <version>${atlantis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.atlantis</groupId>
+                <artifactId>util</artifactId>
+                <version>${atlantis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.atlantis</groupId>
+                <artifactId>common</artifactId>
+                <version>${atlantis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.atlantis</groupId>
+                <artifactId>config</artifactId>
+                <version>${atlantis.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.atlantis</groupId>
+                <artifactId>filter</artifactId>
+                <version>${atlantis.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+<!--    <build>-->
+<!--        <plugins>-->
+<!--            <plugin>-->
+<!--                <groupId>org.springframework.boot</groupId>-->
+<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--                <version>2.7.5</version>-->
+<!--            </plugin>-->
+<!--        </plugins>-->
+<!--    </build>-->
+
+</project>

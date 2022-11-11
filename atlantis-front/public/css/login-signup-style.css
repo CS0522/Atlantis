@@ -1,0 +1,105 @@
+/* 需要背景模糊效果 */
+#login-box, #signup-box
+{
+    overflow: hidden;
+    border-radius: 15px;
+    width: 35%;
+    position: relative;
+    top: 150px;
+    margin: 0 auto;
+
+    background-color: rgba(252, 242, 241, 0.7);
+    border-radius: 15px;
+    animation: shadow 3s ease;
+    animation-iteration-count: infinite;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);  /* css滤镜 */
+
+    box-shadow:  inset 0 0 40px 40px rgba(252, 242, 241, 0.7);
+}
+
+.login-form, .signup-form
+{
+    /* border: solid; */
+    margin: auto auto;
+}
+
+.table
+{
+    font-size: 35px;
+    margin: auto auto;
+    /* border: solid; */
+}
+
+.form-input
+{
+    font-size: 35px;
+    border-radius: 15px;
+    border: solid #8beeff;
+    font-family: 'Microsoft YaHei';
+    width: 100%;
+}
+
+.form-check
+{
+    font-size: 35px;
+    border-radius: 15px;
+    border: solid #8beeff;
+    zoom: 300%;
+}
+
+.message-box
+{
+    display: block;
+    /* border: solid; */
+    margin: 0 auto;
+    width: 100%;
+    height: 60px;
+    font-size: 30px;
+}
+
+.submit-box
+{
+    /* border: solid; */
+    margin: 0 auto;
+    width: 30%;
+    height: 60px;
+}
+
+.submit-button
+{
+    font-size: 35px;
+    background-color: #8beeff;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    border: none;
+}
+
+.register-box, .admin-box
+{
+    /* border: solid; */
+    display: inline;
+    float: right;
+    font-size: 30px;
+    margin-top: 20px;
+    height: 50px;
+    line-height: 50px;
+    /* overflow: hidden; */
+}
+
+#verifycode-box
+{
+    display: inline-block;
+    /* border: solid; */
+    border-radius: 15px;
+    width: 220px;
+    overflow: hidden;
+    height: 60px;
+}
+
+.admin-box
+{
+    /* border: solid; */
+    float: left;
+}

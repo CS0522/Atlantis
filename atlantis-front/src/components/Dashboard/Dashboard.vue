@@ -1,0 +1,179 @@
+<template>
+    <div>
+        <!--（已解决）存在问题，当路由变换了，变换后第一次显示为变换前最后一次的显示 -->
+        <AccountDialog 
+        v-if="isShowAccount"
+        @close="closeDialog"
+        @confirm="confirm">
+        </AccountDialog>
+        <AboutDialog 
+        v-if="isShowAbout"
+        @close="closeDialog"
+        @confirm="confirm">
+        </AboutDialog>
+        <TopBar v-if="!topBarReload"
+                @reload="doTopBarReload()"></TopBar>
+        <!-- v-show绑定isShowAccount属性，动态变化 -->
+        <div id="dashboard">
+            <div id="dash-nav-box">
+                <div id="dash-title">
+                    <!-- 设置点击图片跳转至首页 -->
+                    <router-link to="/" target="_self">
+                        <img src="imgs/logo/atlantis-logo.png" height="150px" />
+                    </router-link>
+                </div>
+                <div id="dash-sub-nav"  @mouseover="showMenu()" @mouseleave="hideMenu()">
+                    <router-link to="/dashboard/account/admin">
+                        <div class="sub-tab">用户管理</div>
+                        <!-- 悬停菜单 -->
+                        <div class="hov-sub-tab-menu">
+                            <router-link to="/dashboard/account/admin">
+                                <div class="hov-sub-tab-item">管理员账号管理</div>
+                            </router-link>
+                            <router-link to="/dashboard/account/user">
+                                <div class="hov-sub-tab-item">用户账号管理</div>
+                            </router-link>                          
+                        </div>
+                    </router-link>
+
+                    <router-link to="/dashboard/message/apply">
+                        <div class="sub-tab">消息中心</div>
+                        <!-- 悬停菜单 -->
+                        <div class="hov-sub-tab-menu">
+                            <router-link to="/dashboard/message/apply">
+                                <div class="hov-sub-tab-item">管理员申请</div>
+                            </router-link>
+                            <!-- <router-link to="/dashboard/message/reset">
+                                <div class="hov-sub-tab-item">重置密码申请</div>
+                            </router-link>                           -->
+                        </div>
+                    </router-link>
+
+                    <router-link to="/dashboard/news">
+                        <div class="sub-tab">资讯管理</div>
+                    </router-link>
+
+                    <router-link to="/dashboard/tutorial">
+                        <div class="sub-tab">教程管理</div>
+                    </router-link>
+
+                    <router-link to="/dashboard/forum">
+                        <div class="sub-tab">论坛管理</div>
+                    </router-link>
+
+                    <router-link to="/dashboard/about">
+                        <div class="sub-tab">车队管理</div>
+                    </router-link>
+
+                </div>
+            </div>
+            <div id="dash-content-box">
+                <!-- 注意这个地方一定要绑定key！！！以后也是！！！ -->
+                <!-- 子组件传递参数，@绑定方法函数 -->
+                <router-view v-if="isRouterAlive"
+                    :key="$route.fullPath"
+                    @reload="reload"
+                    @show-dialog="showDialog"
+                    ></router-view>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import AccountDialog from '@/components/Dialog/AccountDialog.vue'
+import AboutDialog from '@/components/Dialog/AboutDialog.vue'
+import TopBar from '../HomePage/TopBar.vue'
+import request from '@/utils/request'
+import message from '@/utils/message'
+import code from '@/utils/code'
+
+export default {
+    name: "dashboard",
+    components: {
+        AccountDialog,
+        AboutDialog,
+        TopBar,
+    },
+    data() {
+        return {
+            isShowAccount: false,
+            isShowAbout: false,
+            isRouterAlive: true,
+            topBarReload: false,
+
+        }
+    },
+    // 刷新路由操作
+    provide() {
+        return {
+            reload: this.reload,
+            doTopBarReload: this.doTopBarReload,
+        }     
+    },
+
+    methods: {
+        // 以下两个函数用来控制左侧抽屉导航栏
+        showMenu() {
+            document.getElementsByClassName("hov-sub-tab-menu")[0].style.display = "block";
+            document.getElementsByClassName("hov-sub-tab-menu")[1].style.display = "block";
+        },
+        hideMenu() {
+            document.getElementsByClassName("hov-sub-tab-menu")[0].style.display = "none";
+            document.getElementsByClassName("hov-sub-tab-menu")[1].style.display = "none";
+        },
+        
+        // 显示dialog
+        showDialog(showWhich) {
+            if (showWhich === 'account')
+            {
+                this.isShowAccount = true;
+            }
+            else if (showWhich === 'about')
+            {
+                this.isShowAbout = true;
+            }
+        },
+        // Dialog点击按钮的事件
+        // 点击取消按钮
+        closeDialog()
+        {
+            this.isShowAccount = false;
+            this.isShowAbout = false;
+        },
+        // 点击确定按钮
+        confirm() {
+            this.closeDialog();
+            // 确定后采取操作
+            // 延迟 300ms 刷新子路由
+            setTimeout(() => {
+                this.reload(); // 执行方法
+            }, 300);
+
+        },
+        // 刷新路由操作
+        reload() {
+            this.isRouterAlive = false;
+            this.$nextTick(function() {
+                this.isRouterAlive = true;
+            })
+        },
+        // 刷新topbar
+        doTopBarReload() {
+            this.topBarReload = true;
+            this.$nextTick(function() {
+                this.topBarReload = false;
+            })
+        }
+    },
+
+    // created() {
+    //     this.load();
+    // },
+}
+
+</script>
+
+<style scoped src='@/../public/css/dashboard-style.css'>
+
+</style>

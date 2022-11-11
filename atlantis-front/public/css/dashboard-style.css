@@ -1,0 +1,94 @@
+#dashboard
+{
+    /* border: solid; */
+    /* height: 2100px; */
+    height: max-content;
+    min-height: 1600px;
+    margin-top: 200px;
+    padding: 50px 50px;
+
+    background-color: rgba(252, 242, 241, 0.7);
+    border-radius: 15px;
+    animation: shadow 3s ease;
+    animation-iteration-count: infinite;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);  /* css滤镜 */
+
+    box-shadow: 5px 15px 15px 5px rgba(252, 242, 241, 0.7);
+}
+
+#dashboard::after {
+    content:"";
+    /*清除浮动*/
+    clear: both;
+    /*确保该元素是一个块级元素*/
+    display: block;
+}
+
+#dash-nav-box
+{
+    /* border: solid; */
+    display: inline;
+    width: 20%;
+    float: left;
+}
+
+#dash-content-box
+{
+    /* border: solid; */
+    display: inline;
+    width: 70%;
+    float: right;
+}
+
+
+#dash-title
+{
+    font-size: 90px;
+    margin-bottom: 40px;
+}
+
+.sub-tab
+{
+    background-color: #8beeff;
+    font-size: 50px;
+    height: 130px;
+    line-height: 130px;
+    /* margin-bottom: 10px; */
+}
+
+.sub-tab:hover
+{
+    background-color: #53c1ff;
+}
+
+#dash-sub-nav
+{
+    /* border: red; */
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+/* 制作悬停菜单 */
+.hov-sub-tab-menu
+{
+    font-size: 35px;
+}
+
+.hov-sub-tab-item
+{
+    height: 100px;
+    line-height: 100px;
+    color: black;
+}
+
+.hov-sub-tab-item:hover{
+    background-color: #53c1ff;
+}
+
+#dash-sub-nav .hov-sub-tab-menu
+{
+    display: none;
+}
+
+
