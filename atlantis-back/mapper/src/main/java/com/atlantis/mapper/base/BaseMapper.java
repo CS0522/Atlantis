@@ -29,5 +29,6 @@ public interface BaseMapper<T> {
     // 删，返回受影响行数 = 0
     public int delete(Integer id);
 
-    public T getByUsernameAndPassword(String username, String password);
+    public T getByUsernameAndPassword(@Param("username") String username,
+                                      @Param("password") String password);
 }

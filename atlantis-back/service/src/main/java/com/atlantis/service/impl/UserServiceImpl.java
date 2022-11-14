@@ -44,6 +44,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
             5. 员工状态，返回失败 == STATUS_OFF
             6. 登陆成功，将id存储到session中 == Code.LOGIN_OK
         */
+        System.out.println("login function in service impl...");
         return (baseMapper.getByUsernameAndPassword(login.getUsername(), login.getPassword()));
 
     }

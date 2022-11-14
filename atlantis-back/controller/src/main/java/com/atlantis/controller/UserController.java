@@ -49,10 +49,10 @@ public class UserController extends BaseController<User> {
     public Result login(HttpServletRequest request, @RequestBody User login)
     {
         // TODO login function
-//        System.out.println(login);
         System.out.println("logging in...");
         // 在业务层中进行以上处理，返回结果代码
         User result = baseService.login(login);
+
         // 3
         if (result == null || !result.getPassword().equals(login.getPassword()))
         {
