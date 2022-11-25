@@ -2,7 +2,7 @@ import axios from 'axios'
 
 
 const request = axios.create({
-    baseURL: 'http://172.16.12.103:8081',
+    baseURL: 'http://localhost:8081',
     timeout: 5000,
     // 解决前后session不一致问题
     withCredentials: true,

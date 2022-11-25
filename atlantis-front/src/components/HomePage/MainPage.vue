@@ -11,7 +11,7 @@
                 </div>
             </div>
             <!-- 放入主要页面导航，主要页面内放入子页面导航 -->
-            <div class="nav-box">
+            <div class="nav-box" id="nav-box-anchor">
                 
                     <router-link to="/page/introduction">
                         <div class="tab" tabindex="1">游戏介绍</div>

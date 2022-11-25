@@ -24,8 +24,8 @@ const store = new Vuex.Store({
         // admins, users
 
         // img base url
-        userImgBaseUrl: "http://172.16.12.103:8081/users/",
-        memberImgBaseUrl: "http://172.16.12.103:8081/members/",
+        userImgBaseUrl: "http://localhost:8081/users/",
+        memberImgBaseUrl: "http://localhost:8081/members/",
     },
     mutations: {
         setOperation(state, newOperation){

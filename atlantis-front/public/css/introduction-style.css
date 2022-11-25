@@ -1,3 +1,18 @@
+#title
+{
+    margin: 30px;
+    /* border: solid; */
+    width: 500px;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.hr
+{
+    border: none; 
+    border-top: solid #8beeff;
+}
+
 #introduction-box {
     /* border: solid; */
     min-height: 1000px;
@@ -8,6 +23,7 @@
     width: 1280px;
     height: 720px;
     margin: auto auto;
+    margin-top: 50px;
     border-radius: 15px;
     overflow: hidden;
 }

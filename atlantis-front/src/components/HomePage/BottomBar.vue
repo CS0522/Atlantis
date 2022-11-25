@@ -5,9 +5,15 @@
                 <tr>
                     <th>游戏介绍</th>
                 </tr>
+                <tr>
+                    <td class="td">
+                        <router-link to="/page/introduction" class="routerlink">
+                            <div @click="toTop()">游戏介绍</div></router-link>
+                    </td>
+                </tr>
             </table>
         </div>
-        <!-- TODO 点击后同一个页面跳转到相应位置（或者回顶部） -->
+        <!-- 点击后同一个页面跳转到相应位置 -->
         <div class="bottom-nav">
             <table class="bottom-nav-table">
                 <tr>
@@ -15,12 +21,14 @@
                 </tr>
                 <tr>
                     <td class="td">
-                        <router-link to="/page/news/news" class="routerlink">游戏新闻</router-link>
+                        <router-link to="/page/news/news" class="routerlink">
+                            <div @click="toTop()">游戏新闻</div></router-link>
                     </td>
                 </tr>
                 <tr>
                     <td class="td">
-                        <router-link to="/page/news/announces" class="routerlink">游戏公告</router-link>
+                        <router-link to="/page/news/announces" class="routerlink">
+                            <div @click="toTop()">游戏公告</div></router-link>
                     </td>
                 </tr>
             </table>
@@ -32,22 +40,26 @@
                 </tr>
                 <tr>
                     <td class="td">
-                        <router-link to="/page/tutorial/basic" class="routerlink">入门</router-link>
+                        <router-link to="/page/tutorial/basic" class="routerlink">
+                            <div @click="toTop()">入门</div></router-link>
                     </td>
                 </tr>
                 <tr>
                     <td class="td">
-                        <router-link to="/page/tutorial/premium" class="routerlink">进阶</router-link>
+                        <router-link to="/page/tutorial/premium" class="routerlink">
+                            <div @click="toTop()">进阶</div></router-link>
                     </td>
                 </tr>
                 <tr>
                     <td class="td">
-                        <router-link to="/page/tutorial/online" class="routerlink">联机</router-link>
+                        <router-link to="/page/tutorial/online" class="routerlink">
+                            <div @click="toTop()">联机</div></router-link>
                     </td>
                 </tr>
                 <tr>
                     <td class="td">
-                        <router-link to="/page/tutorial/rules" class="routerlink">守则</router-link>
+                        <router-link to="/page/tutorial/rules" class="routerlink">
+                            <div @click="toTop()">守则</div></router-link>
                     </td>
                 </tr>
             </table>
@@ -59,18 +71,20 @@
                 </tr>
                 <tr>
                     <td class="td">
-                        <router-link to="/page/about/introduction" class="routerlink"
-                        @click="toTop()">车队简介</router-link>
+                        <router-link to="/page/about/introduction" class="routerlink">
+                            <div @click="toTop()">车队简介</div></router-link>
                     </td>
                 </tr>
                 <tr>
                     <td class="td">
-                        <router-link to="/page/about/member" class="routerlink">车队成员</router-link>
+                        <router-link to="/page/about/member" class="routerlink">
+                            <div @click="toTop()">车队成员</div></router-link>
                     </td>
                 </tr>
                 <tr>
                     <td class="td">
-                        <router-link to="/page/about/contact" class="routerlink">联系我们</router-link>
+                        <router-link to="/page/about/contact" class="routerlink">
+                            <div @click="toTop()">联系我们</div></router-link>
                     </td>
                 </tr>
             </table>
@@ -93,16 +107,17 @@ export default {
         }
     },
     created() {
-        // this.setBottomBarSize();
     },
     methods:
     {
         toTop() {
-            // 实现点击返回
-            console.log("relocation")
-            document.body.scrollTop = 0;
-        },
-    }
+            // console.log("to top");
+            // 定位滚动条
+            // window.scrollTo(window.pageXOffset, 520);
+            // 定位到某个元素
+            document.getElementById("nav-box-anchor").scrollIntoView();
+        }
+    },
 }
 </script>
 
