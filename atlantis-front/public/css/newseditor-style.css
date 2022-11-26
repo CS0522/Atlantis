@@ -1,0 +1,19 @@
+#title-box
+{
+    margin: 30px;
+    /* border: solid; */
+    width: 500px;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.hr
+{
+    border: none; 
+    border-top: solid #8beeff;
+}
+
+/* #content-box
+{
+    border: solid;
+} */

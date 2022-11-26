@@ -81,6 +81,7 @@ export default {
         return {
             // for search
             searchInput: '',
+            isSearching: false,
 
             items: [],
 
@@ -115,7 +116,7 @@ export default {
             }).catch(error => {
                 this.$notify.error({
                     title: message.REQUEST_ERR,
-                    offset: 150
+                    offset: 70
                 })
             })
         },
@@ -123,6 +124,9 @@ export default {
         load() {
             this.setTypeStr();
             this.setItem();
+            
+            this.searchInput = '';
+            this.isSearching = false;
         },
 
         doOperation(operation, type, objId) {
@@ -135,7 +139,7 @@ export default {
                     {
                         this.$notify.success({
                             title: message.DELETE_OK,
-                            offset: 150
+                            offset: 70
                         })
                         // 延迟 300ms 刷新子路由
                         setTimeout(() => {
@@ -145,7 +149,7 @@ export default {
                 }).catch(err => {
                     this.$notify.error({
                         title: message.REQUEST_ERR,
-                        offset: 150
+                        offset: 70
                     })
                 })
             }
@@ -168,14 +172,14 @@ export default {
                 {
                     this.$notify.error({
                         title: message.REQUEST_ERR,
-                        offset: 150
+                        offset: 70
                     })
                 }
                 else
                 {
                     this.$notify.success({
                         title: message.DELETE_OK,
-                        offset: 150
+                        offset: 70
                     })
                 }
                 // 延迟 300ms 刷新子路由
@@ -200,7 +204,7 @@ export default {
                             if (res.code === code.DELETE_OK) {
                                 this.$notify.success({
                                     title: "已同意",
-                                    offset: 150
+                                    offset: 70
                                 })
                                 // 延迟 300ms 刷新子路由
                                 setTimeout(() => {
@@ -210,7 +214,7 @@ export default {
                         }).catch(err => {
                             this.$notify.error({
                             title: message.REQUEST_ERR,
-                            offset: 150
+                            offset: 70
                             })
                         })
                     }
@@ -218,13 +222,13 @@ export default {
                     {
                         this.$notify.error({
                             title: "这个申请存在问题，请点击拒绝以进行删除",
-                            offset: 150
+                            offset: 70
                         })
                     }
                 }).catch(err => {
                     this.$notify.error({
                             title: message.REQUEST_ERR,
-                            offset: 150
+                            offset: 70
                     })
                 })
             }
@@ -237,6 +241,7 @@ export default {
                 this.load();
                 return;
             }
+            this.isSearching = true;
             request.get("/" + this.typeStr + "/" + this.searchInput.trim() + 
                         "/" + this.currentPage + "/" + this.pageSize).then(res => {
                         if (res.code === code.GET_OK && res.data.total)
@@ -245,7 +250,7 @@ export default {
                             this.totalNumber = res.data.total;
                             this.$notify.success({
                                 title: message.FIND_OK + "，共 " + this.totalNumber + " 条",
-                                offset: 150
+                                offset: 70
                             })
                         }
                         else 
@@ -254,13 +259,13 @@ export default {
                             this.totalNumber = 0;
                             this.$notify.error({
                                 title: message.FIND_ERR,
-                                offset: 150
+                                offset: 70
                             })
                         }
                     }).catch(err => {
                         this.$notify.error({
                             title: message.REQUEST_ERR,
-                            offset: 150
+                            offset: 70
                         })
                     })
         },
@@ -268,22 +273,30 @@ export default {
         handleSizeChange(val) {
             console.log("val: " + val);
         },
-        handleCurrentChange(val) {
+        async handleCurrentChange(val) {
             console.log("val: " + val);
-            request.get("/" + this.typeStr + "/" + this.currentPage + "/" + this.pageSize).then(res => {
-                if (res.code === code.GET_OK) {
-                    this.items = res.data.list;
-                    this.totalNumber = res.data.total;
-
-                    console.log("total number: " + this.totalNumber);
-                }
-            }).catch(err => {
-                console.log(err)
+            let res;
+            if (!this.isSearching)
+            {
+                res = await request.get("/" + this.typeStr + "/" + this.currentPage + "/" + this.pageSize);
+            }
+            else
+            {
+                res = await request.get("/" + this.typeStr + "/" + this.searchInput.trim() + 
+                                    "/" + this.currentPage + "/" + this.pageSize);
+            }
+            if (res.code === code.GET_OK) {
+                this.items = res.data.list;
+                this.totalNumber = res.data.total;
+                console.log("total number: " + this.totalNumber);
+            }
+            else
+            {
                 this.$notify.error({
                     title: message.REQUEST_ERR,
-                    offset: 150
+                    offset: 70
                 });
-            })
+            }
             // console.log(`当前页: ${val}`);
         },
     },
@@ -295,11 +308,14 @@ export default {
     watch: {
         // 含输入的记得掐空格！！！
         searchInput(val) {
+            this.currentPage = 1;
+
             if (val.trim() === '')
             {
                 this.load();
                 return;
             }
+            this.isSearching = true;
             // 延迟 0.2s 进行实时显示
             setTimeout(() => {
                 request.get("/" + this.typeStr + "/" + val.trim() + 
@@ -320,7 +336,7 @@ export default {
                     }).catch(err => {
                         this.$notify.error({
                             title: message.REQUEST_ERR,
-                            offset: 150
+                            offset: 70
                         })
                     })
             }, 200);

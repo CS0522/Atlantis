@@ -61,8 +61,8 @@
                 <img class="title-img" src="@/../public/imgs/introductions/Features.png"/>
             </div>
             <div class="paragraph-box">
-                以下是 Touge Shakai 将开发的重点功能:
-                <p style="font-size: 30px">
+                <p>
+                以下是 Touge Shakai 将开发的重点功能：<br/>
                 ● 专用服务器<br/>
                 ● 赛车定制化选项 - 车件和外观修改<br/>
                 ● 线上匹配和排名<br/>

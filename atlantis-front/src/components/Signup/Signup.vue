@@ -150,7 +150,7 @@ export default {
                         if (res.code === code.INSERT_OK) {
                             this.$notify.success({
                                 title: '注册成功！正在返回登录页面',
-                                offset: 150
+                                offset: 70
                             })
                             setTimeout(() => {
                                 this.$router.push('/login/user');
@@ -159,7 +159,7 @@ export default {
                         else {
                             this.$notify.error({
                                 title: '注册失败，可能已经存在该用户',
-                                offset: 150
+                                offset: 70
                             })
                             this.isLoading = false;
                             this.getVerifyCodeImg();
@@ -167,7 +167,7 @@ export default {
                     }).catch(err => {
                         this.$notify.error({
                             title: message.REQUEST_ERR,
-                            offset: 150
+                            offset: 70
                         })
                         this.isLoading = false;
                         this.getVerifyCodeImg();
@@ -184,7 +184,7 @@ export default {
             }).catch(err => {
                 this.$notify.error({
                     title: message.REQUEST_ERR,
-                    offset: 150
+                    offset: 70
                 })
                 this.isLoading = false;
                 this.getVerifyCodeImg();

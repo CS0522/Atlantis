@@ -8,26 +8,8 @@ import News from '../components/Pages/News.vue'
 import Tutorial from '../components/Pages/Tutorial.vue'
 import Forum from '../components/Pages/Forum.vue'
 import About from '../components/Pages/About.vue'
-import AboutIntroduction from '../components/Pages/SubPages/AboutIntroduction.vue'
-import AboutMember from '../components/Pages/SubPages/AboutMember.vue'
-import AboutContact from '../components/Pages/SubPages/AboutContact.vue'
-import TutorialContent from '../components/Pages/SubPages/TutorialContent.vue'
-import NewsContent from '../components/Pages/SubPages/NewsContent.vue'
-import ForumContent from '../components/Pages/SubPages/ForumContent.vue'
-import Login from '../components/Login/Login.vue'
-import Signup from '../components/Signup/Signup.vue'
-import Dashboard from '../components/Dashboard/Dashboard.vue'
-import DashHome from '../components/Dashboard/DashHome.vue'
-import DashAccount from '../components/Dashboard/DashAccount.vue'
-import DashMessage from '../components/Dashboard/DashMessage.vue'
-import DashNews from '../components/Dashboard/DashNews.vue'
-import DashTutorial from '../components/Dashboard/DashTutorial.vue'
-import DashForum from '../components/Dashboard/DashForum.vue'
-import DashAbout from '../components/Dashboard/DashAbout.vue'
-import Personal from '../components/PersonalPage/Personal.vue'
-import PersonalProfile from '../components/PersonalPage/PersonalProfile.vue'
-import PersonalMessage from '../components/PersonalPage/PersonalMessage.vue'
-
+import Dashboard from '@/components/Dashboard/Dashboard.vue'
+import Personal from '@/components/PersonalPage/Personal.vue'
 
 Vue.use(VueRouter)
 
@@ -36,7 +18,7 @@ const routes =
         // log in and sign up router
         {
             path: "/login/:type",
-            component: Login,
+            component: () => import('@/components/Login/Login.vue'),
             meta: {
                 keepAlive: true // 需要缓存
             },
@@ -44,7 +26,7 @@ const routes =
         },
         {
             path: "/signup",
-            component: Signup,
+            component: () => import('@/components/Login/Login.vue'),
             meta: {
                 keepAlive: true // 需要缓存
             },
@@ -70,15 +52,27 @@ const routes =
                 {
                     path: "news",
                     // 重定向至默认界面，设为“游戏新闻”
-                    redirect: "/page/news/news",
+                    redirect: "/page/news/news/list",
                     component: News,
                     props: true,
                     // 动态路由
                     children: [
                         {
                             path: ":type",
-                            component: NewsContent,
-                            props: true
+                            component: () => import('@/components/Pages/SubPages/NewsContent.vue'),
+                            props: true,
+                            children: [
+                                {
+                                    path: "list",
+                                    component: () => import('@/components/Pages/SubPages/NewsList.vue'),
+                                    props: true,
+                                },
+                                {
+                                    path: "detail/:id",
+                                    component: () => import('@/components/Pages/SubPages/NewsDetail.vue'),
+                                    props: true,
+                                }
+                            ]
                         }
                     ]
                 },
@@ -89,7 +83,7 @@ const routes =
                     children: [
                         {
                             path: ":type",
-                            component: TutorialContent,
+                            component: () => import('@/components/Pages/SubPages/TutorialContent.vue'),
                             props: true
                         }
                     ]
@@ -105,17 +99,17 @@ const routes =
                     children: [
                         {
                             path: "introduction",
-                            component: AboutIntroduction,
+                            component: () => import('@/components/Pages/SubPages/AboutIntroduction.vue'),
                             props: true
                         },
                         {
                             path: "member",
-                            component: AboutMember,
+                            component: () => import('@/components/Pages/SubPages/AboutMember.vue'),
                             props: true
                         },
                         {
                             path: "contact",
-                            component: AboutContact,
+                            component: () => import('@/components/Pages/SubPages/AboutContact.vue'),
                             props: true
                         }
                     ]
@@ -134,37 +128,42 @@ const routes =
             children: [
                 {
                     path: "home",
-                    component: DashHome,
+                    component: () => import('@/components/Dashboard/DashHome.vue'),
                     props: true,
                 },
                 {
                     path: "account/:type",
-                    component: DashAccount,
+                    component: () => import('@/components/Dashboard/DashAccount.vue'),
                     props: true,
                 },
                 {
                     path: "message/:type",
-                    component: DashMessage,
+                    component: () => import('@/components/Dashboard/DashMessage.vue'),
                     props: true,
                 },
                 {
                     path: "news",
-                    component: DashNews,
+                    component: () => import('@/components/Dashboard/DashNews.vue'),
                     props: true,
                 },
                 {
+                    path: "newseditor/:id",
+                    component: () => import('@/components/Dashboard/NewsEditor.vue'), 
+                    props: true, 
+                },
+                {
                     path: "tutorial",
-                    component: DashTutorial,
+                    component: () => import('@/components/Dashboard/DashTutorial.vue'),
                     props: true,
                 },
                 {
                     path: "forum",
-                    component: DashForum,
+                    component: () => import('@/components/Dashboard/DashForum.vue'),
                     props: true,
                 },
                 {
                     path: "about",
-                    component: DashAbout,
+                    component: () => import('@/components/Dashboard/DashAbout.vue'),
                     props: true,
                 },
             ],
@@ -203,12 +202,12 @@ const routes =
             children: [
                 {
                     path: "/personal/profile",
-                    component: PersonalProfile,
+                    component: () => import('@/components/PersonalPage/PersonalProfile.vue'),
                     props: true
                 },
                 {
                     path: "/personal/message",
-                    component: PersonalMessage,
+                    component: () => import('@/components/PersonalPage/PersonalMessage.vue'),
                     props: true
                 },
             ],

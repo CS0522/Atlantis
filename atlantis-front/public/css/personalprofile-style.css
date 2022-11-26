@@ -55,11 +55,13 @@
 
 .form-input
 {
-    font-size: 40px;
-    border-radius: 15px;
+    /* 由于缩放问题导致，只能暂时缩放回去 */
+    font-size: 20px;
+    border-radius: 7.5px;
     border: solid #8beeff;
     font-family: 'Microsoft YaHei';
     width: 100%;
+    zoom: 2;
 }
 
 #changepwd-form

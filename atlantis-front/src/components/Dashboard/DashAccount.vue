@@ -110,6 +110,7 @@ export default {
 
             // search
             searchInput: '',
+            isSearching: false,
 
             // for pagination
             // 当前页
@@ -127,11 +128,14 @@ export default {
     watch: {
         // 含输入的记得掐空格！！！
         searchInput(val) {
+            this.currentPage = 1;
+
             if (val.trim() === '')
             {
                 this.load();
                 return;
             }
+            this.isSearching = true;
             // 延迟 0.2s 进行实时显示
             setTimeout(() => {
                 request.get("/" + this.typeStr + "/" + val.trim() + 
@@ -152,7 +156,7 @@ export default {
                     }).catch(err => {
                         this.$notify.error({
                             title: message.REQUEST_ERR,
-                            offset: 150
+                            offset: 70
                         })
                     })
             }, 200);
@@ -164,6 +168,7 @@ export default {
         load() {
             // 清除搜索
             this.searchInput = '';
+            this.isSearching = false;
             // 获取当前登录账号信息
             this.accountInfo = this.$storage.get('accountInfo');
 
@@ -192,7 +197,7 @@ export default {
                 console.log(err)
                 this.$notify.error({
                     title: message.REQUEST_ERR,
-                    offset: 150
+                    offset: 70
                 });
             })
         },
@@ -238,7 +243,7 @@ export default {
 
                     this.$notify.error({
                         title: '无法禁用最后一个启用账号',
-                        offset: 150
+                        offset: 70
                     })
                     return;
                 }
@@ -249,13 +254,13 @@ export default {
                     {
                         this.$notify.success({
                             title: message.UPDATE_OK,
-                            offset: 150
+                            offset: 70
                         });
                     }
                 }).catch(err => {
                     this.$notify.error({
                         title: message.REQUEST_ERR,
-                        offset: 150
+                        offset: 70
                     });
                 }) 
         },
@@ -265,22 +270,30 @@ export default {
         handleSizeChange(val) {
             console.log(`每页 ${val} 条`);
         },
-        handleCurrentChange(val) {
+        async handleCurrentChange(val) {
             console.log("val: " + val);
-            request.get("/" + this.typeStr + "/" + this.currentPage + "/" + this.pageSize).then(res => {
-                if (res.code === code.GET_OK) {
-                    this.items = res.data.list;
-                    this.totalNumber = res.data.total;
-
-                    console.log("total number: " + this.totalNumber);
-                }
-            }).catch(err => {
-                console.log(err)
+            let res;
+            if (!this.isSearching)
+            {
+                res = await request.get("/" + this.typeStr + "/" + this.currentPage + "/" + this.pageSize);
+            }
+            else
+            {
+                res = await request.get("/" + this.typeStr + "/" + this.searchInput.trim() + 
+                                    "/" + this.currentPage + "/" + this.pageSize);
+            }
+            if (res.code === code.GET_OK) {
+                this.items = res.data.list;
+                this.totalNumber = res.data.total;
+                console.log("total number: " + this.totalNumber);
+            }
+            else 
+            {
                 this.$notify.error({
                     title: message.REQUEST_ERR,
-                    offset: 150
-                });
-            })
+                    offset: 70
+                })
+            }
             // console.log(`当前页: ${val}`);
         },
 
@@ -292,6 +305,7 @@ export default {
                 this.load();
                 return;
             }
+            this.isSearching = true;
             request.get("/" + this.typeStr + "/" + this.searchInput.trim() + 
                         "/" + this.currentPage + "/" + this.pageSize).then(res => {
                         if (res.code === code.GET_OK && res.data.total)
@@ -300,7 +314,7 @@ export default {
                             this.totalNumber = res.data.total;
                             this.$notify.success({
                                 title: message.FIND_OK + "，共 " + this.totalNumber + " 条",
-                                offset: 150
+                                offset: 70
                             })
                         }
                         else 
@@ -309,13 +323,13 @@ export default {
                             this.totalNumber = 0;
                             this.$notify.error({
                                 title: message.FIND_ERR,
-                                offset: 150
+                                offset: 70
                             })
                         }
                     }).catch(err => {
                         this.$notify.error({
                             title: message.REQUEST_ERR,
-                            offset: 150
+                            offset: 70
                         })
                     })
         },

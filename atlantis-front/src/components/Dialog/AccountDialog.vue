@@ -5,7 +5,7 @@
         </div>
         <hr class="hr" />
         <div id="content-box">
-            <span style="color: red">{{errorMessage}}</span>
+            <span style="color: red">{{ errorMessage }}</span>
             <!-- 当title为更新时，显示更新的界面 -->
             <div v-show="title === '更新'">
                 <form class="update-form" :model="form">
@@ -290,7 +290,7 @@ export default {
                 console.log(err)
                 this.$notify.error({
                     title: message.REQUEST_ERR,
-                    offset: 150
+                    offset: 70
                 });
             })
         },
@@ -338,20 +338,20 @@ export default {
                     if (res.code === code.INSERT_OK) {
                         this.$notify.success({
                             title: message.INSERT_OK,
-                            offset: 150
+                            offset: 70
                         })
                         this.$emit('confirm');
                     }
                     else {
                         this.$notify.error({
                             title: message.INSERT_ERR + '，请检查是否存在同名用户',
-                            offset: 150
+                            offset: 70
                         })
                     }
                 }).catch(error => {
                     this.$notify.error({
                         title: message.REQUEST_ERR,
-                        offset: 150
+                        offset: 70
                     })
                 })
         },
@@ -361,20 +361,20 @@ export default {
                 if (res.code === code.DELETE_OK) {
                     this.$notify.success({
                         title: message.DELETE_OK,
-                        offset: 150
+                        offset: 70
                     })
                     this.$emit("confirm");
                 }
                 else {
                     this.$notify.error({
                         title: message.DELETE_ERR,
-                        offset: 150
+                        offset: 70
                     })
                 }
             }).catch(err => {
                 this.$notify.error({
                     title: message.REQUEST_ERR,
-                    offset: 150
+                    offset: 70
                 })
             })
         },
@@ -415,7 +415,7 @@ export default {
                     {
                         this.$notify.success({
                             title: message.UPDATE_OK,
-                            offset: 150
+                            offset: 70
                         })
                         this.$emit("confirm");
                     }
@@ -423,13 +423,13 @@ export default {
                     {
                         this.$notify.error({
                             title: message.UPDATE_ERR,
-                            offset: 150
+                            offset: 70
                         })
                     }
                 }).catch(err => {
                     this.$notify.error({
                         title: message.REQUEST_ERR,
-                        offset: 150
+                        offset: 70
                     })
                 })
 
@@ -457,20 +457,20 @@ export default {
                     if (res.code === code.UPDATE_OK) {
                         this.$notify.success({
                             title: message.UPDATE_OK,
-                            offset: 150
+                            offset: 70
                         })
                         this.$emit("confirm");
                     }
                     else {
                         this.$notify.error({
                             title: message.UPDATE_ERR,
-                            offset: 150
+                            offset: 70
                         })
                     }
                 }).catch(err => {
                     this.$notify.error({
                         title: message.REQUEST_ERR,
-                        offset: 150
+                        offset: 70
                     })
                 })
             }

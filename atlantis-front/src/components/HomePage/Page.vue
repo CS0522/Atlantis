@@ -56,7 +56,7 @@ export default {
             }).catch(err => {
                 this.$notify.error({
                     title: message.REQUEST_ERR,
-                    offset: 150
+                    offset: 70
                 })
             })
         },

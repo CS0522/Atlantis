@@ -4,17 +4,14 @@ import com.atlantis.common.Code;
 import com.atlantis.common.Result;
 import com.atlantis.exception.ServiceException;
 import com.atlantis.exception.SystemException;
-import com.atlantis.service.base.BaseService;
+import com.atlantis.service.base.ArticleBaseService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-
-public abstract class BaseController<T> {
+public abstract class ArticleBaseController<T>{
     @Autowired
-    protected BaseService<T> baseService;
+    protected ArticleBaseService<T> articleBaseService;
 
     @GetMapping("/{id}")
     public Result getById(@PathVariable Integer id) // 从url路径获取id
@@ -25,35 +22,38 @@ public abstract class BaseController<T> {
             throw new ServiceException("illegal id", Code.SEV_ERR);
         }
         // normal
-        T obj = baseService.getById(id);
+        T obj = articleBaseService.getById(id);
         Integer code = obj != null ? Code.GET_OK : Code.GET_ERR;
         String msg = obj != null ? "get succeeded" : "get failed";
-       return new Result(code, obj, msg);
+        return new Result(code, obj, msg);
     }
 
-    @GetMapping
-    public Result getAll()
+    @GetMapping("/{pageNum}/{pageSize}/{order}")
+    public Result getAllByPage(@PathVariable Integer pageNum, @PathVariable Integer pageSize,
+                               @PathVariable String order)
     {
         try
         {
-            List<T> objs = baseService.getAll();
-            Integer code = objs != null ? Code.GET_OK : Code.GET_ERR;
-            String msg = objs != null ? "get succeeded" : "get failed";
-            return new Result(code, objs, msg);
+            PageInfo<T> pageInfo = articleBaseService.getAllByPage(pageNum, pageSize, order);
+            Integer code = pageInfo != null ? Code.GET_OK : Code.GET_ERR;
+            String msg = pageInfo != null ? "get succeeded" : "get failed";
+            return new Result(code, pageInfo, msg);
         }
         catch (SystemException e)
         {
-            throw new SystemException("unknown error occurred", Code.SYS_ERR);
+            throw new SystemException("unknown error occurred", e, Code.SYS_ERR);
         }
     }
 
     // 分页查询
-    @GetMapping("/{pageNum}/{pageSize}")
-    public Result getAllByPage(@PathVariable Integer pageNum, @PathVariable Integer pageSize)
+    @GetMapping("/{index}/{pageNum}/{pageSize}/{order}")
+    public Result getByIndexByPage(@PathVariable Integer index,
+                               @PathVariable Integer pageNum, @PathVariable Integer pageSize,
+                               @PathVariable String order)
     {
         try
         {
-            PageInfo<T> pageInfo = baseService.getAllByPage(pageNum, pageSize);
+            PageInfo<T> pageInfo = articleBaseService.getByIndexByPage(pageNum, pageSize, index, order);
             Integer code = pageInfo != null ? Code.GET_OK : Code.GET_ERR;
             String msg = pageInfo != null ? "get succeeded" : "get failed";
             return new Result(code, pageInfo, msg);
@@ -65,14 +65,13 @@ public abstract class BaseController<T> {
     }
 
     // 模糊查询
-    @GetMapping("/{name}/{pageNum}/{pageSize}")
-    public Result findByPage(@PathVariable String name,
+    @GetMapping("/search/{searchKey}/{pageNum}/{pageSize}")
+    public Result findByPage(@PathVariable String searchKey,
                              @PathVariable Integer pageNum, @PathVariable Integer pageSize)
     {
-//        System.out.println("finding...");
         try
         {
-            PageInfo<T> pageInfo = baseService.findByPage(pageNum, pageSize, name);
+            PageInfo<T> pageInfo = articleBaseService.findByPage(pageNum, pageSize, searchKey);
             Integer code = pageInfo != null ? Code.GET_OK : Code.GET_ERR;
             String msg = pageInfo != null ? "get succeeded" : "get failed";
             return new Result(code, pageInfo, msg);
@@ -95,9 +94,9 @@ public abstract class BaseController<T> {
         try
         {
             // check if exists before insert a new account
-            boolean result = baseService.insert(obj);
+            boolean result = articleBaseService.insert(obj);
             return new Result(result ? Code.INSERT_OK : Code.INSERT_ERR,
-                                result ? "insert succeeded" : "insert failed");
+                    result ? "insert succeeded" : "insert failed");
         }
         catch (SystemException e)
         {
@@ -116,37 +115,7 @@ public abstract class BaseController<T> {
         // normal
         try
         {
-            boolean result = baseService.update(obj);
-            return new Result(result ? Code.UPDATE_OK : Code.UPDATE_ERR,
-                                result ? "update succeeded" : "update failed");
-        }
-        catch (SystemException e)
-        {
-            throw new SystemException("unknown error occurred", Code.SYS_ERR);
-        }
-    }
-
-    // 将更新操作的代码进行复用
-    public Result updateByType(T obj, String updateType)
-    {
-        // abnormal
-        if (obj == null)
-        {
-            throw new ServiceException("null object", Code.SEV_ERR);
-        }
-        // normal
-        try
-        {
-            boolean result = false;
-            // 根据info的值进行不同的更新操作
-            if ("info".equals(updateType))
-            {
-                result = baseService.updateInfo(obj);
-            }
-            else if ("pwd".equals(updateType))
-            {
-                result = baseService.updatePwd(obj);
-            }
+            boolean result = articleBaseService.update(obj);
             return new Result(result ? Code.UPDATE_OK : Code.UPDATE_ERR,
                     result ? "update succeeded" : "update failed");
         }
@@ -167,7 +136,7 @@ public abstract class BaseController<T> {
         // normal
         try
         {
-            boolean result = baseService.delete(id);
+            boolean result = articleBaseService.delete(id);
             return new Result(result ? Code.DELETE_OK : Code.DELETE_ERR,
                     result ? "delete succeeded" : "delete failed");
         }

@@ -5,11 +5,11 @@
                 游戏资讯
             </div>
             <div class="sub-nav">
-                    <router-link to="/page/news/news">
+                    <router-link to="/page/news/news/list">
                         <div class="sub-tab">游戏新闻</div>
                     </router-link>
                 
-                    <router-link to="/page/news/announces">
+                    <router-link to="/page/news/announces/list">
                         <div class="sub-tab">游戏公告</div>
                     </router-link>
                 

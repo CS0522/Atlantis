@@ -21,13 +21,13 @@
                 </tr>
                 <tr>
                     <td class="td">
-                        <router-link to="/page/news/news" class="routerlink">
+                        <router-link to="/page/news/news/list" class="routerlink">
                             <div @click="toTop()">游戏新闻</div></router-link>
                     </td>
                 </tr>
                 <tr>
                     <td class="td">
-                        <router-link to="/page/news/announces" class="routerlink">
+                        <router-link to="/page/news/announces/list" class="routerlink">
                             <div @click="toTop()">游戏公告</div></router-link>
                     </td>
                 </tr>

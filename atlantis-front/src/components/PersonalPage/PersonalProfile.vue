@@ -5,21 +5,21 @@
             <!-- 需要提交 -->
             <!-- 当选择的是用户资料界面 -->
                 <div id="operation-box">
-                        <table class="table-operation" cellpadding=10px cellspacing=15px>
-                            <tr align="center">
-                                <td>
-                                    <!-- 改成button -->
-                                    <button class="operation" style="background-color: #8beeff"
-                                    @click="doUpdateInfo()">更新</button>
-                                </td>
-                                <td>
-                                    <!-- 改成button -->
-                                    <button class="operation"
-                                    @click="reset()">重置</button>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
+                    <table class="table-operation" cellpadding=10px cellspacing=15px>
+                        <tr align="center">
+                            <td>
+                                <!-- 改成button -->
+                                <button class="operation" style="background-color: #8beeff"
+                                @click="doUpdateInfo()">更新</button>
+                            </td>
+                            <td>
+                                <!-- 改成button -->
+                                <button class="operation"
+                                @click="reset()">重置</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
                 <form id="userprofile-form">
                     <table class="table" cellpadding=10px cellspacing=15px>
                         <tr align="right">
@@ -165,13 +165,13 @@ export default {
                 {
                     this.$notify.error({
                         title: message.GET_ERR,
-                        offset: 150
+                        offset: 70
                     })
                 }
             }).catch(err => {
                 this.$notify.error({
                     title: message.REQUEST_ERR,
-                    offset: 150
+                    offset: 70
                 })
             })
             // 每次加载都要让密码清零
@@ -184,14 +184,14 @@ export default {
             {
                 this.$notify.error({
                     title: '昵称不能为空',
-                    offset: 150
+                    offset: 70
                 })
                 return;
             }
             if (this.userData.birth > moment().format()) {
                 this.$notify.error({
                     title: '日期设置错误',
-                    offset: 150
+                    offset: 70
                 })
                 return;
             }
@@ -203,21 +203,21 @@ export default {
                     this.load();
                     this.$notify.success({
                         title: message.UPDATE_OK,
-                        offset: 150
+                        offset: 70
                     })
                 }
                 else {
                     this.load();
                     this.$notify.error({
                         title: message.UPDATE_ERR,
-                        offset: 150
+                        offset: 70
                     })
                 }
             }).catch(err => {
                 this.load();
                 this.$notify.error({
                     title: message.REQUEST_ERR,
-                    offset: 150
+                    offset: 70
                 })
             })
         }, 
@@ -228,7 +228,7 @@ export default {
             {
                 this.$notify.error({
                     title: '原密码错误',
-                    offset: 150
+                    offset: 70
                 })
                 this.clearPwd();
             }
@@ -236,7 +236,7 @@ export default {
             {
                 this.$notify.error({
                     title: '新旧密码不能相同',
-                    offset: 150
+                    offset: 70
                 })
                 // refresh the pwds
                 this.clearPwd();
@@ -245,7 +245,7 @@ export default {
             {
                 this.$notify.error({
                     title: '两次密码不一致',
-                    offset: 150
+                    offset: 70
                 })
                 this.clearPwd();
             }
@@ -256,7 +256,7 @@ export default {
                 {
                     this.$notify.error({
                         title: '6-15个字符，仅包含英文大小写、数字及下划线',
-                        offset: 150
+                        offset: 70
                     })
                     // this.clearPwd();
                     this.newPwd = '';
@@ -270,20 +270,20 @@ export default {
                         this.load();
                         this.$notify.success({
                             title: message.UPDATE_OK,
-                            offset: 150
+                            offset: 70
                         })
                     }
                     else {
                         this.load();
                         this.$notify.error({
                             title: message.UPDATE_ERR,
-                            offset: 150
+                            offset: 70
                         })
                     }
                 }).catch(err => {
                     this.$notify.error({
                         title: message.REQUEST_ERR,
-                        offset: 150
+                        offset: 70
                     })
                 })
             }
@@ -293,7 +293,7 @@ export default {
             this.load();
             this.$notify.info({
                 title: '已重置',
-                offset: 150
+                offset: 70
             })
         },
         clearPwd() {

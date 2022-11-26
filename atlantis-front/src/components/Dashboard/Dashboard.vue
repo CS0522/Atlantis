@@ -11,6 +11,11 @@
         @close="closeDialog"
         @confirm="confirm">
         </AboutDialog>
+        <NewsDialog 
+        v-if="isShowNews"
+        @close="closeDialog"
+        @confirm="confirm">
+        </NewsDialog>
         <TopBar v-if="!topBarReload"
                 @reload="doTopBarReload()"></TopBar>
         <!-- v-show绑定isShowAccount属性，动态变化 -->
@@ -83,22 +88,22 @@
 <script>
 import AccountDialog from '@/components/Dialog/AccountDialog.vue'
 import AboutDialog from '@/components/Dialog/AboutDialog.vue'
+import NewsDialog from '@/components/Dialog/NewsDialog.vue'
 import TopBar from '../HomePage/TopBar.vue'
-import request from '@/utils/request'
-import message from '@/utils/message'
-import code from '@/utils/code'
 
 export default {
     name: "dashboard",
     components: {
         AccountDialog,
         AboutDialog,
+        NewsDialog,
         TopBar,
     },
     data() {
         return {
             isShowAccount: false,
             isShowAbout: false,
+            isShowNews: false,
             isRouterAlive: true,
             topBarReload: false,
 
@@ -133,6 +138,10 @@ export default {
             {
                 this.isShowAbout = true;
             }
+            else if (showWhich === 'news')
+            {
+                this.isShowNews = true;
+            }
         },
         // Dialog点击按钮的事件
         // 点击取消按钮
@@ -140,6 +149,7 @@ export default {
         {
             this.isShowAccount = false;
             this.isShowAbout = false;
+            this.isShowNews = false;
         },
         // 点击确定按钮
         confirm() {

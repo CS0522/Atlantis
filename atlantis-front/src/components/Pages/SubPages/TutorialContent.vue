@@ -20,7 +20,7 @@
                     <div class="item-box">
                         <li>
                             <!-- 修改 -->
-                            <div class="item-id">{{item.id}}</div>
+                            <!-- <div class="item-id">{{item.id}}</div> -->
                             <div class="item-detail">{{item.detail}}</div>
                         </li>
                     </div>
@@ -102,7 +102,7 @@ export default {
                 console.log(err)
                 this.$notify.error({
                     title: message.REQUEST_ERR,
-                    offset: 150
+                    offset: 70
                 });
             })
             // console.log(`当前页: ${val}`);

@@ -50,6 +50,8 @@ export default {
     -ms-user-select: none;
 
     user-select: none;
+
+    zoom: 0.5;
 }
 
 @import url("@/../public/css/global-style.css");

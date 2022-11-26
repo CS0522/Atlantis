@@ -90,6 +90,7 @@ export default {
         return {
 
             searchInput: '',
+            isSearching: false,
 
             // for pagination
             // 当前页
@@ -110,6 +111,7 @@ export default {
         // load
         load() {
             this.searchInput = '';
+            this.isSearching = false;
             // getAll请求，获取所有
             // 分页查询
             request.get("/members/" + this.currentPage + "/" + this.pageSize).then(res => {
@@ -123,7 +125,7 @@ export default {
                 console.log(err)
                 this.$notify.error({
                     title: message.REQUEST_ERR,
-                    offset: 150
+                    offset: 70
                 });
             })
         },
@@ -135,6 +137,7 @@ export default {
                 this.load();
                 return;
             }
+            this.isSearching = true;
             request.get("/members/" + this.searchInput.trim() + 
                         "/" + this.currentPage + "/" + this.pageSize).then(res => {
                         if (res.code === code.GET_OK && res.data.total)
@@ -143,7 +146,7 @@ export default {
                             this.totalNumber = res.data.total;
                             this.$notify.success({
                                 title: message.FIND_OK + "，共 " + this.totalNumber + " 条",
-                                offset: 150
+                                offset: 70
                             })
                         }
                         else 
@@ -152,13 +155,13 @@ export default {
                             this.totalNumber = 0;
                             this.$notify.error({
                                 title: message.FIND_ERR,
-                                offset: 150
+                                offset: 70
                             })
                         }
                     }).catch(err => {
                         this.$notify.error({
                             title: message.REQUEST_ERR,
-                            offset: 150
+                            offset: 70
                         })
                     })
         },
@@ -166,34 +169,42 @@ export default {
         handleSizeChange(val) {
             console.log(`每页 ${val} 条`);
         },
-        handleCurrentChange(val) {
+        async handleCurrentChange(val) {
             console.log("val: " + val);
-            request.get("/members/" + this.currentPage + "/" + this.pageSize).then(res => {
-                if (res.code === code.GET_OK) {
-                    this.items = res.data.list;
-                    this.totalNumber = res.data.total;
-
-                    console.log("currentpage after: " + this.currentPage);
-
-                    console.log("total number: " + this.totalNumber);
-                }
-            }).catch(err => {
-                console.log(err)
+            let res;
+            if (!this.isSearching)
+            {
+                res = await request.get("/members/" + this.currentPage + "/" + this.pageSize);
+            }
+            else
+            {
+                res = await request.get("/members/" + this.searchInput.trim() + 
+                                "/" + this.currentPage + "/" + this.pageSize);
+            }
+            if (res.code === code.GET_OK) {
+                this.items = res.data.list;
+                this.totalNumber = res.data.total;
+            }
+            else
+            {
                 this.$notify.error({
                     title: message.REQUEST_ERR,
-                    offset: 150
-                });
-            })
+                    offset: 70
+                })
+            }
         },
     },
     watch: {
         // 含输入的记得掐空格！！！
         searchInput(val) {
+            this.currentPage = 1;
+
             if (val.trim() === '')
             {
                 this.load();
                 return;
             }
+            this.isSearching = true;
             // 延迟 0.2s 进行实时显示
             setTimeout(() => {
                 request.get("/members/" + val.trim() + 
@@ -209,13 +220,13 @@ export default {
                             this.totalNumber = 0;
                             // this.$notify.error({
                             //     title: message.FIND_ERR,
-                            //     offset: 150
+                            //     offset: 70
                             // })
                         }
                     }).catch(err => {
                         this.$notify.error({
                             title: message.REQUEST_ERR,
-                            offset: 150
+                            offset: 70
                         })
                     })
             }, 200);

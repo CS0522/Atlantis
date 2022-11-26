@@ -121,7 +121,7 @@ export default {
                     // back to main page
                     this.$notify.success({
                         title: '退出成功，正在返回首页',
-                        offset: 150
+                        offset: 70
                     })
                     setTimeout(() => {
                         window.location.href = "/";
@@ -130,13 +130,13 @@ export default {
                 else {
                     this.$notify.error({
                         title: '退出失败，请重试',
-                        offset: 150
+                        offset: 70
                     })
                 }
             }).catch(err => {
                 this.$notify.error({
                     title: message.REQUEST_ERR,
-                    offset: 150
+                    offset: 70
                 })
             })
         },
@@ -162,13 +162,13 @@ export default {
                 if (this.adminOrUser === 'admins') {
                     this.$notify.info({
                         title: '你好，' + this.info.username,
-                        offset: 150
+                        offset: 70
                     })
                 }
                 else if (this.adminOrUser === 'users') {
                     this.$notify.info({
                         title: '你好，' + this.info.nickname,
-                        offset: 150
+                        offset: 70
                     })
                 }
 
@@ -177,7 +177,7 @@ export default {
                 setTimeout(() => {
                     this.$notify.info({
                         title: '今天是' + days[new Date().getDay()],
-                        offset: 150
+                        offset: 70
                     })
                 }, 1500);
 
@@ -186,20 +186,20 @@ export default {
                     this.$notify.info({
                         title: this.result.city + '天气' + this.result.weather +
                             '，当前温度 ' + this.result.temperature + ' ℃',
-                            offset: 150
+                            offset: 70
                     })
                 }, 3000);
                 setTimeout(() => {
                     this.$notify.info({
                         title: '祝每天生活愉快！',
-                        offset: 150
+                        offset: 70
                     })
                 }, 4500)
 
             }).catch(err => {
                 this.$notify.error({
                     title: message.REQUEST_ERR,
-                    offset: 150
+                    offset: 70
                 })
             })
         },

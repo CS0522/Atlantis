@@ -24,13 +24,13 @@
                 </div>
                 <div class="paragraph-box">
                     <p>
-                    目前车队活跃人员包括：<br/>
-                    ● 汽车改装师与车队最速的转子车下坡手 - Fastest-Takumi <br/>
+                    目前车队活跃成员包括：<br/>
+                    ● 汽车改装师兼车队最速的转子车下坡手 - Fastest-Takumi <br/>
                     ● 转子引擎操控大师上坡手 - Shark-Melon <br/>
-                    ● 稳定高速的 mr2 下坡手 - Seven-7 <br/>
-                    ● 车队网络系统组建与管理者 - Izumi <br/>
-                    ● 精通回正技术和鱼类技术车手 - 碰撞 <br/>
-                    ● 肩负汽车改装师的 AE86 No.2 下坡手 - God-Collide（已隐退） <br/>
+                    ● 稳定高速的 MR2 下坡手 - Seven-7 <br/>
+                    ● 车队网络系统组建与管理者 - Izumi（精通碰撞回正技术和鱼雷技术）<br/>
+                    ● 的车手
+                    ● 汽车改装师兼 AE86 No.2 下坡手 - God-Collide（已隐退） <br/>
                     ● 车队网站建设者兼退役 AE86 最速车手 - Frank（已隐退） <br/>
                     ......
                     </p>
