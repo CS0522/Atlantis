@@ -68,7 +68,7 @@ const routes =
                                     props: true,
                                 },
                                 {
-                                    path: "detail/:id",
+                                    path: "detail",
                                     component: () => import('@/components/Pages/SubPages/NewsDetail.vue'),
                                     props: true,
                                 }
@@ -78,13 +78,25 @@ const routes =
                 },
                 {
                     path: "tutorial",
-                    redirect: "/page/tutorial/basic",
+                    redirect: "/page/tutorial/basic/list",
                     component: Tutorial,
                     children: [
                         {
                             path: ":type",
                             component: () => import('@/components/Pages/SubPages/TutorialContent.vue'),
-                            props: true
+                            props: true,
+                            children: [
+                                {
+                                    path: "list",
+                                    component: () => import('@/components/Pages/SubPages/TutorialList.vue'),
+                                    props: true,
+                                },
+                                {
+                                    path: "detail",
+                                    component: () => import('@/components/Pages/SubPages/TutorialDetail.vue'),
+                                    props: true,
+                                }
+                            ]
                         }
                     ]
                 },
@@ -147,14 +159,14 @@ const routes =
                     props: true,
                 },
                 {
-                    path: "newseditor/:id",
-                    component: () => import('@/components/Dashboard/NewsEditor.vue'), 
-                    props: true, 
-                },
-                {
                     path: "tutorial",
                     component: () => import('@/components/Dashboard/DashTutorial.vue'),
                     props: true,
+                },
+                {
+                    path: "editor/:type/:id",
+                    component: () => import('@/components/Dashboard/Editor.vue'), 
+                    props: true, 
                 },
                 {
                     path: "forum",

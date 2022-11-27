@@ -32,6 +32,18 @@
         select * from category
     </select>
 
+    <select id="getByTypeOrRoute" resultMap="categoryResultMap">
+        select * from category where `type` = #{type} or `route` = #{route}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="index">
+        insert into category(`type`, `route`) values(#{type}, #{route})
+    </insert>
+
+    <delete id="delete">
+        delete from category where `index` = #{index}
+    </delete>
+
     <!--    ${}: 用于表名、列名
         #{}: 用于参数
 -->

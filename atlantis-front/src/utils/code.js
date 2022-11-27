@@ -1,4 +1,6 @@
 // 用于前后端通信，请求成功和请求失败时返回的代码
+// 顺便保存下notification的offset
+const OFFSET = 70;
 
 const GET_OK = 1001;
 const INSERT_OK = 2001;
@@ -34,6 +36,8 @@ const SEV_ERR = 9002;
 const EXC_ERR = 9003;
 
 export default {
+    OFFSET,
+
     GET_OK,
     INSERT_OK,
     UPDATE_OK,
@@ -61,9 +65,7 @@ export default {
     // exception  5003
 
     SYS_ERR,
-
     SEV_ERR,
-
     EXC_ERR,
 
 }

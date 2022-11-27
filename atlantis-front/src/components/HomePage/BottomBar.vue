@@ -40,25 +40,25 @@
                 </tr>
                 <tr>
                     <td class="td">
-                        <router-link to="/page/tutorial/basic" class="routerlink">
+                        <router-link to="/page/tutorial/basic/list" class="routerlink">
                             <div @click="toTop()">入门</div></router-link>
                     </td>
                 </tr>
                 <tr>
                     <td class="td">
-                        <router-link to="/page/tutorial/premium" class="routerlink">
+                        <router-link to="/page/tutorial/premium/list" class="routerlink">
                             <div @click="toTop()">进阶</div></router-link>
                     </td>
                 </tr>
                 <tr>
                     <td class="td">
-                        <router-link to="/page/tutorial/online" class="routerlink">
+                        <router-link to="/page/tutorial/online/list" class="routerlink">
                             <div @click="toTop()">联机</div></router-link>
                     </td>
                 </tr>
                 <tr>
                     <td class="td">
-                        <router-link to="/page/tutorial/rules" class="routerlink">
+                        <router-link to="/page/tutorial/rules/list" class="routerlink">
                             <div @click="toTop()">守则</div></router-link>
                     </td>
                 </tr>

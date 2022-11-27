@@ -120,7 +120,7 @@ export default {
                 console.log(err)
                 this.$notify.error({
                     title: message.REQUEST_ERR,
-                    offset: 70
+                    offset: code.OFFSET
                 });
             })
         },
@@ -148,7 +148,7 @@ export default {
                             this.totalNumber = res.data.total;
                             this.$notify.success({
                                 title: message.FIND_OK + "，共 " + this.totalNumber + " 条",
-                                offset: 70
+                                offset: code.OFFSET
                             })
                         }
                         else 
@@ -157,13 +157,13 @@ export default {
                             this.totalNumber = 0;
                             this.$notify.error({
                                 title: message.FIND_ERR,
-                                offset: 70
+                                offset: code.OFFSET
                             })
                         }
                     }).catch(err => {
                         this.$notify.error({
                             title: message.REQUEST_ERR,
-                            offset: 70
+                            offset: code.OFFSET
                         })
                     })
         },
@@ -174,7 +174,7 @@ export default {
         async handleCurrentChange(val) {
             console.log("val: " + val);
             let res;
-            if (!isSearching)
+            if (!this.isSearching)
             {
                 res = await request.get("/members/" + this.currentPage + "/" + this.pageSize);
             }
@@ -192,7 +192,7 @@ export default {
             {
                 this.$notify.error({
                     title: message.REQUEST_ERR,
-                    offset: 70
+                    offset: code.OFFSET
                 })
             }
             // console.log(`当前页: ${val}`);
@@ -204,7 +204,7 @@ export default {
             this.reload();
             this.$notify.success({
                 title: '头像更新成功',
-                offset: 70
+                offset: code.OFFSET
             })
         },
         beforeAvatarUpload(file) {
@@ -215,7 +215,7 @@ export default {
                 if (['png', 'jpeg', 'jpg'].indexOf(postfix) < 0) {
                     this.$notify.error({
                         title: '头像仅支持 .png, .jpg, .jpeg 格式',
-                        offset: 70
+                        offset: code.OFFSET
                     })
                     this.$refs.upload.clearFiles()
                     return false
@@ -223,7 +223,7 @@ export default {
                 if (!isSizeOk) {
                     this.$notify.error({
                         title: '上传头像大小不能超过 2MB',
-                        offset: 70
+                        offset: code.OFFSET
                     })
                     return false
                 }
@@ -261,13 +261,13 @@ export default {
                             this.totalNumber = 0;
                             // this.$notify.error({
                             //     title: message.FIND_ERR,
-                            //     offset: 70
+                            //     offset: code.OFFSET
                             // })
                         }
                     }).catch(err => {
                         this.$notify.error({
                             title: message.REQUEST_ERR,
-                            offset: 70
+                            offset: code.OFFSET
                         })
                     })
             }, 200);

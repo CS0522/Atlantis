@@ -6,8 +6,10 @@
             <div v-else-if="type==='announces'">游戏公告</div>
         </div>
         <hr class="hr"/>
-        <router-view
+        <div id="sub-content">
+            <router-view
             :key="$route.fullPath"></router-view>
+        </div>
     </div>
 </template>
 

@@ -125,7 +125,7 @@ export default {
                 console.log(err)
                 this.$notify.error({
                     title: message.REQUEST_ERR,
-                    offset: 70
+                    offset: code.OFFSET
                 });
             })
         },
@@ -146,7 +146,7 @@ export default {
                             this.totalNumber = res.data.total;
                             this.$notify.success({
                                 title: message.FIND_OK + "，共 " + this.totalNumber + " 条",
-                                offset: 70
+                                offset: code.OFFSET
                             })
                         }
                         else 
@@ -155,13 +155,13 @@ export default {
                             this.totalNumber = 0;
                             this.$notify.error({
                                 title: message.FIND_ERR,
-                                offset: 70
+                                offset: code.OFFSET
                             })
                         }
                     }).catch(err => {
                         this.$notify.error({
                             title: message.REQUEST_ERR,
-                            offset: 70
+                            offset: code.OFFSET
                         })
                     })
         },
@@ -189,7 +189,7 @@ export default {
             {
                 this.$notify.error({
                     title: message.REQUEST_ERR,
-                    offset: 70
+                    offset: code.OFFSET
                 })
             }
         },
@@ -220,13 +220,13 @@ export default {
                             this.totalNumber = 0;
                             // this.$notify.error({
                             //     title: message.FIND_ERR,
-                            //     offset: 70
+                            //     offset: code.OFFSET
                             // })
                         }
                     }).catch(err => {
                         this.$notify.error({
                             title: message.REQUEST_ERR,
-                            offset: 70
+                            offset: code.OFFSET
                         })
                     })
             }, 200);

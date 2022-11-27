@@ -116,7 +116,7 @@ export default {
             }).catch(error => {
                 this.$notify.error({
                     title: message.REQUEST_ERR,
-                    offset: 70
+                    offset: code.OFFSET
                 })
             })
         },
@@ -139,7 +139,7 @@ export default {
                     {
                         this.$notify.success({
                             title: message.DELETE_OK,
-                            offset: 70
+                            offset: code.OFFSET
                         })
                         // 延迟 300ms 刷新子路由
                         setTimeout(() => {
@@ -149,7 +149,7 @@ export default {
                 }).catch(err => {
                     this.$notify.error({
                         title: message.REQUEST_ERR,
-                        offset: 70
+                        offset: code.OFFSET
                     })
                 })
             }
@@ -172,14 +172,14 @@ export default {
                 {
                     this.$notify.error({
                         title: message.REQUEST_ERR,
-                        offset: 70
+                        offset: code.OFFSET
                     })
                 }
                 else
                 {
                     this.$notify.success({
                         title: message.DELETE_OK,
-                        offset: 70
+                        offset: code.OFFSET
                     })
                 }
                 // 延迟 300ms 刷新子路由
@@ -204,7 +204,7 @@ export default {
                             if (res.code === code.DELETE_OK) {
                                 this.$notify.success({
                                     title: "已同意",
-                                    offset: 70
+                                    offset: code.OFFSET
                                 })
                                 // 延迟 300ms 刷新子路由
                                 setTimeout(() => {
@@ -214,7 +214,7 @@ export default {
                         }).catch(err => {
                             this.$notify.error({
                             title: message.REQUEST_ERR,
-                            offset: 70
+                            offset: code.OFFSET
                             })
                         })
                     }
@@ -222,13 +222,13 @@ export default {
                     {
                         this.$notify.error({
                             title: "这个申请存在问题，请点击拒绝以进行删除",
-                            offset: 70
+                            offset: code.OFFSET
                         })
                     }
                 }).catch(err => {
                     this.$notify.error({
                             title: message.REQUEST_ERR,
-                            offset: 70
+                            offset: code.OFFSET
                     })
                 })
             }
@@ -250,7 +250,7 @@ export default {
                             this.totalNumber = res.data.total;
                             this.$notify.success({
                                 title: message.FIND_OK + "，共 " + this.totalNumber + " 条",
-                                offset: 70
+                                offset: code.OFFSET
                             })
                         }
                         else 
@@ -259,13 +259,13 @@ export default {
                             this.totalNumber = 0;
                             this.$notify.error({
                                 title: message.FIND_ERR,
-                                offset: 70
+                                offset: code.OFFSET
                             })
                         }
                     }).catch(err => {
                         this.$notify.error({
                             title: message.REQUEST_ERR,
-                            offset: 70
+                            offset: code.OFFSET
                         })
                     })
         },
@@ -294,7 +294,7 @@ export default {
             {
                 this.$notify.error({
                     title: message.REQUEST_ERR,
-                    offset: 70
+                    offset: code.OFFSET
                 });
             }
             // console.log(`当前页: ${val}`);
@@ -336,7 +336,7 @@ export default {
                     }).catch(err => {
                         this.$notify.error({
                             title: message.REQUEST_ERR,
-                            offset: 70
+                            offset: code.OFFSET
                         })
                     })
             }, 200);

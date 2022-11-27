@@ -17,4 +17,28 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> getAll() {
         return (categoryMapper.getAll());
     }
+
+    public Category getByTypeOrRoute(String type, String route)
+    {
+        return (categoryMapper.getByTypeOrRoute(type, route));
+    }
+
+    @Override
+    public boolean insert(Category category) {
+        // 判断是否已经存在
+        if (categoryMapper.getByTypeOrRoute(category.getType(), category.getRoute()) != null)
+        {
+            return false;
+        }
+        // 不存在，可以加入
+        else
+        {
+            return (categoryMapper.insert(category) == 1);
+        }
+    }
+
+    @Override
+    public boolean delete(Integer index) {
+        return (categoryMapper.delete(index) == 1);
+    }
 }

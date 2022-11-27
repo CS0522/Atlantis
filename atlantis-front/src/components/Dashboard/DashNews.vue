@@ -31,7 +31,7 @@
                         <select name="selectType" class="selectType" v-model="typeIndex">
                             <option value="" selected>全部</option>
                             <option value="/1">游戏新闻</option>
-                            <option value="/2">游戏资讯</option>
+                            <option value="/2">游戏公告</option>
                         </select>
                         
                         <select name="selectType" class="selectType" v-model="order">
@@ -129,7 +129,7 @@ export default {
             {
                 this.$notify.error({
                     title: message.REQUEST_ERR,
-                    offset: 70
+                    offset: code.OFFSET
                 })
             }
         },
@@ -152,7 +152,7 @@ export default {
             else
             {
                 // push到editor界面
-                this.$router.push("newseditor/" + objId);
+                this.$router.push("editor/news/" + objId);
             }
         },
 
@@ -173,7 +173,7 @@ export default {
                             this.totalNumber = res.data.total;
                             this.$notify.success({
                                 title: message.FIND_OK + "，共 " + this.totalNumber + " 条",
-                                offset: 70
+                                offset: code.OFFSET
                             })
                         }
                         else 
@@ -182,13 +182,13 @@ export default {
                             this.totalNumber = 0;
                             this.$notify.error({
                                 title: message.FIND_ERR,
-                                offset: 70
+                                offset: code.OFFSET
                             })
                         }
                     }).catch(err => {
                         this.$notify.error({
                             title: message.REQUEST_ERR,
-                            offset: 70
+                            offset: code.OFFSET
                         })
                     })
         },
@@ -208,8 +208,8 @@ export default {
             }
             else
             {
-                res = await request.get("/newsArticles/" + this.searchInput.trim() + 
-                                    "/" + this.currentPage + "/" + this.pageSize + "/" + this.order);
+                res = await request.get("/newsArticles/search/" + this.searchInput.trim() + 
+                                    "/" + this.currentPage + "/" + this.pageSize);
             }
             if (res.code === code.GET_OK) {
                 this.items = res.data.list;
@@ -220,7 +220,7 @@ export default {
             {
                 this.$notify.error({
                     title: message.REQUEST_ERR,
-                    offset: 70
+                    offset: code.OFFSET
                 })
             }
             // console.log(`当前页: ${val}`);
@@ -243,7 +243,7 @@ export default {
                     }).catch(err => {
                         this.$notify.error({
                             title: message.REQUEST_ERR,
-                            offset: 70
+                            offset: code.OFFSET
                         })
                     })
         },
@@ -259,7 +259,7 @@ export default {
                     }).catch(err => {
                         this.$notify.error({
                             title: message.REQUEST_ERR,
-                            offset: 70
+                            offset: code.OFFSET
                         })
                     })
         },
@@ -300,7 +300,7 @@ export default {
                     }).catch(err => {
                         // this.$notify.error({
                         //     title: message.REQUEST_ERR,
-                        //     offset: 70
+                        //     offset: code.OFFSET
                         //})
                     })
             }, 200);

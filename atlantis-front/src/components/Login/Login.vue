@@ -131,7 +131,7 @@ export default {
             {
                 this.$notify.info({ 
                     title: messageCount + ' 条消息待处理，请前往消息中心查看',
-                    offset: 70
+                    offset: code.OFFSET
                 })
             }
         },
@@ -159,7 +159,7 @@ export default {
             {
                 this.$notify.error({
                     title: '已存在登录用户！请刷新界面',
-                    offset: 70
+                    offset: code.OFFSET
                 })
                 setTimeout(() => {
                     this.isLoading = false;
@@ -196,7 +196,7 @@ export default {
                         // console.log("success");
                         this.$notify.success({
                             title: '登录成功',
-                            offset: 70
+                            offset: code.OFFSET
                         })
                         // 登录时弹出消息通知
                         if (this.typeStr === 'admins')
@@ -219,7 +219,7 @@ export default {
                     else {
                         this.$notify.error({
                             title: '登录失败',
-                            offset: 70
+                            offset: code.OFFSET
                         })
                         this.isLoading = false;
                         // this.clearForm();
@@ -227,7 +227,7 @@ export default {
                 }).catch(err => {
                     this.$notify.error({
                         title: message.REQUEST_ERR,
-                        offset: 70
+                        offset: code.OFFSET
                     })
                     this.isLoading = false;
                     // this.clearForm();

@@ -1,0 +1,94 @@
+#title-box
+{
+    margin: 30px;
+    /* border: solid; */
+    width: 500px;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.hr
+{
+    border: none; 
+    border-top: solid #8beeff;
+}
+
+#content-box
+{
+    /* border: solid; */
+    font-size: 35px;
+    font-weight: 600;
+    text-align: left;
+}
+
+.operation-box
+{
+    /* border: solid red; */
+    margin: 20px 20px;
+    height: 120px;
+}
+
+.operation
+{
+    display: inline;
+    height: 70px;
+    line-height: 40px;
+    width: 100px;
+    font-size: 30px;
+    border-radius: 15px;
+    border: none;
+    overflow: hidden;
+}
+
+.table-operation
+{
+    margin: auto auto;
+}
+
+/* .edit-box
+{
+    border: solid;
+} */
+
+.item-box
+{
+    /* border: solid; */
+    border-radius: 15px;
+    margin: 20px auto;
+    width: 95%;
+}
+
+.item-box::after
+{
+    content:"";
+    /*清除浮动*/
+    clear: both;
+    /*确保该元素是一个块级元素*/
+    display: block;
+}
+
+.selectType
+{
+    font-size: 40px;
+    border-radius: 15px;
+    border: solid #8beeff;
+    font-family: 'Microsoft YaHei';
+    float: left;
+    width: 25%;
+}
+
+.form-input
+{
+    font-size: 40px;
+    border-radius: 15px;
+    border: solid #8beeff;
+    font-family: 'Microsoft YaHei';
+    min-width: 100%;
+}
+
+.editor
+{
+    zoom: 2;
+
+    border: solid #8beeff;
+}

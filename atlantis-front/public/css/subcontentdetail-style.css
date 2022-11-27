@@ -1,0 +1,19 @@
+.content
+{
+    /* border: solid red; */
+    width: 70%;
+    margin: auto auto;
+    margin-top: 40px;
+
+    /* font-size: 40px; */
+    font-family: 'Microsoft YaHei';
+    text-align: left;
+    /* line-height: 80px; */
+}
+
+.markdown-body
+{
+    color: #2c3e50;
+    font-size: 30px;
+    background-color: rgba(252, 242, 241, 0);
+}

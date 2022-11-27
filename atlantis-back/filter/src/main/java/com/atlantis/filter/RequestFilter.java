@@ -10,7 +10,6 @@ import java.io.IOException;
 
 /**
  * 解决跨域设置
- * （可把此设置放在 nginx 中，但只能设置一处）
  * copied from web
  */
 

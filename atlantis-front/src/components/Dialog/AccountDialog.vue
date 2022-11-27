@@ -290,7 +290,7 @@ export default {
                 console.log(err)
                 this.$notify.error({
                     title: message.REQUEST_ERR,
-                    offset: 70
+                    offset: code.OFFSET
                 });
             })
         },
@@ -338,20 +338,20 @@ export default {
                     if (res.code === code.INSERT_OK) {
                         this.$notify.success({
                             title: message.INSERT_OK,
-                            offset: 70
+                            offset: code.OFFSET
                         })
                         this.$emit('confirm');
                     }
                     else {
                         this.$notify.error({
                             title: message.INSERT_ERR + '，请检查是否存在同名用户',
-                            offset: 70
+                            offset: code.OFFSET
                         })
                     }
                 }).catch(error => {
                     this.$notify.error({
                         title: message.REQUEST_ERR,
-                        offset: 70
+                        offset: code.OFFSET
                     })
                 })
         },
@@ -361,20 +361,20 @@ export default {
                 if (res.code === code.DELETE_OK) {
                     this.$notify.success({
                         title: message.DELETE_OK,
-                        offset: 70
+                        offset: code.OFFSET
                     })
                     this.$emit("confirm");
                 }
                 else {
                     this.$notify.error({
                         title: message.DELETE_ERR,
-                        offset: 70
+                        offset: code.OFFSET
                     })
                 }
             }).catch(err => {
                 this.$notify.error({
                     title: message.REQUEST_ERR,
-                    offset: 70
+                    offset: code.OFFSET
                 })
             })
         },
@@ -415,7 +415,7 @@ export default {
                     {
                         this.$notify.success({
                             title: message.UPDATE_OK,
-                            offset: 70
+                            offset: code.OFFSET
                         })
                         this.$emit("confirm");
                     }
@@ -423,13 +423,13 @@ export default {
                     {
                         this.$notify.error({
                             title: message.UPDATE_ERR,
-                            offset: 70
+                            offset: code.OFFSET
                         })
                     }
                 }).catch(err => {
                     this.$notify.error({
                         title: message.REQUEST_ERR,
-                        offset: 70
+                        offset: code.OFFSET
                     })
                 })
 
@@ -457,20 +457,20 @@ export default {
                     if (res.code === code.UPDATE_OK) {
                         this.$notify.success({
                             title: message.UPDATE_OK,
-                            offset: 70
+                            offset: code.OFFSET
                         })
                         this.$emit("confirm");
                     }
                     else {
                         this.$notify.error({
                             title: message.UPDATE_ERR,
-                            offset: 70
+                            offset: code.OFFSET
                         })
                     }
                 }).catch(err => {
                     this.$notify.error({
                         title: message.REQUEST_ERR,
-                        offset: 70
+                        offset: code.OFFSET
                     })
                 })
             }

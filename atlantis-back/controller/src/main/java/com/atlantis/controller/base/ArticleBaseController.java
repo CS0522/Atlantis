@@ -5,13 +5,23 @@ import com.atlantis.common.Result;
 import com.atlantis.exception.ServiceException;
 import com.atlantis.exception.SystemException;
 import com.atlantis.service.base.ArticleBaseService;
+import com.atlantis.util.GenerateMD5;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Objects;
 
 public abstract class ArticleBaseController<T>{
     @Autowired
     protected ArticleBaseService<T> articleBaseService;
+
+    @Value("${atlantis.articlePicturesBasePath}")
+    private String basePath;
 
     @GetMapping("/{id}")
     public Result getById(@PathVariable Integer id) // 从url路径获取id
@@ -144,5 +154,38 @@ public abstract class ArticleBaseController<T>{
         {
             throw new SystemException("unknown error occurred", Code.SYS_ERR);
         }
+    }
+
+    // 文章内图片上传
+    @PostMapping("/upload")
+    public Result upload(MultipartFile file)
+    {
+        System.out.println("uploading...");
+        // 获取的file是临时文件，需要转存
+
+        File filePath = new File(basePath);
+        // 若目录不存在，创建
+        if (!filePath.exists())
+        {
+            filePath.mkdirs();
+        }
+
+        // 获取原始文件名后缀
+        String postfix = Objects.requireNonNull(
+                            file.getOriginalFilename()).substring(
+                                    (file.getOriginalFilename().lastIndexOf(".")));
+
+        // 重新命名
+        String fileName = GenerateMD5.encrypt(file.getOriginalFilename()) + postfix;
+
+        // 转存文件
+        try {
+            file.transferTo(new File(basePath + fileName));
+        }
+        catch (IOException e) {
+            throw new SystemException("upload failed", e, Code.SYS_ERR);
+        }
+
+        return new Result(Code.UPLOAD_OK, fileName, "upload succeeded");
     }
 }

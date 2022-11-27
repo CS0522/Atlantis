@@ -19,7 +19,7 @@ import java.io.IOException;
 // REST风格
 @RequestMapping("/members")
 public class MemberController extends BaseController<Member> {
-    @Value("${atlantis.basePath}")
+    @Value("${atlantis.photosBasePath}")
     private String basePath;
 
     @PostMapping("/upload/{id}")

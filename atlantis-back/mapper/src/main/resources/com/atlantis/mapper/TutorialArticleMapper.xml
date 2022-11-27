@@ -7,7 +7,7 @@
 
 <!-- namespace: 名称空间-->
 <!-- 设置SQL映射文件的 namespace 属性为Mapper接口的全限定名: com.mapper.UsersMapper-->
-<mapper namespace="com.atlantis.mapper.NewsArticleMapper">
+<mapper namespace="com.atlantis.mapper.TutorialArticleMapper">
     <!--    id: 该select语句的唯一标识
         result type: 返回结果的类型，属性为全限定名
 -->
@@ -27,50 +27,50 @@
     <!--    ${}: 用于表名、列名
     #{}: 用于参数
 -->
-    <resultMap id="newsArticleResultMap" type="com.atlantis.pojo.NewsArticle">
+    <resultMap id="tutorialArticleResultMap" type="com.atlantis.pojo.TutorialArticle">
         <result property="createDate" column="create_date"></result>
     </resultMap>
 
-    <select id="getById" resultMap="newsArticleResultMap">
-        select * from news_article where id = #{id}
+    <select id="getById" resultMap="tutorialArticleResultMap">
+        select * from tutorial_article where id = #{id}
     </select>
 
-    <select id="getByTitle" resultMap="newsArticleResultMap">
-        select * from news_article where title = #{title}
+    <select id="getByTitle" resultMap="tutorialArticleResultMap">
+        select * from tutorial_article where title = #{title}
     </select>
 
 <!--    按照时间由新到旧的顺序进行排序
         也可以按照id的顺序 -->
-    <select id="getByIndex" resultMap="newsArticleResultMap">
-        select * from news_article where `index` = #{index} order by ${order}
+    <select id="getByIndex" resultMap="tutorialArticleResultMap">
+        select * from tutorial_article where `index` = #{index} order by ${order}
     </select>
 
-    <select id="getAll" resultMap="newsArticleResultMap">
-        select * from news_article order by ${order}
+    <select id="getAll" resultMap="tutorialArticleResultMap">
+        select * from tutorial_article order by ${order}
     </select>
 
 <!--    模糊查询-->
-    <select id="fuzzyQuery" resultMap="newsArticleResultMap">
-        select * from news_article where title like concat('%', #{searchKey}, '%')
+    <select id="fuzzyQuery" resultMap="tutorialArticleResultMap">
+        select * from tutorial_article where title like concat('%', #{searchKey}, '%')
                                 or content like concat('%', #{searchKey}, '%')
     </select>
 
 <!--    返回主键-->
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-        insert into news_article(`index`, title, content)
+        insert into tutorial_article(`index`, title, content)
             values(#{index}, #{title}, #{content})
     </insert>
 
     <!--    TODO @Dynamic SQL is needed-->
     <update id="update">
-        update news_article set `index` = #{index},
+        update tutorial_article set `index` = #{index},
                         title = #{title},
                         content = #{content} where id = #{id}
     </update>
 
 
     <delete id="delete">
-        delete from news_article where id = #{id}
+        delete from tutorial_article where id = #{id}
     </delete>
 
 <!--    TODO @Dynamic SQL is needed-->

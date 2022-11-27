@@ -88,7 +88,7 @@ export default {
                 console.log(err)
                 this.$notify.error({
                     title: message.REQUEST_ERR,
-                    offset: 70
+                    offset: code.OFFSET
                 });
             })
             // console.log(`当前页: ${val}`);

@@ -16,6 +16,11 @@
         @close="closeDialog"
         @confirm="confirm">
         </NewsDialog>
+        <TutorialDialog 
+        v-if="isShowTutorial"
+        @close="closeDialog"
+        @confirm="confirm">
+        </TutorialDialog>
         <TopBar v-if="!topBarReload"
                 @reload="doTopBarReload()"></TopBar>
         <!-- v-show绑定isShowAccount属性，动态变化 -->
@@ -89,7 +94,11 @@
 import AccountDialog from '@/components/Dialog/AccountDialog.vue'
 import AboutDialog from '@/components/Dialog/AboutDialog.vue'
 import NewsDialog from '@/components/Dialog/NewsDialog.vue'
+import TutorialDialog from '@/components/Dialog/TutorialDialog.vue'
 import TopBar from '../HomePage/TopBar.vue'
+import code from '@/utils/code';
+import message from '@/utils/message';
+import request from '@/utils/request';
 
 export default {
     name: "dashboard",
@@ -97,6 +106,7 @@ export default {
         AccountDialog,
         AboutDialog,
         NewsDialog,
+        TutorialDialog,
         TopBar,
     },
     data() {
@@ -104,6 +114,7 @@ export default {
             isShowAccount: false,
             isShowAbout: false,
             isShowNews: false,
+            isShowTutorial: false,
             isRouterAlive: true,
             topBarReload: false,
 
@@ -142,6 +153,10 @@ export default {
             {
                 this.isShowNews = true;
             }
+            else if (showWhich === 'tutorial')
+            {
+                this.isShowTutorial = true;
+            }
         },
         // Dialog点击按钮的事件
         // 点击取消按钮
@@ -150,6 +165,7 @@ export default {
             this.isShowAccount = false;
             this.isShowAbout = false;
             this.isShowNews = false;
+            this.isShowTutorial = false;
         },
         // 点击确定按钮
         confirm() {
@@ -174,12 +190,30 @@ export default {
             this.$nextTick(function() {
                 this.topBarReload = false;
             })
-        }
+        },
+
+        // 加载 教程 分类，放在这一层避免闪烁
+        load() {
+            // 多次执行，试试放在上一层路由，只执行一次，vuex传递
+            console.log("loading...")
+            // 获取有哪些分类
+            request.get("/categories").then(res => {
+                if (res.code === code.GET_OK)
+                {
+                    this.$storage.set('tutorialCategoryItems', res.data, 24 * 60 * 60);
+                }
+            }).catch(err => {
+                this.$notify.error({
+                    title: message.REQUEST_ERR,
+                    offset: code.OFFSET
+                })
+            })
+        },
     },
 
-    // created() {
-    //     this.load();
-    // },
+    created() {
+        this.load();
+    },
 }
 
 </script>

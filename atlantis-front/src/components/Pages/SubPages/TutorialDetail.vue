@@ -40,7 +40,7 @@ export default {
             this.getId();
 
             // 后台获取数据
-            request.get("/newsArticles/" + this.id).then(res => {
+            request.get("/tutorialArticles/" + this.id).then(res => {
                 if (res.code === code.GET_OK)
                 {
                     this.item = res.data;

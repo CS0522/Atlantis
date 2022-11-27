@@ -36,8 +36,8 @@ pagehelper:
 
 atlantis:
 #  需要改成相对路径
-  basePath: D:\OneDrive - mail.dlut.edu.cn\Workspace\AtlantisFiles\Data\userphotos\
-
+  photosBasePath: D:\OneDrive - mail.dlut.edu.cn\Workspace\AtlantisFiles\Data\photos\
+  articlePicturesBasePath: D:\OneDrive - mail.dlut.edu.cn\Workspace\AtlantisFiles\Data\article_pictures\
 
 ---
 # 生产环境，开发完毕后进行重新配置
@@ -66,5 +66,5 @@ mybatis:
 
 atlantis:
   #  需要改成相对路径
-  basePath: D:\OneDrive - mail.dlut.edu.cn\Workspace\atlantis-back\Data\userphotos
+  userphotoBasepath: D:\OneDrive - mail.dlut.edu.cn\Workspace\atlantis-back\Data\userphotos
 ---

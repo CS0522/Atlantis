@@ -16,16 +16,8 @@ export function checkIsValid(values){
     return true;
 }
 
-// export function checkIsValid(value){
-//     // 设置检验规则
-//     // 6-15个字符，仅包含英文大小写、数字及下划线（昵称除外）
-//     reg=/^\w{6,15}$/;
-//     if(reg.test(value))
-//     {
-//         return true;
-//     }
-//     else
-//     {   
-//         return false;
-//     }
-// }
+export function checkIsValidForLowercase(value) {
+    let reg = /[a-z]/;
+    console.log(reg.test(value));
+    return reg.test(value);
+}

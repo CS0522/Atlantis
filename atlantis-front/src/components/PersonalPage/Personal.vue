@@ -182,7 +182,7 @@ export default {
             {
                 this.$notify.error({
                         title: '你已经申请过管理员',
-                        offset: 70
+                        offset: code.OFFSET
                     })
                     return;
             }
@@ -201,7 +201,7 @@ export default {
             {
                 this.$notify.error({
                         title: '你没有申请过管理员',
-                        offset: 70
+                        offset: code.OFFSET
                     })
                     return;
             }
@@ -235,13 +235,13 @@ export default {
                     {
                         this.$notify.success({
                             title: '申请成功，等待管理员审核',
-                            offset: 70
+                            offset: code.OFFSET
                         })
                     }
                 }).catch(err => {
                     this.$notify.error({
                         title: message.REQUEST_ERR,
-                        offset: 70
+                        offset: code.OFFSET
                     })
                 })
             }
@@ -252,13 +252,13 @@ export default {
                     {
                         this.$notify.success({
                             title: '已撤销',
-                            offset: 70
+                            offset: code.OFFSET
                         })
                     }
                 }).catch(err => {
                     this.$notify.error({
                         title: message.REQUEST_ERR,
-                        offset: 70
+                        offset: code.OFFSET
                     })
                 })
             }
@@ -270,7 +270,7 @@ export default {
             this.reload();
             this.$notify.success({
                 title: '头像更新成功',
-                offset: 70
+                offset: code.OFFSET
             })
         },
         beforeAvatarUpload(file) {
@@ -281,7 +281,7 @@ export default {
                 if (['png', 'jpeg', 'jpg'].indexOf(postfix) < 0) {
                     this.$notify.error({
                         title: '头像仅支持 .png, .jpg, .jpeg 格式',
-                        offset: 70
+                        offset: code.OFFSET
                     })
                     this.$refs.upload.clearFiles()
                     return false
@@ -289,7 +289,7 @@ export default {
                 if (!isSizeOk) {
                     this.$notify.error({
                         title: '上传头像大小不能超过 2MB',
-                        offset: 70
+                        offset: code.OFFSET
                     })
                     return false
                 }

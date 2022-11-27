@@ -73,20 +73,20 @@ export default {
                 if (res.code === code.DELETE_OK) {
                     this.$notify.success({
                         title: message.DELETE_OK,
-                        offset: 70
+                        offset: code.OFFSET
                     })
                     this.$emit("confirm");
                 }
                 else {
                     this.$notify.error({
                         title: message.DELETE_ERR,
-                        offset: 70
+                        offset: code.OFFSET
                     })
                 }
             }).catch(err => {
                 this.$notify.error({
                     title: message.REQUEST_ERR,
-                    offset: 70
+                    offset: code.OFFSET
                 })
             })
         }

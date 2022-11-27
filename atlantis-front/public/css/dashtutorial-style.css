@@ -13,17 +13,12 @@
     border-top: solid #8beeff;
 }
 
-#sub-content
-{
-    height: auto;
-}
-
 /* #content-box
 {
-    border: solid red;
+    border: solid;
 } */
 
-.search-box
+.add-and-search-box
 {
     /* border: solid; */
     text-align: left;
@@ -77,6 +72,46 @@
     display: inline-block;
 }
 
+.add-button {
+    font-size: 30px;
+    height: 80px;
+    width: 70%;
+    margin: auto auto;
+    line-height: 80px;
+    border-radius: 15px;
+    border: none;
+    background-color: #8beeff;
+}
+
+.select-box
+{
+    /* border: solid; */
+    margin: auto auto;
+    width: 90%;
+
+    margin-bottom: 50px;
+}
+
+.select-box::after
+{
+    content:"";
+    /*清除浮动*/
+    clear: both;
+    /*确保该元素是一个块级元素*/
+    display: block;
+}
+
+.selectType
+{
+    font-size: 40px;
+    border-radius: 15px;
+    border: solid #8beeff;
+    font-family: 'Microsoft YaHei';
+    float: left;
+    width: 23%;
+
+    margin-right: 30px;
+}
 
 .item-box
 {
@@ -90,34 +125,24 @@
     box-shadow: 5px 15px 15px 5px #888888;
 }
 
-/* .item-id
+.item-id
 {
-    border: solid;
+    /* border: solid; */
     float: left;
     width: 10%;
     height: 100%;
     line-height: 130px;
     font-size: 40px;
-} */
+}
 
 .item-detail
 {
     /* border: solid red; */
-    /* float: center; */
-    margin: auto auto;
-    width: 95%;
+    float: right;
+    width: 87%;
     height: 100%;
     line-height: 130px;
-    cursor: pointer;
 }
-
-.item-detail::after {
-    content:"";
-    /*清除浮动*/
-    clear: both;
-    /*确保该元素是一个块级元素*/
-    display: block;
-    }
 
 .item-detail-title
 {
@@ -125,21 +150,32 @@
     display: inline;
     float: left;
     height: 100%;
-    max-width: 60%;
-
-    font-size: 50px;
-    font-weight: bold;
+    font-size: 40px;
 }
 
-.item-detail-date
+.item-detail-operation
 {
-    /* border: solid blue; */
+    /* border: solid black; */
+    border-radius: 15px;
     display: inline;
     float: right;
-    width: 30%;
-    height: 20px;
+    height: 100%;
+    margin: 10px;
+}
 
-    text-align: right;
-    line-height: 200px;
-    font-size: 35px;
+.item-detail-operation-button {
+    font-size: 30px;
+    margin: 10px;
+    border: none;
+    border-radius: 15px;
+    height: 60px;
+    width: 150px;
+}
+.item-detail-status
+{
+    margin: 10px;
+    /* border: solid yellow; */
+    display: inline;
+    float: right;
+    height: 100%;
 }

@@ -10,7 +10,7 @@
                     :key="categoryItem.index"
                     style="list-style-type: none; margin: 0px; padding: 0px;">
                     <li>
-                        <router-link :to="'/page/tutorial/' + categoryItem.route">
+                        <router-link :to="'/page/tutorial/' + categoryItem.route + '/list'">
                             <div class="sub-tab">{{categoryItem.type}}</div>
                         </router-link>
                     </li>
@@ -30,13 +30,17 @@ export default {
     name: 'tutorial',
     data() {
         return {
-            categoryItems: this.$storage.get('tutorialCategoryItems'),
+            categoryItems: [],
         }
     },
     methods: {
+        load() {
+            this.categoryItems = this.$storage.get('tutorialCategoryItems');
+        }
     },
 
     created() {
+        this.load();
     }
 }
 </script>

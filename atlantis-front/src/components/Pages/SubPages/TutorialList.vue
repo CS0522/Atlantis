@@ -94,18 +94,12 @@ export default {
             this.isSearching = false;
         },
         setTypeIndex() {
-            // 1 == news, 2 == announces
-            if (this.type === 'news')
-            {
-                this.typeIndex = '1';
-            }
-            else if (this.type === 'announces')
-            {
-                this.typeIndex = '2';
-            }
+            // 直接从vuex中获取
+            this.typeIndex = this.$store.state.tutorialCurrentCategory.index;
         },
         setItems() {
-            request.get("/newsArticles/" + this.typeIndex + 
+            console.log("typeIndex: " + this.typeIndex);
+            request.get("/tutorialArticles/" + this.typeIndex + 
                         "/" + this.currentPage + "/" + this.pageSize + "/create_date desc")
             .then(res => {
                 if (res.code === code.GET_OK) {
@@ -129,7 +123,7 @@ export default {
                 return;
             }
             this.isSearching = true;
-            request.get("/newsArticles/search/" + this.searchInput.trim() + 
+            request.get("/tutorialArticles/search/" + this.searchInput.trim() + 
                         "/" + this.currentPage + "/" + this.pageSize).then(res => {
                         if (res.code === code.GET_OK && res.data.total)
                         {
@@ -159,9 +153,9 @@ export default {
 
         // 点击跳转到 id = objId 的新闻详情
         goToItemDetail(objId) {
-            // this.$router.push("/page/news/" + this.type + "/detail/" + objId);
+            // this.$router.push("/page/tutorial/" + this.type + "/detail/" + objId);
             this.$router.push({
-                path: "/page/news/" + this.type + "/detail",
+                path: "/page/tutorial/" + this.type + "/detail",
                 query: {
                     id: objId
                 }
@@ -176,12 +170,12 @@ export default {
             let res;
             if (!this.isSearching)
             {
-                res = await request.get("/newsArticles/" + this.typeIndex + "/" + 
+                res = await request.get("/tutorialArticles/" + this.typeIndex + "/" + 
                                     this.currentPage + "/" + this.pageSize + "/create_date desc");
             }
             else
             {
-                res = await request.get("/newsArticles/search/" + this.searchInput.trim() + 
+                res = await request.get("/tutorialArticles/search/" + this.searchInput.trim() + 
                                     "/" + this.currentPage + "/" + this.pageSize);
             }
             if (res.code === code.GET_OK) {
@@ -214,7 +208,7 @@ export default {
             this.isSearching = true;
             // 延迟 0.2s 进行实时显示
             setTimeout(() => {
-                request.get("/newsArticles/search/" + val.trim() + 
+                request.get("/tutorialArticles/search/" + val.trim() + 
                         "/" + this.currentPage + "/" + 100).then(res => {
                         if (res.code === code.GET_OK && res.data.total)
                         {

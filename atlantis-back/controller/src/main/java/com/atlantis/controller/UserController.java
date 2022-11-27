@@ -22,7 +22,7 @@ import java.util.Objects;
 @RequestMapping("/users")
 public class UserController extends BaseController<User> {
 
-    @Value("${atlantis.basePath}")
+    @Value("${atlantis.photosBasePath}")
     private String basePath;
 
     @PutMapping("/info")
