@@ -18,16 +18,16 @@ export default {
             // 需要后端传递数据
             imgList: [
                 {
-                    id: 0, img: require('@/../public/imgs/carousels/doraemon_11.png')
+                    id: 0, img: require('@/../public/imgs/carousels/carousel_01.png')
                 },
                 {
-                    id: 1, img: require('@/../public/imgs/carousels/doraemon_12.png')
+                    id: 1, img: require('@/../public/imgs/carousels/carousel_02.png')
                 },
                 {
-                    id: 2, img: require('@/../public/imgs/carousels/doraemon_13.png')
+                    id: 2, img: require('@/../public/imgs/carousels/carousel_03.png')
                 },
                 {
-                    id: 3, img: require('@/../public/imgs/carousels/doraemon_17.png')
+                    id: 3, img: require('@/../public/imgs/carousels/carousel_04.png')
                 }
             ]
         }
