@@ -1,3 +1,5 @@
+// mavon-editor 中的 toolbar 显示按钮
+
 const toolbars = {
     bold: true, // 粗体
     italic: true, // 斜体

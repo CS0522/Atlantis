@@ -3,7 +3,7 @@
         <!-- 设置走马灯高度 -->
         <el-carousel :interval="5000"  type="card" arrow="always" height="1000px">
             <el-carousel-item v-for="item in imgList" :key="item.id">
-                <!-- 注意这里要绑定属性！ -->
+                <!-- 这里要绑定v-bind -->
                 <img :src="item.img" height="1000px" class="image"/>
             </el-carousel-item>
         </el-carousel>
@@ -15,7 +15,7 @@ export default {
     name: 'carousel-img',
     data(){
         return {
-            // 需要后端传递数据
+            // 存储在前端
             imgList: [
                 {
                     id: 0, img: require('@/../public/imgs/carousels/carousel_01.png')

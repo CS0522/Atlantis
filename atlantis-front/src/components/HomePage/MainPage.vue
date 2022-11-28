@@ -5,7 +5,7 @@
         <div class="main-page">
             <div class="nav-location-box">
                 <!-- 放入当前的路由路径 -->
-                <!-- 怎么实现中文化啊 -->
+                <!-- 怎么实现中文化 -->
                 <div class="nav-location">
                     &nbsp;当前位置: &nbsp;<p style="display: inline;">{{showPath}}</p>
                 </div>

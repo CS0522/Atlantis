@@ -7,7 +7,7 @@
         <hr class="hr" />
         <div id="content-box">
             <div style="font-size: 60px">
-                管理员 {{accountInfo.username}}，请在左侧导航栏选择管理选项</div>
+                管理员 {{ accountInfo.username }}，请在左侧导航栏选择管理选项</div>
         </div>
     </div>
 </template>

@@ -1,3 +1,5 @@
+// 用于表单检验，是否符合规则
+
 export function checkIsValid(values){
     // 设置检验规则
     // 6-15个字符，仅包含英文大小写、数字及下划线（昵称除外）
@@ -17,7 +19,8 @@ export function checkIsValid(values){
 }
 
 export function checkIsValidForLowercase(value) {
+    // 只包含英文小写
     let reg = /[a-z]/;
-    console.log(reg.test(value));
+    // console.log(reg.test(value));
     return reg.test(value);
 }

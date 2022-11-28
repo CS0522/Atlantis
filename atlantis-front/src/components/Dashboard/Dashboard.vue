@@ -1,6 +1,5 @@
 <template>
     <div>
-        <!--（已解决）存在问题，当路由变换了，变换后第一次显示为变换前最后一次的显示 -->
         <AccountDialog 
         v-if="isShowAccount"
         @close="closeDialog"
@@ -21,9 +20,9 @@
         @close="closeDialog"
         @confirm="confirm">
         </TutorialDialog>
-        <TopBar v-if="!topBarReload"
-                @reload="doTopBarReload()"></TopBar>
-        <!-- v-show绑定isShowAccount属性，动态变化 -->
+
+        <TopBar v-if="!topBarReload"></TopBar>
+
         <div id="dashboard">
             <div id="dash-nav-box">
                 <div id="dash-title">
@@ -32,6 +31,7 @@
                         <img src="imgs/logo/atlantis-logo.png" height="150px" />
                     </router-link>
                 </div>
+                <!-- 悬浮显示菜单 -->
                 <div id="dash-sub-nav"  @mouseover="showMenu()" @mouseleave="hideMenu()">
                     <router-link to="/dashboard/account/admin">
                         <div class="sub-tab">用户管理</div>
@@ -78,11 +78,10 @@
                 </div>
             </div>
             <div id="dash-content-box">
-                <!-- 注意这个地方一定要绑定key！！！以后也是！！！ -->
+                <!-- 注意这个地方一定要绑定key，路由改变即刷新 -->
                 <!-- 子组件传递参数，@绑定方法函数 -->
                 <router-view v-if="isRouterAlive"
                     :key="$route.fullPath"
-                    @reload="reload"
                     @show-dialog="showDialog"
                     ></router-view>
             </div>
@@ -117,7 +116,6 @@ export default {
             isShowTutorial: false,
             isRouterAlive: true,
             topBarReload: false,
-
         }
     },
     // 刷新路由操作
@@ -177,7 +175,7 @@ export default {
             }, 300);
 
         },
-        // 刷新路由操作
+        // 刷新路由
         reload() {
             this.isRouterAlive = false;
             this.$nextTick(function() {
@@ -192,14 +190,14 @@ export default {
             })
         },
 
-        // 加载 教程 分类，放在这一层避免闪烁
+        // 加载教程分类，放在这一层避免闪烁
         load() {
-            // 多次执行，试试放在上一层路由，只执行一次，vuex传递
-            console.log("loading...")
+            // console.log("loading...")
             // 获取有哪些分类
             request.get("/categories").then(res => {
                 if (res.code === code.GET_OK)
                 {
+                    // 封装后存在localStorage中
                     this.$storage.set('tutorialCategoryItems', res.data, 24 * 60 * 60);
                 }
             }).catch(err => {

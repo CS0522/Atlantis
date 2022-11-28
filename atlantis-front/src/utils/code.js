@@ -1,5 +1,6 @@
 // 用于前后端通信，请求成功和请求失败时返回的代码
-// 顺便保存下notification的offset
+// 顺便保存 notification 的偏移量 offset
+
 const OFFSET = 70;
 
 const GET_OK = 1001;

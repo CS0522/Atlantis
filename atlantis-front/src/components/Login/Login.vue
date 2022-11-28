@@ -6,13 +6,10 @@
             </router-link>
         </div>
         <div id="login-box">
-            <!-- 需要提交 -->
             <form class="login-form" :model="loginData">
                 <h1 v-if="type==='user'" style="font-size: 80px">欢迎登录</h1>
                 <h1 v-if="type==='admin'" style="font-size: 80px">管理登录</h1>
-                <!-- OK: TODO 提示消息框 -->
-                <!-- 使用cookie 记住我 功能 -->
-                <!-- 表单检验功能 -->
+                <!-- 需要表单检验 -->
                 <table class="table" cellpadding=10px cellspacing=15px>
                     <tr align="right">
                         <td>用户名: </td>
@@ -28,6 +25,7 @@
                                     v-model="loginData.password" @focus="clearErrorMessage()"/>
                         </td>
                     </tr>
+                    <!-- 用户登录，记住我功能 -->
                     <tr align="right" v-if="type==='user'">
                         <td>记住我: </td>
                         <td align="left">
@@ -37,13 +35,12 @@
                     </tr>
                 </table>
                 <div class="message-box">
-                    <!-- 用于插入提示语句 -->
+                    <!-- 提示语句 -->
                     <span style="color: red">{{errorMessage}}</span>
                 </div>
             </form>
             <div class="submit-box">
-                    <!-- 需要修改 click 事件 -->
-                    <button class="submit-button" @click="doLogin(type)">
+                    <button class="submit-button" @click="doLogin()">
                         <span v-if="!isLoading">登录</span>
                         <span v-if="isLoading">正在登录</span>
                     </button>
@@ -72,16 +69,21 @@
 import code from '@/utils/code';
 import message from '@/utils/message';
 import request from '@/utils/request';
+import { hex_md5 } from '@/utils/createmd5';
 
 export default {
     name: "login",
     data() {
         return {
+            // 是否正在登录，用于修改登录按钮的字样
             isLoading: false,
+            // 错误提示信息
             errorMessage: '',
+            // 登录提交的表单
             loginData: {},
+            // 登录角色
             typeStr: '',
-
+            // 记住我是否勾选
             isChecked: '',
         }
     },
@@ -94,9 +96,10 @@ export default {
         load() {
             this.clearErrorMessage();
             this.clearForm();
+            
             if (this.type === 'user')
             {
-                // 记住我功能，首先检测是否有rememberMe保存在本地
+                // 记住我功能，首先检测是否有 rememberMe 保存在本地
                 let savedLoginForm = this.$storage.get("rememberMe");
                 if (savedLoginForm != null)
                 {
@@ -125,8 +128,7 @@ export default {
             //     let items = res2.data;
             //     messageCount += items.length;
             // }
-            
-            console.log(messageCount);
+            // console.log(messageCount);
             if (messageCount)
             {
                 this.$notify.info({ 
@@ -144,42 +146,52 @@ export default {
             this.errorMessage = '';
         },
 
-        // type用来判断登录的用户类型
-        doLogin(type) {
+        doLogin() {
+            // console.log("md5 encrypt: " + hex_md5(this.loginData.password));
+
             this.isLoading = true;
             // console.log(type);
-            if (type === 'admin') {
+            if (this.type === 'admin') {
                 this.typeStr = 'admins';
             }
-            else if (type === 'user') {
+            else if (this.type === 'user') {
                 this.typeStr = 'users';
             }
             // 先判断是否已存在登录用户，存在则return并提示错误
             if (this.$storage.get("accountInfo") != null)
             {
                 this.$notify.error({
-                    title: '已存在登录用户！请刷新界面',
+                    title: '已存在登录用户！正在返回主界面',
                     offset: code.OFFSET
                 })
                 setTimeout(() => {
                     this.isLoading = false;
+                    // 跳转回主界面
+                    this.$router.push('/')
                 }, 1000);
                 return;
             }
-            request.post('/' + this.typeStr + '/login',
-                JSON.stringify(this.loginData)).then(res => {
+
+            // 保存原始loginData
+            let loginDataCopy = {
+                username: ''
+            }
+            loginDataCopy.username = this.loginData.username;
+
+            // 首先进行md5加密
+            this.loginData.password = hex_md5(this.loginData.password);
+            // 发送加密后数据
+            request.post('/' + this.typeStr + '/login', this.loginData).then(res => {
                     if (res.code === code.LOGIN_OK) {
                         // 登录成功，保存至本地
                         this.$storage.set("accountInfo", res.data, 24 * 60 * 60 * 1000);
                         this.$storage.set("loginType", this.typeStr, 24 * 60 * 60 * 1000);
-                        console.log(this.$storage.get('loginType'))
                         // 记住我功能
                         if (this.typeStr === 'users')
                         {
-                            console.log("is checked: " + this.isChecked)
                             if (this.isChecked)
                             {
-                                this.$storage.set("rememberMe", this.loginData, 24 * 60 * 60 * 1000);
+                                this.$storage.set("rememberMe", loginDataCopy, 24 * 60 * 60 * 1000);
                             }
                             else
                             {
@@ -198,7 +210,7 @@ export default {
                             title: '登录成功',
                             offset: code.OFFSET
                         })
-                        // 登录时弹出消息通知
+                        // 登录时弹出消息通知，是否有未读消息
                         if (this.typeStr === 'admins')
                         {
                             setTimeout(() => {
@@ -239,7 +251,4 @@ export default {
 </script>
 
 <style scoped src="@/../public/css/login-signup-style.css">
-
-/* 需要背景模糊效果 */
-
 </style>

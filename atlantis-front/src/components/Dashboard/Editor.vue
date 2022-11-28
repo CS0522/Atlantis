@@ -5,17 +5,15 @@
         </div>
         <hr class="hr" />
         <div id="content-box">
-            <!-- 开头一个，结尾一个 -->
+            <!-- 开头，结尾各放一个 operation-box -->
             <div class="operation-box">
                 <table class="table-operation" cellpadding=10px cellspacing=15px>
                     <tr align="center">
                         <td>
-                            <!-- 改成button -->
                             <button class="operation" style="background-color: #8beeff" 
                                 @click="doSubmit()">提交</button>
                         </td>
                         <td>
-                            <!-- 改成button -->
                             <button class="operation" 
                                 @click="reset()">重置</button>
                         </td>
@@ -28,13 +26,13 @@
                 <div class="edit-index-box">
                     <span style="color: red">* </span>选择分类：<br/>
                     <div class="item-box">
-                        <!-- type === 'news' 出现 -->
+                        <!-- 资讯编辑 -->
                         <select name="selectType" class="selectType" v-show="type==='news'"
                             v-model="form.index">
                             <option value="1">游戏新闻</option>
                             <option value="2">游戏公告</option>
                         </select>
-                        <!-- type === 'tutorial' 出现 -->
+                        <!-- 教程编辑 -->
                         <select name="selectType" class="selectType" v-show="type==='tutorial'"
                             v-model="form.index">
                             <option 
@@ -75,12 +73,10 @@
                 <table class="table-operation" cellpadding=10px cellspacing=15px>
                     <tr align="center">
                         <td>
-                            <!-- 改成button -->
                             <button class="operation" style="background-color: #8beeff" 
                                 @click="doSubmit()">提交</button>
                         </td>
                         <td>
-                            <!-- 改成button -->
                             <button class="operation" 
                                 @click="reset()">重置</button>
                         </td>
@@ -206,20 +202,20 @@ export default {
 
         // 绑定@imgAdd event
         $imgAdd(pos, $file){
-            // 第一步. 将图片上传到服务器.
+            // 第一步：将图片上传到服务器.
            var formdata = new FormData();
            formdata.append('file', $file);
-           // request中的请求头是json格式，不方便
+           // request中的请求头是json格式，不方便传输图片
+           // 采用 form-data
            this.$axios({
                 url: this.$store.state.newsArticleImgBaseUrl + "upload",
                 method: 'post',
                 data: formdata,
                 headers: { 'Content-Type': 'multipart/form-data' },
                 timeout: 5000,
-                // 解决前后session不一致问题
                 withCredentials: true,
            }).then((res) => {
-                // 第二步. 将返回的url替换到文本原位置![...](0) -> ![...](url)
+                // 第二步：将返回的url替换到文本原位置![...](0) -> ![...](url)
                 let result = JSON.parse(JSON.stringify(res));
                 // console.log("result: " + result);
                 if (result.data.code === code.UPLOAD_OK)

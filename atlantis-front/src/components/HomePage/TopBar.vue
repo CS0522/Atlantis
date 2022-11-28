@@ -14,11 +14,8 @@
             </el-input>
         </div>
         <div class="tool-bar">
-            <!-- 可以使用vue-router -->
             <table cellpadding=10px; cellspacing=15px>
                 <tr>
-                    <!-- 加入相应功能 -->
-                    <!-- 夜间模式能做就做 -->
                     <th>
                         <DropDownMenu></DropDownMenu>
                     </th>
@@ -35,7 +32,7 @@
                     </th>
                     <th>
                         <router-link to="/login/user" target="_blank" v-if="!isLogin">登录/注册</router-link>
-                        <!-- 点击用户名，出现问候语 -->
+                        <!-- 点击用户名，出现问候和天气 -->
                         <a v-if="isLogin && adminOrUser === 'admins'" @click="greeting()">
                             {{ info.username }}</a>
                         <a v-if="isLogin && adminOrUser === 'users'" @click="greeting()">
@@ -64,7 +61,7 @@ export default {
     data() {
         return {
             isLogin: false,
-            // admins, users
+            // 是admin登录还是user登录
             adminOrUser: '',
             info: {},
             typeStr: '',
@@ -109,15 +106,15 @@ export default {
         },
 
         logout() {
-            request.post('/' + this.typeStr + '/logout', JSON.stringify(this.info)).then(res => {
+            request.post('/' + this.typeStr + '/logout', this.info).then(res => {
                 if (res.code === code.LOGOUT_OK) {
-                    // clear
+                    // 删除响应数据
                     this.$storage.remove('accountInfo');
                     this.$storage.remove('loginType');
                     this.isLogin = false;
 
                     // reload
-                    this.$emit('reload');
+                    this.doTopBarReload();
                     // back to main page
                     this.$notify.success({
                         title: '退出成功，正在返回首页',

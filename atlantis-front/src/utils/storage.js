@@ -1,3 +1,6 @@
+// localStorage 没有过期时间
+// 因此封装 storage，将时间进行存储
+
 let storage = {
     /*
     * set 存储方法
@@ -16,7 +19,7 @@ let storage = {
     },
 
     /*
-    * set 獲取方法
+    * set 获取方法
     * @ param {String}     key 键
     */
     get(key) {
@@ -33,7 +36,7 @@ let storage = {
         return val.data;
     },
    /*
-    * remove 刪除方法
+    * remove 删除方法
     * @ param {String}     key 键
     */
     remove(key) {

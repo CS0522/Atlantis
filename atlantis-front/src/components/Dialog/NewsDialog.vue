@@ -16,12 +16,10 @@
             <table class="table-operation" cellpadding=10px cellspacing=15px>
                 <tr align="center">
                     <td>
-                        <!-- 改成button -->
                         <button class="operation" @click="clickConfirm()" 
                                 style="background-color: #8beeff">确定</button>
                     </td>
                     <td>
-                        <!-- 改成button -->
                         <button class="operation" @click="cancel()">取消</button>
                     </td>
                 </tr>

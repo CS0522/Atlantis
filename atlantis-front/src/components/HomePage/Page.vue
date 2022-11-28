@@ -1,8 +1,8 @@
 <template>
     <div>
+        <!-- 顶栏 -->
         <TopBar 
-        v-if="!topBarReload"
-        @reload="doTopBarReload()"></TopBar>
+        v-if="!topBarReload"></TopBar>
         <!-- 主界面 -->
         <MainPage></MainPage>
         <!-- 底部导航 -->
@@ -43,14 +43,14 @@ export default {
                 this.topBarReload = false;
             })
         },
-        // 加载 教程 分类，放在这一层避免闪烁
+        // 加载教程分类，放在这一层避免闪烁
         load() {
-            // 多次执行，试试放在上一层路由，只执行一次，vuex传递
-            console.log("loading...")
+            // console.log("loading...")
             // 获取有哪些分类
             request.get("/categories").then(res => {
                 if (res.code === code.GET_OK)
                 {
+                    // 保存在localStorage中，方便后续组件读取，避免每次都要请求导致闪烁
                     this.$storage.set('tutorialCategoryItems', res.data, 24 * 60 * 60);
                 }
             }).catch(err => {

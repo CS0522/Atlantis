@@ -2,9 +2,9 @@
     <div>
         <div id="title-box">
             <div>
-                <!-- 根据动态路由传递参数判断title并渲染 -->
+                <!-- 根据动态路由传递参数判断title -->
                 <div v-show="type === 'apply'">管理员申请</div>
-                <div v-show="type === 'reset'">重置密码申请</div>
+                <!-- <div v-show="type === 'reset'">重置密码申请</div> -->
             </div>
         </div>
         <hr class="hr" />
@@ -83,6 +83,7 @@ export default {
             searchInput: '',
             isSearching: false,
 
+            // 消息数据
             items: [],
 
             // for pagination
@@ -106,7 +107,7 @@ export default {
             }
         },
         // 分页查询
-        setItem() {
+        setItems() {
             request.get("/" + this.typeStr + "/" + this.currentPage + "/" + this.pageSize).then(res => {
                 if (res.code === code.GET_OK)
                 {
@@ -120,13 +121,15 @@ export default {
                 })
             })
         },
+        clearSearch() {
+            this.searchInput = '';
+            this.isSearching = false;
+        },
 
         load() {
             this.setTypeStr();
-            this.setItem();
-            
-            this.searchInput = '';
-            this.isSearching = false;
+            this.setItems();
+            this.clearSearch();
         },
 
         doOperation(operation, type, objId) {
@@ -160,6 +163,7 @@ export default {
                 for (let i = 0; i < this.items.length; i++) {
                     // 删除申请消息
                     request.delete('/' + this.typeStr + '/' + this.items[i].id).then(res => {
+                        // 至少有一个存在删除错误，循环跳出
                         if (res.code !== code.DELETE_OK) {
                             hasError = true;
                         }
@@ -167,7 +171,7 @@ export default {
                         hasError = true;
                     })
                 }
-                // 循环跳出:
+                // 循环跳出，存在错误
                 if (hasError)
                 {
                     this.$notify.error({
@@ -190,11 +194,6 @@ export default {
             // 同意
             else if (operation === 'agree')
             {
-                // 加入 admin 表，密码、名字保持不变，返回id主键
-                // id 添加到 user_admin 表中
-                // 发送到用户的消息中心进行提示
-                // 登录到用户账号时，先检测是否同时是管理员：是，将申请按钮不显示，替代为文字
-                // 后台进行处理
                 request.get("/" + this.typeStr + "/agree/" + objId).then(res => {
                     if (res.code === code.GET_OK)
                     {
@@ -208,7 +207,7 @@ export default {
                                 })
                                 // 延迟 300ms 刷新子路由
                                 setTimeout(() => {
-                                    this.reload(); // 执行方法
+                                    this.reload();
                                 }, 300);
                             }
                         }).catch(err => {
@@ -271,10 +270,10 @@ export default {
         },
 
         handleSizeChange(val) {
-            console.log("val: " + val);
+            // console.log("val: " + val);
         },
         async handleCurrentChange(val) {
-            console.log("val: " + val);
+            // console.log("val: " + val);
             let res;
             if (!this.isSearching)
             {
@@ -288,7 +287,7 @@ export default {
             if (res.code === code.GET_OK) {
                 this.items = res.data.list;
                 this.totalNumber = res.data.total;
-                console.log("total number: " + this.totalNumber);
+                // console.log("total number: " + this.totalNumber);
             }
             else
             {
@@ -306,7 +305,7 @@ export default {
     props: ['type'],
 
     watch: {
-        // 含输入的记得掐空格！！！
+        // 含输入的记得掐空格
         searchInput(val) {
             this.currentPage = 1;
 

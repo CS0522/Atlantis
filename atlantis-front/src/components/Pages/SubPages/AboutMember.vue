@@ -7,7 +7,7 @@
         <div id="content-box">
             <div>
                 <div class="search-box">
-                    <!-- 纯粹对齐用 -->
+                    <!-- 单纯对齐用 -->
                     <div class="add-button-box">
                         <button style="cursor:auto; opacity: 0"></button>
                     </div>
@@ -26,7 +26,7 @@
                     </div>
                 </div>
                 <div>
-                    <!-- pagination -->
+                    <!-- 分页 -->
                     <el-pagination style="zoom: 220%; margin-bottom: 20px"
                                     @size-change="handleSizeChange" 
                                     @current-change="handleCurrentChange" 
@@ -92,7 +92,6 @@ export default {
             searchInput: '',
             isSearching: false,
 
-            // for pagination
             // 当前页
             currentPage: 1,
             // 每页条数
@@ -100,20 +99,25 @@ export default {
             // 数据总数
             totalNumber: 0,
 
-            // 头像。需要通过Id获取图像
+            // 需要通过Id获取图像
             imgDownloadUrl: this.$store.state.memberImgBaseUrl + "download/",
 
-            // 后端传入数据，根据路由的不同
+            // 根据路由的不同，后端传入数据
             items: [],
         }
     },
     methods: {
         // load
         load() {
+            this.clearSearch();
+            // 分页查询 getAll
+            this.setItems();
+        },
+        clearSearch() {
             this.searchInput = '';
             this.isSearching = false;
-            // getAll请求，获取所有
-            // 分页查询
+        },
+        setItems() {
             request.get("/members/" + this.currentPage + "/" + this.pageSize).then(res => {
                 if (res.code === code.GET_OK) {
                     this.items = res.data.list;
@@ -167,10 +171,10 @@ export default {
         },
 
         handleSizeChange(val) {
-            console.log(`每页 ${val} 条`);
+            // console.log(`每页 ${val} 条`);
         },
         async handleCurrentChange(val) {
-            console.log("val: " + val);
+            // console.log("val: " + val);
             let res;
             if (!this.isSearching)
             {
@@ -195,7 +199,7 @@ export default {
         },
     },
     watch: {
-        // 含输入的记得掐空格！！！
+        // 含输入的记得掐空格
         searchInput(val) {
             this.currentPage = 1;
 

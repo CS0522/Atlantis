@@ -14,16 +14,8 @@ const store = new Vuex.Store({
         contentType: '',
         // 保存CRUD操作类型，以及目标item的id
 
-        // tutorial page's category items
-        // tutorialCategoryItems: [],
         // 保存当前正在哪一个分类下
         tutorialCurrentCategory: {},
-
-        // 登录成功后保存用户信息(X! vuex里的刷新后内容丢失)
-        // accountInfo: {},
-        // isLogin: false,
-        // loginType: '',
-        // admins, users
 
         // img base url
         userImgBaseUrl: "http://localhost:8081/users/",
@@ -43,10 +35,6 @@ const store = new Vuex.Store({
         {
             state.contentType = newContentType;
         },
-        // setTutorialCategoryItems(state, newItems)
-        // {
-        //     state.tutorialCategoryItems  = newItems;
-        // }
         setTutorialCurrentCategory(state, newCategory)
         {
             state.tutorialCurrentCategory = newCategory;

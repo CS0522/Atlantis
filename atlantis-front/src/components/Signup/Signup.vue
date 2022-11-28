@@ -6,7 +6,6 @@
             </router-link>
         </div>
         <div id="signup-box">
-            <!-- 需要提交 -->
             <form class="signup-form" :model="signupData">
                 <h1 style="font-size: 80px">欢迎注册</h1>
                 <table class="table" cellpadding=10px cellspacing=15px>
@@ -54,7 +53,7 @@
                     </tr>
                 </table>
                 <div class="message-box">
-                    <!-- 用于插入提示语句 -->
+                    <!-- 插入提示语句 -->
                     <span style="color: red">{{errorMessage}}</span>
                 </div>               
             </form>
@@ -76,6 +75,7 @@ import code from '@/utils/code';
 import message from '@/utils/message';
 import request from '@/utils/request';
 import { checkIsValid } from '@/utils/checkvalid';
+import { hex_md5 } from '@/utils/createmd5';
 
 export default {
     name: "signup",
@@ -145,7 +145,10 @@ export default {
 
                         return;
                     }
-                    // 直接利用插入
+
+                    // md5加密
+                    this.signupData.password = hex_md5(this.signupData.password);
+                    // 新增
                     request.post("/users", this.signupData).then(res => {
                         if (res.code === code.INSERT_OK) {
                             this.$notify.success({
@@ -195,7 +198,4 @@ export default {
 </script>
 
 <style scoped src="@/../public/css/login-signup-style.css">
-
-/* 需要背景模糊效果 */
-
 </style>

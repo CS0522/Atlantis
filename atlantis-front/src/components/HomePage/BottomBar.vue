@@ -1,5 +1,6 @@
 <template>
     <div id="bottom-bar">
+        <!-- 点击后跳转到锚点-->
         <div class="bottom-nav">
             <table class="bottom-nav-table">
                 <tr>
@@ -13,7 +14,6 @@
                 </tr>
             </table>
         </div>
-        <!-- 点击后同一个页面跳转到相应位置 -->
         <div class="bottom-nav">
             <table class="bottom-nav-table">
                 <tr>
@@ -112,8 +112,6 @@ export default {
     {
         toTop() {
             // console.log("to top");
-            // 定位滚动条
-            // window.scrollTo(window.pageXOffset, 520);
             // 定位到某个元素
             document.getElementById("nav-box-anchor").scrollIntoView();
         }

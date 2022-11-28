@@ -1,15 +1,13 @@
 <template>
     <div>
         <div id="title-box">
-            <!-- 根据动态路由传递参数判断title并渲染 -->
+            <!-- 根据动态路由传递参数判断 title -->
             <div v-show="type === 'admin'">管理员账号管理</div>
             <div v-show="type === 'user'">用户账号管理</div>
         </div>
         <hr class="hr" />
         <div id="content-box">
-            <!-- 修改 -->
             <div>
-                <!-- 管理申请不用添加和搜索 -->
                 <div class="add-and-search-box">
                     <div class="add-button-box">
                         <button class="add-button"
@@ -30,7 +28,7 @@
                     </div>
                 </div>
                 <div>
-                    <!-- pagination -->
+                    <!-- 分页 -->
                     <el-pagination style="zoom: 220%; margin-bottom: 20px"
                                 @size-change="handleSizeChange" 
                                 @current-change="handleCurrentChange" 
@@ -39,10 +37,11 @@
                                 layout="prev, pager, next, jumper" 
                                 :total="totalNumber">
                     </el-pagination>
+                    <!-- 内容列表 -->
                     <ul v-for="item in items" :key="item.id" style="list-style-type: none">
                         <div class="item-box">
                             <li>
-                                <!-- 修改 -->
+                                <!-- 成员id、成员用户名、操作 -->
                                 <div class="item-id">{{ item.id }}</div>
                                 <div class="item-detail">
                                     <div class="item-detail-username">
@@ -54,8 +53,10 @@
                                             class="item-detail-operation-button" 
                                             style="background-color: #8beeff"
                                             @click="doOperation('updateinfo', type, item.id)">更新</button>
-                                            <!-- 点击按钮，执行doOperaion函数 -->
-                                            <!-- 第一个发送类型，第二个发送type，第三个发送查询的id，以下同理-->
+                                            <!-- 点击按钮，执行doOperaion(operation, contentType, objId) -->
+                                            <!-- operation: 操作类型 -->
+                                            <!-- contentType: 账号类型 -->
+                                            <!-- objId: 账号id -->
                                         <button 
                                             class="item-detail-operation-button" 
                                             style="background-color: #f64530"
@@ -66,6 +67,7 @@
                                             @click="doOperation('updatepwd', type, item.id)">修改密码</button>
                                     </div>
 
+                                    <!-- 修改用户状态 -->
                                     <!-- 最后一个管理员账户不能禁用 -->
                                     <div class="item-detail-status">
                                         <el-switch 
@@ -98,17 +100,20 @@ import message from "@/utils/message";
 
 export default {
     name: "dashaccount",
-    // 刷新路由操作，注入reload依赖
+    // 从父页面注入 reload 依赖
     inject: ['reload'],
     data() {
         return {
+            // 请求时字符串拼接
             typeStr: '',
+            // 账户信息
             accountInfo: '',
 
-            // 后端传入数据，根据路由的不同
+            // 根据路由的不同，后端传入响应数据
             items: [],
+            allItems: [],
 
-            // search
+            // for search
             searchInput: '',
             isSearching: false,
 
@@ -124,9 +129,9 @@ export default {
     created() {
         this.load()
     },
-    // 查询实时显示，watch监听
+
     watch: {
-        // 含输入的记得掐空格！！！
+        // 含输入的记得掐空格
         searchInput(val) {
             this.currentPage = 1;
 
@@ -165,33 +170,41 @@ export default {
 
     methods:
     {
-        load() {
-            // 清除搜索
+        clearSearch() {
             this.searchInput = '';
             this.isSearching = false;
+        },
+
+        load() {
+            // 清除搜索
+            this.clearSearch();
             // 获取当前登录账号信息
             this.accountInfo = this.$storage.get('accountInfo');
-
             // 拼接字符串，减少代码重复
+            this.setTypeStr();
+            // 分页查询 getAll
+            this.setItems();
+            // 不分页查询所有
+            this.setAllItems();
+        },
+        // 拼接字符串，减少代码重复
+        setTypeStr()
+        {
             if (this.type === 'admin') {
                 this.typeStr = 'admins';
             }
             else if (this.type === 'user') {
                 this.typeStr = 'users';
             }
-
-            if (this.typeStr === '')
-            {
-                return;
-            }
-            // getAll请求，获取所有
-            // 分页查询
+        },
+        // 分页查询 getAll
+        setItems()
+        {
             request.get("/" + this.typeStr + "/" + this.currentPage + "/" + this.pageSize).then(res => {
                 if (res.code === code.GET_OK) {
                     this.items = res.data.list;
                     this.totalNumber = res.data.total;
-
-                    console.log("total number: " + this.totalNumber);
+                    // console.log("total number: " + this.totalNumber);
                 }
             }).catch(err => {
                 console.log(err)
@@ -201,12 +214,27 @@ export default {
                 });
             })
         },
+        // 不分页查询 getAll
+        setAllItems() {
+            request.get("/" + this.typeStr).then(res => {
+                if (res.code === code.GET_OK)
+                {
+                    this.allItems = res.data;
+                    console.log("all items: " + this.allItems);
+                }
+            }).catch(err => {
+                this.$notify.error({
+                    title: message.REQUEST_ERR,
+                    offset: code.OFFSET
+                })
+            })
+        },
 
         /**
          * 执行操作
          * @param {*} operation: 操作类型
-         * @param {*} contentType: 角色是admin还是user还是...
-         * @param {*} objId: 目标id
+         * @param {*} contentType: 账号类型
+         * @param {*} objId: 账号id
          */
         doOperation(operation, contentType, objId) {
             // 修改vuex中的state数据
@@ -219,16 +247,18 @@ export default {
         
         // 修改启用禁用状态
         changeStatus(obj, type) {
-            // 更新
+            // 修改前先查询全部
+            this.setAllItems();
             // 拼接字符串，减少代码重复
             if (type === 'admin')
             {
                 let canChange = false;
-                // 管理员账户关闭前检查是否还有其他启用账户，若无，不能禁用
-                for (let i = 0; i < this.items.length; i ++)
+                // 管理员账号关闭前检查是否还有其他启用账号，若无，不能禁用
+                // 这里得是所有账号，而不是分页账号
+                for (let i = 0; i < this.allItems.length; i ++)
                 {
                     // 存在账户为启用且不是正在修改状态的自己
-                    if ((this.items[i].status === 1) && (this.items[i].id !== obj.id))
+                    if ((this.allItems[i].status === 1) && (this.allItems[i].id !== obj.id))
                     {
                         // 可以修改，退出循环
                         canChange = true;
@@ -237,9 +267,9 @@ export default {
                 }
                 // 否则，不能修改
                 // 修改回启用状态
-                // 直接利用刷新
+                // 刷新
                 if (canChange === false) {
-                    this.$emit('reload');
+                    this.reload();
 
                     this.$notify.error({
                         title: '无法禁用最后一个启用账号',
@@ -249,6 +279,7 @@ export default {
                 }
             }
             // 可以修改
+            // 更新
             request.put("/" + this.typeStr, obj).then(res => {
                     if (res.code === code.UPDATE_OK)
                     {
@@ -263,15 +294,16 @@ export default {
                         offset: code.OFFSET
                     });
                 }) 
+                // 修改后再更新全部
+                this.setAllItems();
         },
 
         // pagination
         // 页面条数修改时（没有设置这个功能）
         handleSizeChange(val) {
-            console.log(`每页 ${val} 条`);
+            // console.log(`每页 ${val} 条`);
         },
         async handleCurrentChange(val) {
-            console.log("val: " + val);
             let res;
             if (!this.isSearching)
             {
@@ -285,7 +317,7 @@ export default {
             if (res.code === code.GET_OK) {
                 this.items = res.data.list;
                 this.totalNumber = res.data.total;
-                console.log("total number: " + this.totalNumber);
+                // console.log("total number: " + this.totalNumber);
             }
             else 
             {
@@ -305,6 +337,7 @@ export default {
                 this.load();
                 return;
             }
+            // 搜索状态
             this.isSearching = true;
             request.get("/" + this.typeStr + "/" + this.searchInput.trim() + 
                         "/" + this.currentPage + "/" + this.pageSize).then(res => {
@@ -339,24 +372,4 @@ export default {
 </script>
 
 <style scoped src="@/../public/css/dashaccount-style.css">
-
-</style>
-
-<style>
-/* 定义在App.vue中 */
-/* .el-pager li
-{
-    background: none !important;
-}
-
-.el-pagination .btn-next, .el-pagination .btn-prev
-{
-    background: none !important;
-}
-
-.el-pagination button:disabled
-{
-    background: none !important;
-} */
-
 </style>

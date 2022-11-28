@@ -2,18 +2,14 @@
     <div>
         <hr class="hr" />
         <div id="content-box">
-            <!-- 需要提交 -->
-            <!-- 当选择的是用户资料界面 -->
                 <div id="operation-box">
                     <table class="table-operation" cellpadding=10px cellspacing=15px>
                         <tr align="center">
                             <td>
-                                <!-- 改成button -->
                                 <button class="operation" style="background-color: #8beeff"
                                 @click="doUpdateInfo()">更新</button>
                             </td>
                             <td>
-                                <!-- 改成button -->
                                 <button class="operation"
                                 @click="reset()">重置</button>
                             </td>
@@ -135,6 +131,7 @@ import message from '@/utils/message';
 import code from '@/utils/code';
 import moment from 'moment';
 import { checkIsValid } from '@/utils/checkvalid';
+import { hex_md5 } from '@/utils/createmd5';
 
 export default {
     name: "dashcontent",
@@ -156,6 +153,16 @@ export default {
         load() {
             // console.log("loading...")
             // console.log(this.id);
+            this.setUserData();
+            // 每次加载密码清零
+            this.clearPwd();
+        },
+        clearPwd() {
+            this.oldPwd = '';
+            this.newPwd = '';
+            this.confirmPwd = '';
+        },
+        setUserData() {
             request.get('/users/' + this.id).then(res => {
                 if (res.code === code.GET_OK)
                 {
@@ -174,9 +181,8 @@ export default {
                     offset: code.OFFSET
                 })
             })
-            // 每次加载都要让密码清零
-            this.clearPwd();
         },
+
         // 进行更新info操作
         doUpdateInfo() {
             // 昵称不能为空
@@ -198,7 +204,7 @@ export default {
             // 去除昵称中的所有空格！！！
             this.userData.nickname.replace(/\s/g,"");
 
-            request.put('/users/info', JSON.stringify(this.userData)).then(res => {
+            request.put('/users/info', this.userData).then(res => {
                 if (res.code === code.UPDATE_OK) {
                     this.load();
                     this.$notify.success({
@@ -224,7 +230,7 @@ export default {
         // 进行更新pwd操作
         doUpdatePwd() {
             // 检查密码正确性
-            if (this.oldPwd !== this.userData.password)
+            if (hex_md5(this.oldPwd) !== this.userData.password)
             {
                 this.$notify.error({
                     title: '原密码错误',
@@ -250,7 +256,7 @@ export default {
                 this.clearPwd();
             }
             // 成功
-            else if (this.oldPwd === this.userData.password && this.newPwd === this.confirmPwd)
+            else if (hex_md5(this.oldPwd) === this.userData.password && this.newPwd === this.confirmPwd)
             {
                 if (!checkIsValid([this.newPwd]))
                 {
@@ -265,7 +271,10 @@ export default {
                 }
 
                 this.userData.password = this.newPwd;
-                request.put('/users/password', JSON.stringify(this.userData)).then(res => {
+                // md5加密
+                this.userData.password = hex_md5(this.userData.password);
+
+                request.put('/users/password', this.userData).then(res => {
                     if (res.code === code.UPDATE_OK) {
                         this.load();
                         this.$notify.success({
@@ -296,12 +305,8 @@ export default {
                 offset: code.OFFSET
             })
         },
-        clearPwd() {
-            this.oldPwd = '';
-            this.newPwd = '';
-            this.confirmPwd = '';
-        },
     },
+
     created ()
     {
         this.load();

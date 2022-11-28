@@ -19,7 +19,7 @@
                 <img class="title-img" src="@/../public/imgs/introductions/What.png"/>
             </div>
             <div class="paragraph-box">
-                Touge Shakai(山道赛车社会)，简称 TougeS，是一款基于90年代的日本山道赛车文化的线上游戏。游戏强调现实和有趣的游戏玩法之间的平衡，物理是为竞技漂移赛车量身定制的，同时给所有玩家带来挑战。游戏建立在同作者制作的同人作品 Initial Unity 之上。
+                Touge Shakai (山道赛车社会)，是一款基于90年代的日本山道赛车文化的线上游戏。游戏强调现实和有趣的游戏玩法之间的平衡，物理是为竞技漂移赛车量身定制的，同时给所有玩家带来挑战。游戏建立在同作者制作的同人作品 Initial Unity 之上。
             </div>
             <div class="img-box">
                 <img class="paragraph-img" src="@/../public/imgs/introductions/01.png"/>
@@ -81,7 +81,7 @@
             </div>
             <div class="paragraph-box">
                 感谢: <br/>
-                领导开发者: @AugGust (Singapore)<br/>
+                领导开发者: @AugGust (Singapore) <br/>
                 共同开发者: @Auranapse (Singapore)
             </div>
         </div>

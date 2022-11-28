@@ -12,10 +12,6 @@
 </template>
 
 <script>
-import request from '@/utils/request';
-import message from '@/utils/message';
-import code from '@/utils/code';
-
 export default {
     props: ['type'],
     name: "tutorialcontent",
@@ -34,7 +30,7 @@ export default {
             this.setTitle();
         },
         setTitle() {
-            // 遍历数组中的对象，如果 type === route，则是对应的
+            // 遍历数组中的对象，如果 type === route，则是对应的页面
             for (let i = 0; i < this.categoryItems.length; i++)
             {
                 if (this.categoryItems[i].route === this.type)

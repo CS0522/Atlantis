@@ -15,7 +15,7 @@ Vue.use(VueRouter)
 
 const routes =
     [
-        // log in and sign up router
+        // login router
         {
             path: "/login/:type",
             component: () => import('@/components/Login/Login.vue'),
@@ -24,9 +24,10 @@ const routes =
             },
             props: true
         },
+        // signup router
         {
             path: "/signup",
-            component: () => import('@/components/Login/Login.vue'),
+            component: () => import('@/components/Signup/Signup.vue'),
             meta: {
                 keepAlive: true // 需要缓存
             },
@@ -40,6 +41,7 @@ const routes =
             //     keepAlive: true // 需要缓存
             // },
         },
+        // subpage router
         {
             path: "/page",
             redirect: "/page/introduction",

@@ -181,8 +181,8 @@ export default {
             if (res.code === code.GET_OK) {
                 this.items = res.data.list;
                 this.totalNumber = res.data.total;
-                console.log("currentpage after: " + this.currentPage);
-                console.log("total number: " + this.totalNumber);
+                // console.log("currentpage after: " + this.currentPage);
+                // console.log("total number: " + this.totalNumber);
             }
             else
             {

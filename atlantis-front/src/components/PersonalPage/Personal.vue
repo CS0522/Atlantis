@@ -1,7 +1,6 @@
 <template>
     <div>
-        <TopBar v-if="!topBarReload"
-                @reload="doTopBarReload()"></TopBar>
+        <TopBar v-if="!topBarReload"></TopBar>
 
         <BaseDialog
             v-if="isShowBase"
@@ -16,6 +15,7 @@
                 <div>{{ dialogContent }}</div>
             </template>
         </BaseDialog>
+
         <div id="personal">
             <div id="personal-nav-box">
                 <div id="personal-title">
@@ -40,8 +40,6 @@
                 <div id="title-box">
                     <!-- 后台传递的用户的头像 -->
                     <div id="img-box">
-                        <!-- <img :src="photo" height="300px" />
-                                            实现点击就更换用户头像，直接弹出 “选择文件” 对话框 -->
                         <el-upload 
                             class = "avatar-uploader" 
                             :action = "actionUrl"
@@ -63,12 +61,10 @@
                             class="table-operation" cellpadding=10px cellspacing=15px>
                             <tr align="center">
                                 <td>
-                                    <!-- 改成button -->
                                     <button class="operation" style="background-color: #8beeff"
                                     @click="doApplyAdmin()">管理员申请</button>
                                 </td>
                                 <td>
-                                    <!-- 改成button -->
                                     <button class="operation"
                                     @click="doDeleteApply()">撤销申请</button>
                                 </td>
@@ -78,7 +74,6 @@
                             class="table-operation" cellpadding=10px cellspacing=15px>
                             <tr align="center">
                                 <td>
-                                    <!-- 改成button -->
                                     <button class="operation"
                                             style="background-color: #8beeff">你已经是管理员</button>
                                 </td>
@@ -120,7 +115,7 @@ export default {
             dialogContent: '',
             operationType: '',
 
-            // 用户头像。需要通过userId获取图像
+            // 需要通过userId获取图像
             imgBaseUrl: this.$store.state.userImgBaseUrl,
             userId: '',
             actionUrl: '',
@@ -142,7 +137,7 @@ export default {
                 this.topBarReload = false;
             })
         },
-        async load()
+        load()
         {
             this.title = this.$storage.get("accountInfo").username;
             // console.log(this.title);
@@ -151,6 +146,11 @@ export default {
             this.actionUrl = this.imgBaseUrl + 'upload/' + this.userId;
 
             // if userphoto exists, get it
+            this.getUserPhoto();
+            // if is admin
+            this.checkIsAdmin();
+        },
+        getUserPhoto() {
             request.get("/users/download/" + this.userId).then(res => {
                 // 没有userphoto
                 if (res.code === code.DOWNLOAD_ERR)
@@ -162,8 +162,9 @@ export default {
                     this.imageUrl = this.imgBaseUrl + "download/" + this.userId;
                 }
             })
-
-            // if is admin
+        },
+        // 需要同步加载
+        async checkIsAdmin() {
             let res = await request.get("/useradmin/" + this.userId);
             if (res.code === code.GET_OK)
             {
@@ -174,6 +175,7 @@ export default {
                 this.isAdmin = false;
             }
         },
+
         // 管理员申请
         async doApplyAdmin() {
             // 先检查是否申请过
@@ -186,6 +188,8 @@ export default {
                     })
                     return;
             }
+            // TODO 再检查是否满足申请要求
+
             // 设置内容
             this.dialogTitle = '管理员申请';
             this.dialogContent = '加入管理员后，账号不消失，可以不同身份登录。确认申请？';
@@ -194,7 +198,7 @@ export default {
             this.isShowBase = true;
         },
 
-        // 加入车队
+        // 撤销申请
         async doDeleteApply() {
             let res = await request.get("/applies/" + this.userId);
             if (res.code === code.GET_ERR)
@@ -220,17 +224,18 @@ export default {
             this.isShowBase = false;
         },
         // 点击确定按钮
+        // type值是操作的类型
         confirm(type) {
             this.closeDialog();
             // 确定后采取操作
-            console.log("type: " + type)
+            // console.log("type: " + type)
             if (type === 'add')
             {
                 let apply = {
                     id: this.$storage.get("accountInfo").id,
                     username: this.$storage.get("accountInfo").username
                 }
-                request.post("/applies", JSON.stringify(apply)).then(res => {
+                request.post("/applies", apply).then(res => {
                     if (res.code === code.INSERT_OK)
                     {
                         this.$notify.success({

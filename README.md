@@ -1,10 +1,10 @@
 <!-- Created by Frank (Chen Shi) -->
 <!-- Started on October 20 -->
 
-#  `Atlantis` 门户网站
+#  `Atlantis Racer JMVT` 门户网站
 
 ### 简介
-* `Atlantis Racer` 网站是由业余游戏爱好者组建的 `Atlantis` 车队的门户网站。该网站项目由 `Frank (Chen Shi)`, `Izumi` 等成员建设，采用 `Vue` + `SpringBoot` 前后端分离技术，90% 的功能或组件自主实现，其他功能采用了第三方的方案，引用了 `Element-UI`, `github-markdown-css`, `mavon-editor`, `vuex` 等。由于建设者是大学生，第一次接触 `Vue` 和 `SpringBoot` 等技术，边学习、边练习、边实践，因此项目中代码有很多地方冗余、复杂或有更为简单的方案实现，仍能够继续优化；再者由于时间关系，初始版本中，部分功能并没有开发，将会在后续版本中进行开发和优化。网站达到要求后可能会部署上线。
+* `Atlantis Racer JMVT` 网站是由业余游戏爱好者组建的 `Atlantis Racer JMVT` 车队的门户网站。该网站项目由 `Frank (Chen Shi)`, `Izumi` 等成员建设，采用 `Vue` + `SpringBoot` 前后端分离技术，90% 的功能或组件自主实现，其他功能采用了第三方的方案，引用了 `Element-UI`, `github-markdown-css`, `mavon-editor`, `vuex` 等。由于建设者是大学生，第一次接触 `Vue` 和 `SpringBoot` 等技术，边学习、边练习、边实践，因此项目中代码有很多地方冗余、复杂或有更为简单的方案实现，仍能够继续优化；再者由于时间关系，初始版本中，部分功能并没有开发，将会在后续版本中进行开发和优化。网站达到要求后可能会部署上线。
 
 ### 功能
 * 页面板块  
@@ -18,6 +18,7 @@
 
 * 用户板块
     * 用户账号登录、注册、登出
+    * MD5加密处理
     * 记住我功能
     * 图形注册码获取、验证
     * 获取天气和问候
@@ -29,6 +30,7 @@
 
 * 管理板块
     * 管理员账号登录、登出
+    * MD5加密处理
     * 获取天气和问候
     * 进入时提示是否未处理消息
     * 对话框操作

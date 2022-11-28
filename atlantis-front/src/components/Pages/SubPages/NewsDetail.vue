@@ -29,7 +29,9 @@ export default {
     },
     data() {
         return {
+            // markdown要解析的数据
             item: {},
+            
             id: '',
         }
     },
@@ -40,6 +42,13 @@ export default {
             this.getId();
 
             // 后台获取数据
+            this.setItem();
+        },
+        getId() {
+            const id = this.$route.query.id;
+            this.id = id;
+        },
+        setItem() {
             request.get("/newsArticles/" + this.id).then(res => {
                 if (res.code === code.GET_OK)
                 {
@@ -54,11 +63,8 @@ export default {
                 })
             })
         },
-        getId() {
-            const id = this.$route.query.id;
-            this.id = id;
-        }
     },
+    
     created() {
         this.load();
     },

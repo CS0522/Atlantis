@@ -17,7 +17,7 @@
                                         v-model="item.username"/>
                             </td>
                         </tr>
-                        <!-- 根据type判断是否显示 -->
+                        <!-- 根据type判断是否显示部分内容 -->
                         <tr align="right" v-if="type === 'user'">
                             <td>昵称：</td>
                             <td>
@@ -34,7 +34,6 @@
                             </textarea>
                             </td>
                         </tr>
-                        <!-- 根据type判断是否显示 -->
                         <tr align="right" v-if="type === 'user'">
                             <td>性别：</td>
                             <td>
@@ -47,8 +46,6 @@
                                 </select>
                             </td>
                         </tr>
-                        <!-- 根据type判断是否显示 -->
-                        <!-- 修改：时间格式显示问题 -->
                         <tr align="right" v-if="type === 'user'">
                             <td>生日：</td>
                             <td>
@@ -72,13 +69,13 @@
                     </table>
                 </form>
             </div>
-            <!-- 当title为删除时，显示此内容 -->
+            <!-- 当title为删除时 -->
             <div v-show="title === '删除'">
                 <div style="height: 300px; line-height: 300px; font-size: 40px; color: red;">
                     确定要执行删除操作么？
                 </div>
             </div>
-            <!-- 当title为修改密码时，显示此内容 -->
+            <!-- 当title为修改密码时 -->
             <div v-show="title === '修改密码'">         
                 <form class="update-form" :model="form">
                     <table class="table" cellpadding="10px" cellspacing="15px">
@@ -110,7 +107,6 @@
                                         v-model="form.username"/>
                             </td>
                         </tr>
-                        <!-- 根据type判断是否显示 -->
                         <tr align="right" v-if="type === 'user'">
                             <td>昵称：</td>
                             <td>
@@ -125,7 +121,6 @@
                                        v-model="form.password"/>
                             </td>
                         </tr>
-                        <!-- 根据type判断是否显示 -->
                         <tr align="right" v-if="type === 'user'">
                             <td>性别：</td>
                             <td>
@@ -147,12 +142,10 @@
             <table class="table-operation" cellpadding=10px cellspacing=15px>
                 <tr align="center">
                     <td>
-                        <!-- 改成button -->
                         <button class="operation" @click="clickConfirm()" 
                                 style="background-color: #8beeff">确定</button>
                     </td>
                     <td>
-                        <!-- 改成button -->
                         <button class="operation" @click="cancel()">取消</button>
                     </td>
                 </tr>
@@ -167,6 +160,7 @@ import code from '@/utils/code';
 import message from '@/utils/message';
 import moment from 'moment'
 import { checkIsValid } from '@/utils/checkvalid';
+import { hex_md5 } from '@/utils/createmd5';
 
 export default {
     name: "accountdialog",
@@ -299,7 +293,7 @@ export default {
         load() {
             // 先设置typeStr
             this.setTypeStr();
-            console.log(this.typeStr);
+            // console.log(this.typeStr);
             // 设置标题
             this.setTitle();
             // 设置item
@@ -329,11 +323,8 @@ export default {
                 this.form.nickname = this.form.nickname.trim();
             }
             // is valid
-            // // 去除昵称中的所有空格！！！
-            // if (this.type === 'user')
-            // {
-            //     this.form.nickname.replace(/\s/g,"");
-            // }
+            // md5加密
+            this.form.password = hex_md5(this.form.password);
             request.post('/' + this.typeStr, this.form).then(res => {
                     if (res.code === code.INSERT_OK) {
                         this.$notify.success({
@@ -384,11 +375,11 @@ export default {
             // is invalid
             if (!checkIsValid([this.item.username]))
             {
-                // 将input还原
+                // 将内容还原
                 this.load();
                 return;
             }
-            // 如果是user，昵称不能为空，生日在今天之前
+            // 如果是user，昵称不能为空，且生日在今天之前
             if (this.type === 'user')
             {
                 if (this.item.nickname.trim() === '')
@@ -405,12 +396,7 @@ export default {
                 this.item.nickname = this.item.nickname.trim();
             }
             // is valid
-            // if (this.type === 'user')
-            // {
-            //     this.form.nickname.replace(/\s/g,"");
-            // }
-            // 发送的js对象要进行JSON格式化
-            request.put('/' + this.typeStr + '/info', JSON.stringify(this.item)).then(res => {
+            request.put('/' + this.typeStr + '/info', this.item).then(res => {
                     if (res.code === code.UPDATE_OK)
                     {
                         this.$notify.success({
@@ -435,8 +421,6 @@ export default {
 
         },
 
-        // 简单测试，之后需要进行修改
-        // 加密、解密
         // 管理员修改密码无需比较原密码
         doUpdatePwd() {
             // 输入正确
@@ -444,6 +428,7 @@ export default {
             // is invalid
             if (!checkIsValid([this.newPwd, this.confirmPwd]))
                 {
+                    // 清空
                     this.newPwd = '';
                     this.confirmPwd = '';
                     return;
@@ -452,8 +437,10 @@ export default {
             if (this.newPwd === this.confirmPwd) {
                 // item设置新密码
                 this.item.password = this.newPwd;
+                // md5加密
+                this.item.password = hex_md5(this.item.password);
                 // 发送新数据
-                request.put('/' +this.typeStr + '/password', JSON.stringify(this.item)).then(res => {
+                request.put('/' +this.typeStr + '/password', this.item).then(res => {
                     if (res.code === code.UPDATE_OK) {
                         this.$notify.success({
                             title: message.UPDATE_OK,

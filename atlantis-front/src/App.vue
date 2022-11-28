@@ -56,10 +56,4 @@ export default {
 
 @import url("@/../public/css/global-style.css");
 
-/* 嵌入全局字体 */
-
-/* 选定的链接 */
-/* a:active {
-  color: #F0F;
-} */
 </style>

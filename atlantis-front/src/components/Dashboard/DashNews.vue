@@ -3,7 +3,7 @@
         <div id="title-box">
             <div>资讯管理</div>
         </div>
-        <hr class="hr" />
+        <hr class="hr"/>
         <div id="content-box">
             <div>
                 <div class="add-and-search-box">
@@ -33,14 +33,14 @@
                             <option value="/1">游戏新闻</option>
                             <option value="/2">游戏公告</option>
                         </select>
-                        
+                        <!-- 选择排序方式 -->
                         <select name="selectType" class="selectType" v-model="order">
                             <option value="id asc" selected>按id递增顺序</option>
                             <option value="create_date desc">从新到旧顺序</option>
                         </select>
                     </div>
 
-                    <!-- pagination -->
+                    <!-- 分页 -->
                     <el-pagination style="zoom: 220%; margin-bottom: 20px"
                                 @size-change="handleSizeChange" 
                                 @current-change="handleCurrentChange" 
@@ -53,7 +53,7 @@
                     <ul v-for="item in items" :key="item.id" style="list-style-type: none">
                         <div class="item-box">
                             <li>
-                                <!-- 修改 -->
+                                <!-- 显示文章id、标题、操作 -->
                                 <div class="item-id">{{ item.id }}</div>
                                 <div class="item-detail">
                                     <div class="item-detail-title">
@@ -65,6 +65,8 @@
                                             class="item-detail-operation-button" 
                                             style="background-color: #8beeff"
                                             @click="doOperation('edit', item.id)">编辑</button>
+                                            <!-- operation: 操作类型 -->
+                                            <!-- objId: 文章id -->
                                         <button 
                                             class="item-detail-operation-button" 
                                             style="background-color: #f64530"
@@ -105,14 +107,14 @@ export default {
 
             items: [],
 
+            // 发送请求时的拼接字符串
             typeIndex: "",
+            // 排序方式
             order: "id asc",
         }
     },
     methods: {
         load() {
-            // this.typeIndex = "";
-
             this.setItem();
             this.clearSearch();
         },
@@ -196,10 +198,10 @@ export default {
         // pagination
         // 页面条数修改时（没有设置这个功能）
         handleSizeChange(val) {
-            console.log(`每页 ${val} 条`);
+            // console.log(`每页 ${val} 条`);
         },
         async handleCurrentChange(val) {
-            console.log("val: " + val);
+            // console.log("val: " + val);
             let res;
             if (!this.isSearching)
             {
@@ -214,7 +216,7 @@ export default {
             if (res.code === code.GET_OK) {
                 this.items = res.data.list;
                 this.totalNumber = res.data.total;
-                console.log("total number: " + this.totalNumber);
+                // console.log("total number: " + this.totalNumber);
             }
             else 
             {
@@ -226,11 +228,11 @@ export default {
             // console.log(`当前页: ${val}`);
         },
     },
+
     created() {
         this.load();
     },
 
-    // 监控select选择的变化
     watch: {
         typeIndex(val) {
             request.get("/newsArticles" + val + 
@@ -264,7 +266,7 @@ export default {
                     })
         },
 
-        // 含输入的记得掐空格！！！
+        // 含输入的记得掐空格
         searchInput(val) {
             this.currentPage = 1;
 
@@ -279,6 +281,7 @@ export default {
             // 使选择标签不可选
             document.getElementsByClassName("selectType")[0].setAttribute("disabled", "disabled");
             document.getElementsByClassName("selectType")[1].setAttribute("disabled", "disabled");
+            // 正在搜索状态
             this.isSearching = true;
             // 延迟 0.2s 进行实时显示
             setTimeout(() => {
@@ -298,6 +301,7 @@ export default {
                             // })
                         }
                     }).catch(err => {
+                        console.log(err);
                         // this.$notify.error({
                         //     title: message.REQUEST_ERR,
                         //     offset: code.OFFSET

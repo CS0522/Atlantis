@@ -26,8 +26,6 @@
                             </textarea>
                             </td>
                         </tr>
-                        <!-- 根据type判断是否显示 -->
-                        <!-- 修改：时间格式显示问题 -->
                         <tr align="right">
                             <td>加入时间：</td>
                             <td>
@@ -44,8 +42,6 @@
                         <tr align="right">
                             <td>队内职位：</td>
                             <td>
-                                <!-- <input type="text" name="position" class="form-input" 
-                                        v-model="item.position" @focus="clearHint()"/> -->
                                 <select class="form-input" @focus="clearHint()"
                                     name="position" v-model="item.position">
                                     <option value="队长">队长</option>
@@ -59,7 +55,7 @@
                     </table>
                 </form>
             </div>
-            <!-- 当title为删除时，显示此内容 -->
+            <!-- 当title为删除-->
             <div v-show="title === '删除'">
                 <div style="height: 300px; line-height: 300px; font-size: 40px; color: red;">
                     确定要执行删除操作么？
@@ -98,12 +94,10 @@
             <table class="table-operation" cellpadding=10px cellspacing=15px>
                 <tr align="center">
                     <td>
-                        <!-- 改成button -->
                         <button class="operation" @click="clickConfirm()" 
                                 style="background-color: #8beeff">确定</button>
                     </td>
                     <td>
-                        <!-- 改成button -->
                         <button class="operation" @click="cancel()">取消</button>
                     </td>
                 </tr>
@@ -127,19 +121,20 @@ export default {
 
             // 错误消息
             errorMessage: '',
-
             // 向后端提交表单，用于添加账号时
             form: {},
-
+            // 标题
             title: '',
             // 用于更新操作
             item: {},
         }
     },
+
     created()
     {
         this.load();
     },
+
     methods: {
         cancel() {
             this.$emit('close');
@@ -221,6 +216,7 @@ export default {
                             title: message.INSERT_OK,
                             offset: code.OFFSET
                         })
+                        // 只有发送成功后才会emit并关闭对话框
                         this.$emit('confirm');
                     }
                     else {
@@ -267,9 +263,8 @@ export default {
                 this.errorMessage = '成员名不能为空';
                 return;
             }
-            // 发送的js对象要进行JSON格式化
             this.item.realname = this.item.realname.trim();
-            request.put('/members', JSON.stringify(this.item)).then(res => {
+            request.put('/members', this.item).then(res => {
                     if (res.code === code.UPDATE_OK)
                     {
                         this.$notify.success({
@@ -292,7 +287,6 @@ export default {
                     })
                 })
         },
-
     },
 }
 </script>

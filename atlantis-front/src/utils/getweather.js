@@ -1,3 +1,5 @@
+// 获取天气的 js 脚本
+
 import axios from 'axios'
 
 const key_getWeather = 'fcfbdfc3bdbcd13bde6ff8372f635f4e';

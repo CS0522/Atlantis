@@ -6,13 +6,13 @@
         <hr class="hr" />
         <div id="content-box">
             <span style="color: red">{{ errorMessage }}</span>
-            
+            <!-- title为删除时 -->
             <div v-show="title==='删除'">
                 <div style="height: 300px; line-height: 300px; font-size: 40px; color: red;">
                     确定要执行删除操作么？
                 </div>
             </div>
-
+            <!-- title为添加分类时 -->
             <div v-show="title==='添加分类'">
                 <form class="add-form" :model="form">
                     <table class="table" cellpadding=10px cellspacing=15px>
@@ -33,6 +33,7 @@
                     </table>
                 </form>
             </div>
+            <!-- title为删除分类时 -->
             <div v-show="title==='删除分类'">
                 <form class="add-form">
                     <table class="table" cellpadding=10px cellspacing=15px>
@@ -59,12 +60,10 @@
             <table class="table-operation" cellpadding=10px cellspacing=15px>
                 <tr align="center">
                     <td>
-                        <!-- 改成button -->
                         <button class="operation" @click="clickConfirm()" 
                                 style="background-color: #8beeff">确定</button>
                     </td>
                     <td>
-                        <!-- 改成button -->
                         <button class="operation" @click="cancel()">取消</button>
                     </td>
                 </tr>
@@ -108,8 +107,15 @@ export default {
     methods: {
         load() {
             this.clearHint();
+
             this.categoryItems = this.$storage.get('tutorialCategoryItems');
 
+            this.setTitle();            
+        },
+        clearHint() {
+            this.errorMessage = '路径建议为类名的英文小写';
+        },
+        setTitle() {
             if (this.operation === 'delete')
             {
                 this.title = "删除";
@@ -122,9 +128,6 @@ export default {
             {
                 this.title = "删除分类";
             }
-        },
-        clearHint() {
-            this.errorMessage = '路径建议为类名的英文小写';
         },
 
         cancel() {
@@ -170,7 +173,7 @@ export default {
         },
 
         doAddType() {
-            // 加入之前先进行表单检验，即route必须为英文
+            // 加入之前先进行表单检验，route必须为英文
             if (this.form.route === '')
             {
                 this.errorMessage = '输入不可为空';
@@ -207,6 +210,7 @@ export default {
         },
 
         doDeleteType() {
+            // 如果要删除的id不合法
             if (this.deleteIndex <= 0)
             {
                 this.$notify.error({

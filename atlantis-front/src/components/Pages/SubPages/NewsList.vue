@@ -2,7 +2,7 @@
     <div>
         <div id="content-box">
             <div class="search-box">
-                <!-- 纯粹对齐用 -->
+                <!-- 单纯对齐用 -->
                 <div class="add-button-box">
                     <button style="cursor:auto; opacity: 0"></button>
                 </div>
@@ -19,7 +19,7 @@
                         src="@/../public/imgs/icons/refresh.png" height=70px @click="load()" />
                 </div>
             </div>
-            <!-- pagination -->
+            <!-- 分页 -->
             <el-pagination style="zoom: 220%; margin-bottom: 20px"
                             @size-change="handleSizeChange" 
                             @current-change="handleCurrentChange" 
@@ -32,7 +32,7 @@
                 <ul v-for="item in items" :key="item.id" style="list-style-type: none">
                     <div class="item-box">
                         <li>
-                            <!-- 修改 -->
+                            <!-- 显示标题、日期 -->
                             <div class="item-detail" @click="goToItemDetail(item.id)">
                                 <!-- <div class="item-detail-thumbnail">
                                 </div> -->
@@ -60,7 +60,6 @@ export default {
     name: "subcontent",
     data() {
         return {
-            // for pagination
             // 当前页
             currentPage: 1,
             // 每页条数
@@ -72,9 +71,10 @@ export default {
             searchInput: '',
             isSearching: false,
 
+            // 资讯的类别
             typeIndex: '',
 
-            // 后端传入数据，根据路由的不同
+            // 根据路由的不同，后端传入数据
             items: [],
         }
     },
@@ -159,7 +159,7 @@ export default {
 
         // 点击跳转到 id = objId 的新闻详情
         goToItemDetail(objId) {
-            // this.$router.push("/page/news/" + this.type + "/detail/" + objId);
+            // 带查询参数
             this.$router.push({
                 path: "/page/news/" + this.type + "/detail",
                 query: {
@@ -169,10 +169,10 @@ export default {
         },
 
         handleSizeChange(val) {
-            console.log(`每页 ${val} 条`);
+            // console.log(`每页 ${val} 条`);
         },
         async handleCurrentChange(val) {
-            console.log("val: " + val);
+            // console.log("val: " + val);
             let res;
             if (!this.isSearching)
             {
@@ -187,8 +187,8 @@ export default {
             if (res.code === code.GET_OK) {
                 this.items = res.data.list;
                 this.totalNumber = res.data.total;
-                console.log("currentpage after: " + this.currentPage);
-                console.log("total number: " + this.totalNumber);
+                // console.log("currentpage after: " + this.currentPage);
+                // console.log("total number: " + this.totalNumber);
             }
             else
             {
@@ -202,7 +202,7 @@ export default {
     },
 
     watch: {
-        // 含输入的记得掐空格！！！
+        // 含输入的记得掐空格
         searchInput(val) {
             this.currentPage = 1;
             

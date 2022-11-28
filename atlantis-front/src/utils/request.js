@@ -1,5 +1,6 @@
-import axios from 'axios'
+// 轻度封装 axios 请求
 
+import axios from 'axios'
 
 const request = axios.create({
     baseURL: 'http://localhost:8081',
@@ -10,15 +11,9 @@ const request = axios.create({
 
 // request 拦截器
 // 可以自请求发送前对请求做一些处理
-// 比如统一加token，对请求参数统一加密
 request.interceptors.request.use(config => {
     config.headers['Content-Type'] = 'application/json;charset=utf-8';
 
-    // const adminJson = Cookies.get('admin')
-    // if (adminJson) {
-    //     // 设置请求头
-    //     config.headers['token'] = JSON.parse(adminJson).token
-    // }
     return config
 }, error => {
     return Promise.reject(error)
@@ -29,20 +24,13 @@ request.interceptors.request.use(config => {
 request.interceptors.response.use(
     response => {
         let res = response.data;
-        // 兼容服务端返回的字符串数据
-        // if (typeof res === 'string') {
-        //     res = res ? JSON.parse(res) : res
-        // }
-        // if (res.code === '401') {
-        //     router.push('/login')
-        // }
+
         return res;
     },
     error => {
-        console.log('err' + error) // for debug
+        // console.log('err' + error)
         return Promise.reject(error)
     }
 )
-
 
 export default request
