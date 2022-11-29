@@ -1,6 +1,5 @@
 package com.atlantis.common;
 
-// TODO Define and update the OK and ERROR code
 public class Code {
     // CRUD code:
 

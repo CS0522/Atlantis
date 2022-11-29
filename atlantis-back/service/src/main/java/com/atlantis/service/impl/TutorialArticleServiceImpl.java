@@ -1,13 +1,18 @@
 package com.atlantis.service.impl;
 
+import com.atlantis.mapper.TutorialArticleMapper;
 import com.atlantis.pojo.TutorialArticle;
 import com.atlantis.service.TutorialArticleService;
 import com.atlantis.service.base.impl.ArticleBaseServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class TutorialArticleServiceImpl extends ArticleBaseServiceImpl<TutorialArticle>
         implements TutorialArticleService {
+    @Autowired
+    private TutorialArticleMapper tutorialArticleMapper;
+
     // 对insert进行重写，检查是否存在相同标题
     public boolean insert(TutorialArticle TutorialArticle)
     {
@@ -20,5 +25,11 @@ public class TutorialArticleServiceImpl extends ArticleBaseServiceImpl<TutorialA
         {
             return false;
         }
+    }
+
+    @Override
+    public boolean deleteByIndex(Integer index) {
+        // 可能不止一个
+        return (tutorialArticleMapper.deleteByIndex(index) != 0);
     }
 }

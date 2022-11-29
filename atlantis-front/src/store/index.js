@@ -18,10 +18,10 @@ const store = new Vuex.Store({
         tutorialCurrentCategory: {},
 
         // img base url
-        userImgBaseUrl: "http://localhost:8081/users/",
-        memberImgBaseUrl: "http://localhost:8081/members/",
-        newsArticleImgBaseUrl: "http://localhost:8081/newsArticles/",
-        tutorialArticleImgBaseUrl: '',
+        userImgBaseUrl: "http://172.16.10.210:8081/users/",
+        memberImgBaseUrl: "http://172.16.10.210:8081/members/",
+        newsArticleImgBaseUrl: "http://172.16.10.210:8081/newsArticles/",
+        // tutorialArticleImgBaseUrl: '',
     },
     mutations: {
         setOperation(state, newOperation){

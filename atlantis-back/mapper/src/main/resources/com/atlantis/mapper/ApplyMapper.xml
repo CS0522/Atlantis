@@ -55,7 +55,6 @@
             values(#{id}, #{username})
     </insert>
 
-    <!--    TODO @Dynamic SQL is needed-->
     <update id="update">
         update apply set username = #{username} where id = #{id}
     </update>
@@ -64,7 +63,5 @@
     <delete id="delete">
         delete from apply where id = #{id}
     </delete>
-
-<!--    TODO @Dynamic SQL is needed-->
 
 </mapper>

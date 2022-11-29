@@ -81,6 +81,4 @@
         delete from admin where id = #{id}
     </delete>
 
-<!--    TODO @Dynamic SQL is needed-->
-
 </mapper>

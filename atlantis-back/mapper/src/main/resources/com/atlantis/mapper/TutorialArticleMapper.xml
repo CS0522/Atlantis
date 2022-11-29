@@ -61,7 +61,6 @@
             values(#{index}, #{title}, #{content})
     </insert>
 
-    <!--    TODO @Dynamic SQL is needed-->
     <update id="update">
         update tutorial_article set `index` = #{index},
                         title = #{title},
@@ -73,6 +72,8 @@
         delete from tutorial_article where id = #{id}
     </delete>
 
-<!--    TODO @Dynamic SQL is needed-->
+    <delete id="deleteByIndex">
+        delete from tutorial_article where `index` = #{index}
+    </delete>
 
 </mapper>

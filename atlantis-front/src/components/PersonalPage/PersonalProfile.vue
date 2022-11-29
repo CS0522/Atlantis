@@ -2,20 +2,7 @@
     <div>
         <hr class="hr" />
         <div id="content-box">
-                <div id="operation-box">
-                    <table class="table-operation" cellpadding=10px cellspacing=15px>
-                        <tr align="center">
-                            <td>
-                                <button class="operation" style="background-color: #8beeff"
-                                @click="doUpdateInfo()">更新</button>
-                            </td>
-                            <td>
-                                <button class="operation"
-                                @click="reset()">重置</button>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+                <br/>
                 <form id="userprofile-form">
                     <table class="table" cellpadding=10px cellspacing=15px>
                         <tr align="right">
@@ -75,21 +62,21 @@
                         </tr>
                     </table>
                 </form>
-
                 <div id="operation-box">
-                        <table class="table-operation" cellpadding=10px cellspacing=15px>
-                            <tr align="center">
-                                <td>
-                                    <button class="operation" style="background-color: #8beeff"
-                                    @click="doUpdatePwd()">更新</button>
-                                </td>
-                                <td>
-                                    <button class="operation"
-                                    @click="reset()">重置</button>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
+                    <table class="table-operation" cellpadding=10px cellspacing=15px>
+                        <tr align="center">
+                            <td>
+                                <button class="operation" style="background-color: #8beeff"
+                                @click="doUpdateInfo()">资料更新</button>
+                            </td>
+                            <td>
+                                <button class="operation"
+                                @click="reset()">重置</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
                 <form id="changepwd-form">
                     <span style="color: red">{{ errorMessage }}</span>                 
                     <table class="table" cellpadding=10px cellspacing=15px>
@@ -121,6 +108,20 @@
                         </tr>
                     </table>
                 </form>
+                <div id="operation-box">
+                    <table class="table-operation" cellpadding=10px cellspacing=15px>
+                        <tr align="center">
+                            <td>
+                                <button class="operation" style="background-color: #8beeff"
+                                @click="doUpdatePwd()">密码更新</button>
+                            </td>
+                            <td>
+                                <button class="operation"
+                                @click="reset()">重置</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
         </div>
     </div>
 </template>
@@ -245,7 +246,9 @@ export default {
                     offset: code.OFFSET
                 })
                 // refresh the pwds
-                this.clearPwd();
+                // this.clearPwd();
+                this.newPwd = '';
+                this.confirmPwd = '';
             }
             else if (this.newPwd !== this.confirmPwd)
             {
@@ -253,7 +256,9 @@ export default {
                     title: '两次密码不一致',
                     offset: code.OFFSET
                 })
-                this.clearPwd();
+                // this.clearPwd();
+                this.newPwd = '';
+                this.confirmPwd = '';
             }
             // 成功
             else if (hex_md5(this.oldPwd) === this.userData.password && this.newPwd === this.confirmPwd)

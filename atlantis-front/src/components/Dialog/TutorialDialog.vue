@@ -119,6 +119,7 @@ export default {
             if (this.operation === 'delete')
             {
                 this.title = "删除";
+                this.errorMessage = '';
             }
             else if (this.operation === 'addtype')
             {
@@ -127,6 +128,7 @@ export default {
             else if (this.operation === 'deletetype')
             {
                 this.title = "删除分类";
+                this.errorMessage = '确定要执行删除操作么？将会删除该分类下的所有文章';
             }
         },
 
@@ -219,15 +221,22 @@ export default {
                 })
                 return;
             }
-            // 删除
+            // 删除分类
             request.delete("/categories/" + this.deleteIndex).then(res => {
                 if (res.code === code.DELETE_OK)
                 {
-                    this.$notify.success({
-                        title: message.DELETE_OK,
-                        offset: code.OFFSET
+                    // 分类删除成功，删除文章
+                    request.delete("/tutorialArticles/index/" + this.deleteIndex).then(res => {
+                        // 只要返回的不是系统错误，就算成功
+                        if (res.code !== code.SYS_ERR)
+                        {
+                            this.$notify.success({
+                                title: message.DELETE_OK,
+                                offset: code.OFFSET
+                            })
+                            this.$emit('confirm');
+                        }
                     })
-                    this.$emit('confirm');
                 }
                 else 
                 {

@@ -61,7 +61,6 @@
                    #{description}, #{gender}, #{birth})
     </insert>
 
-    <!--    TODO @Dynamic SQL is needed-->
     <update id="update">
         update user set username = #{username},
                         password = #{password},
@@ -88,7 +87,5 @@
     <delete id="delete">
         delete from user where id = #{id}
     </delete>
-
-<!--    TODO @Dynamic SQL is needed-->
 
 </mapper>

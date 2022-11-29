@@ -2,6 +2,9 @@ package com.atlantis.util;
 
 import com.wf.captcha.SpecCaptcha;
 
+/**
+ * 生成验证码工具类
+ */
 public class VerifyCode {
     private SpecCaptcha specCaptcha = new SpecCaptcha(130,48,4);
 

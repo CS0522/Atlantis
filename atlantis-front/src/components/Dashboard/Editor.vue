@@ -115,11 +115,14 @@ export default {
         load() {
             this.categoryItems = this.$storage.get('tutorialCategoryItems');
 
+            this.clearForm();
             this.setTypeStr();
             this.setTitle();
             this.setContent();
         },
-
+        clearForm() {
+            this.form = {};
+        },
         setTypeStr() {
             if (this.type === 'news') {
                 this.typeStr = 'news';

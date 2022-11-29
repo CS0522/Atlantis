@@ -41,7 +41,7 @@
     </select>
 
     <select id="getByName" resultMap="memberResultMap">
-        select * from member where realname = #{realname}
+        select * from member where realname = #{name}
     </select>
 
 <!--    模糊查询-->
@@ -56,7 +56,6 @@
             values(#{realname}, #{position})
     </insert>
 
-    <!--    TODO @Dynamic SQL is needed-->
     <update id="update">
         update member set realname = #{realname},
                         description = #{description},
@@ -64,11 +63,8 @@
                         position = #{position} where id = #{id}
     </update>
 
-
     <delete id="delete">
         delete from member where id = #{id}
     </delete>
-
-<!--    TODO @Dynamic SQL is needed-->
 
 </mapper>

@@ -238,7 +238,7 @@ export default {
                 const isSizeOk = file.size < (2 * 1024 * 1024);
                 if (['png', 'jpeg', 'jpg'].indexOf(postfix) < 0) {
                     this.$notify.error({
-                        title: '头像仅支持 .png, .jpg, .jpeg 格式',
+                        title: '头像仅支持 png, jpg, jpeg 格式',
                         offset: code.OFFSET
                     })
                     this.$refs.upload.clearFiles()

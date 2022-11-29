@@ -221,12 +221,14 @@ export default {
                     else if (res.code === code.STATUS_OFF) {
                         this.errorMessage = '该账号无权限登录';
                         this.isLoading = false;
-                        // this.clearForm();
+
+                        this.loginData.password = '';
                     }
                     else if (res.code === code.LOGIN_ERR) {
                         this.errorMessage = '用户名或密码错误';
                         this.isLoading = false;
-                        // this.clearForm();
+
+                        this.loginData.password = '';
                     }
                     else {
                         this.$notify.error({
@@ -234,7 +236,8 @@ export default {
                             offset: code.OFFSET
                         })
                         this.isLoading = false;
-                        // this.clearForm();
+
+                        this.loginData.password = '';
                     }
                 }).catch(err => {
                     this.$notify.error({
@@ -242,7 +245,8 @@ export default {
                         offset: code.OFFSET
                     })
                     this.isLoading = false;
-                    // this.clearForm();
+
+                    this.loginData.password = '';
                 })
         }
     },
