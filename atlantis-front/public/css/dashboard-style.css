@@ -41,11 +41,45 @@
     float: right;
 }
 
-
 #dash-title
 {
     font-size: 90px;
     margin-bottom: 40px;
+}
+
+#dash-sub-nav
+{
+    /* border: red; */
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.hov-sub-tab-menu1
+{
+    font-size: 35px;
+    overflow: hidden;
+    height: 130px;
+   /* 将初始高度设为一级菜单标签高度，初始状况下隐藏二级菜单 */
+}
+
+.hov-sub-tab-menu2
+{
+    font-size: 35px;
+   overflow: hidden;
+   height: 130px;
+   /* 将初始高度设为一级菜单标签高度，初始状况下隐藏二级菜单 */
+}
+
+.hov-sub-tab-item
+{
+    height: 100px;
+    line-height: 100px;
+    color: black;
+    /* overflow: hidden; */
+}
+
+.hov-sub-tab-item:hover{
+    background-color: #53c1ff;
 }
 
 .sub-tab
@@ -60,35 +94,10 @@
 .sub-tab:hover
 {
     background-color: #53c1ff;
+    
 }
 
-#dash-sub-nav
-{
-    /* border: red; */
-    border-radius: 15px;
-    overflow: hidden;
-}
-
-/* 制作悬停菜单 */
-.hov-sub-tab-menu
-{
-    font-size: 35px;
-}
-
-.hov-sub-tab-item
-{
-    height: 100px;
-    line-height: 100px;
-    color: black;
-}
-
-.hov-sub-tab-item:hover{
-    background-color: #53c1ff;
-}
-
-#dash-sub-nav .hov-sub-tab-menu
+/* #dash-sub-nav .hov-sub-tab-menu
 {
     display: none;
-}
-
-
+} */

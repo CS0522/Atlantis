@@ -10,19 +10,22 @@
                 <h1 v-if="type==='user'" style="font-size: 80px">欢迎登录</h1>
                 <h1 v-if="type==='admin'" style="font-size: 80px">管理登录</h1>
                 <!-- 需要表单检验 -->
+                <!-- 设置enter响应事件 -->
                 <table class="table" cellpadding=10px cellspacing=15px>
                     <tr align="right">
                         <td>用户名: </td>
                         <td>
                             <input type="text" name="username" class="form-input"
-                                    v-model="loginData.username" @focus="clearErrorMessage()"/>
+                                    v-model="loginData.username" @focus="clearErrorMessage()"
+                                    @keyup.enter="doLogin()"/>
                         </td>
                     </tr>
                     <tr align="right">
                         <td>密码: </td>
                         <td>
                             <input type="password" name="password" class="form-input"
-                                    v-model="loginData.password" @focus="clearErrorMessage()"/>
+                                    v-model="loginData.password" @focus="clearErrorMessage()"
+                                    @keyup.enter="doLogin()"/>
                         </td>
                     </tr>
                     <!-- 用户登录，记住我功能 -->

@@ -1,25 +1,30 @@
 <template>
     <div>
-        <AccountDialog 
-        v-if="isShowAccount"
-        @close="closeDialog"
-        @confirm="confirm">
-        </AccountDialog>
-        <AboutDialog 
-        v-if="isShowAbout"
-        @close="closeDialog"
-        @confirm="confirm">
-        </AboutDialog>
-        <NewsDialog 
-        v-if="isShowNews"
-        @close="closeDialog"
-        @confirm="confirm">
-        </NewsDialog>
-        <TutorialDialog 
-        v-if="isShowTutorial"
-        @close="closeDialog"
-        @confirm="confirm">
-        </TutorialDialog>
+        <transition :duration="{enter:200,leave:200}" name="el-zoom-in-center">
+            <AccountDialog 
+            v-if="isShowAccount"
+            @close="closeDialog"
+            @confirm="confirm">
+            </AccountDialog>
+
+            <AboutDialog 
+            v-if="isShowAbout"
+            @close="closeDialog"
+            @confirm="confirm">
+            </AboutDialog>
+
+            <NewsDialog 
+            v-if="isShowNews"
+            @close="closeDialog"
+            @confirm="confirm">
+            </NewsDialog>
+
+            <TutorialDialog 
+            v-if="isShowTutorial"
+            @close="closeDialog"
+            @confirm="confirm">
+            </TutorialDialog>
+    </transition>
 
         <TopBar v-if="!topBarReload"></TopBar>
 
@@ -28,15 +33,15 @@
                 <div id="dash-title">
                     <!-- 设置点击图片跳转至首页 -->
                     <router-link to="/" target="_self">
-                        <img src="imgs/logo/atlantis-logo.png" height="150px" />
+                        <img src = "imgs/logo/atlantis-logo.png" height = "150px" />
                     </router-link>
                 </div>
-                <!-- 悬浮显示菜单 -->
-                <div id="dash-sub-nav"  @mouseover="showMenu()" @mouseleave="hideMenu()">
-                    <router-link to="/dashboard/account/admin">
-                        <div class="sub-tab">用户管理</div>
-                        <!-- 悬停菜单 -->
-                        <div class="hov-sub-tab-menu">
+                <!-- 点击显示菜单 -->
+                <div id="dash-sub-nav">
+                    <a>
+                        <!-- 二级菜单 -->
+                        <div class="hov-sub-tab-menu1">
+                            <div class="sub-tab" @click="showMenu1()">用户管理</div>
                             <router-link to="/dashboard/account/admin">
                                 <div class="hov-sub-tab-item">管理员账号管理</div>
                             </router-link>
@@ -44,35 +49,35 @@
                                 <div class="hov-sub-tab-item">用户账号管理</div>
                             </router-link>                          
                         </div>
-                    </router-link>
+                    </a>
 
-                    <router-link to="/dashboard/message/apply">
-                        <div class="sub-tab">消息中心</div>
-                        <!-- 悬停菜单 -->
-                        <div class="hov-sub-tab-menu">
+                    <a>
+                        <!-- 二级菜单 -->
+                        <div class="hov-sub-tab-menu2">
+                            <div class="sub-tab" @click="showMenu2()">消息中心</div>
                             <router-link to="/dashboard/message/apply">
                                 <div class="hov-sub-tab-item">管理员申请</div>
                             </router-link>
                             <!-- <router-link to="/dashboard/message/reset">
                                 <div class="hov-sub-tab-item">重置密码申请</div>
-                            </router-link>                           -->
+                            </router-link> -->
                         </div>
-                    </router-link>
+                    </a>
 
                     <router-link to="/dashboard/news">
                         <div class="sub-tab">资讯管理</div>
                     </router-link>
 
                     <router-link to="/dashboard/tutorial">
-                        <div class="sub-tab">教程管理</div>
+                        <div class="sub-tab">教程管理 </div>
                     </router-link>
 
                     <router-link to="/dashboard/forum">
-                        <div class="sub-tab">论坛管理</div>
+                        <div class="sub-tab">论坛管理 </div>
                     </router-link>
 
                     <router-link to="/dashboard/about">
-                        <div class="sub-tab">车队管理</div>
+                        <div class="sub-tab">车队管理 </div>
                     </router-link>
 
                 </div>
@@ -127,14 +132,56 @@ export default {
     },
 
     methods: {
-        // 以下两个函数用来控制左侧抽屉导航栏
-        showMenu() {
-            document.getElementsByClassName("hov-sub-tab-menu")[0].style.display = "block";
-            document.getElementsByClassName("hov-sub-tab-menu")[1].style.display = "block";
+        // 通过定时器将高度逐渐修改从而达到二级菜单逐渐展开的动画
+        showMenu1() {
+            // console.log("do showMenu1")
+            if(document.getElementsByClassName("hov-sub-tab-menu1")[0].clientHeight<330){
+             var showTimer=setInterval(function(){
+                // 获取上一次移动之后的高度
+                var oldValveMenu1=document.getElementsByClassName("hov-sub-tab-menu1")[0].clientHeight;
+                 // 判断移动后的结果是否完全展开，即高度的变化范围为130px-330px
+                 if(oldValveMenu1+8>=330){
+                    clearInterval(showTimer);
+                }
+                // 将高度每10ms移动8像素的距离，从而达到0.25s完全展开的效果
+                document.getElementsByClassName("hov-sub-tab-menu1")[0].style.height=oldValveMenu1+8+"px";
+            },10)
+            }
+
+            if(document.getElementsByClassName("hov-sub-tab-menu1")[0].clientHeight>130){
+             var hideTimer=setInterval(function(){
+                var oldValveMenu1=document.getElementsByClassName("hov-sub-tab-menu1")[0].clientHeight;
+                if(oldValveMenu1-8<=130){
+                    clearInterval(hideTimer);
+                }
+                document.getElementsByClassName("hov-sub-tab-menu1")[0].style.height=oldValveMenu1-8+"px";
+            },10)
+            }
         },
-        hideMenu() {
-            document.getElementsByClassName("hov-sub-tab-menu")[0].style.display = "none";
-            document.getElementsByClassName("hov-sub-tab-menu")[1].style.display = "none";
+
+        showMenu2(){
+            // console.log("do showMenu2")
+            if(document.getElementsByClassName("hov-sub-tab-menu2")[0].clientHeight<230){
+            var showTimer=setInterval(function(){
+                
+                var oldValveMenu2=document.getElementsByClassName("hov-sub-tab-menu2")[0].clientHeight;
+                if(oldValveMenu2+4>=230){
+                    clearInterval(showTimer);
+                }
+                document.getElementsByClassName("hov-sub-tab-menu2")[0].style.height=oldValveMenu2+4+"px";
+            },10)
+
+            }
+            if(document.getElementsByClassName("hov-sub-tab-menu2")[0].clientHeight>130){
+             var hideTimer=setInterval(function(){
+                
+                var oldValveMenu2=document.getElementsByClassName("hov-sub-tab-menu2")[0].clientHeight;
+                if(oldValveMenu2-4<=130){
+                    clearInterval(hideTimer);
+                }
+                document.getElementsByClassName("hov-sub-tab-menu2")[0].style.height=oldValveMenu2-4+"px";   
+            },10)
+            }
         },
         
         // 显示dialog

@@ -37,6 +37,7 @@
                                 layout="prev, pager, next, jumper" 
                                 :total="totalNumber">
                     </el-pagination>
+
                     <!-- 内容列表 -->
                     <ul v-for="item in items" :key="item.id" style="list-style-type: none">
                         <div class="item-box">
@@ -220,7 +221,7 @@ export default {
                 if (res.code === code.GET_OK)
                 {
                     this.allItems = res.data;
-                    console.log("all items: " + this.allItems);
+                    // console.log("all items: " + this.allItems);
                 }
             }).catch(err => {
                 this.$notify.error({

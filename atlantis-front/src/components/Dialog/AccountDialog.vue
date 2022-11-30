@@ -338,6 +338,7 @@ export default {
                             title: message.INSERT_ERR + '，请检查是否存在同名用户',
                             offset: code.OFFSET
                         })
+                        this.form.password = '';
                     }
                 }).catch(error => {
                     this.$notify.error({

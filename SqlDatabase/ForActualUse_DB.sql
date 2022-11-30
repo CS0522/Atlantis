@@ -39,7 +39,7 @@ CREATE TABLE `admin` (
 
 LOCK TABLES `admin` WRITE;
 /*!40000 ALTER TABLE `admin` DISABLE KEYS */;
-INSERT INTO `admin` VALUES (1,'testadmin','25d55ad283aa400af464c76d713c07ad','admin account for test','2022-10-13 15:28:45',1),(2,'Frank_CS','4ff92f62f1f29a2fd5c9228eaca019bf','admin Frank','2022-11-29 09:02:57',1);
+INSERT INTO `admin` VALUES (1,'testadmin','e10adc3949ba59abbe56e057f20f883e','admin account for test','2022-10-13 15:28:45',1),(2,'Frank_CS','4ff92f62f1f29a2fd5c9228eaca019bf','admin Frank','2022-11-29 09:02:57',1);
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -63,7 +63,7 @@ CREATE TABLE `apply` (
 
 LOCK TABLES `apply` WRITE;
 /*!40000 ALTER TABLE `apply` DISABLE KEYS */;
-INSERT INTO `apply` VALUES (1,'testuser01');
+INSERT INTO `apply` VALUES (1,'testuser');
 /*!40000 ALTER TABLE `apply` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -79,7 +79,7 @@ CREATE TABLE `category` (
   `type` varchar(45) DEFAULT NULL,
   `route` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`index`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='category in tutorial that includes ''basic'', ''premium'', ''rules'' and so on.';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='category in tutorial that includes ''basic'', ''premium'', ''rules'' and so on.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -88,7 +88,7 @@ CREATE TABLE `category` (
 
 LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` VALUES (1,'入门','basic'),(2,'进阶','premium'),(3,'联机','online'),(4,'守则','rules'),(5,'分类测试','test');
+INSERT INTO `category` VALUES (1,'入门','basic'),(2,'进阶','premium'),(3,'联机','online'),(4,'守则','rules');
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -107,7 +107,7 @@ CREATE TABLE `member` (
   `status` int DEFAULT '0',
   `position` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -116,7 +116,7 @@ CREATE TABLE `member` (
 
 LOCK TABLES `member` WRITE;
 /*!40000 ALTER TABLE `member` DISABLE KEYS */;
-INSERT INTO `member` VALUES (1,'队长','队长','2022-11-29 09:23:09',1,'队长'),(2,'群主','群主','2022-11-29 09:23:20',0,'群主'),(3,'管理01','管理','2022-11-29 09:23:42',0,'管理'),(4,'管理02','管理','2022-11-29 09:23:49',0,'管理'),(5,'成员01','成员\n','2022-11-29 09:24:04',0,'成员'),(6,'成员02','成员','2022-11-29 09:24:12',0,'成员'),(7,'测试01','测试','2022-11-29 09:24:26',0,'测试'),(8,'测试02','测试','2022-11-29 09:24:31',0,'测试');
+INSERT INTO `member` VALUES (1,'Frank','车队网站建设者兼退役 AE86 最速车手','2022-11-29 12:44:42',1,'管理'),(2,'Fastest-Takumi','汽车改装师兼车队最速的转子车下坡手','2022-11-29 12:45:09',1,'成员'),(3,'Shark-Melon','转子引擎操控大师上坡手','2022-11-29 12:45:29',1,'成员'),(4,'Seven-7','稳定高速的 MR2 下坡手','2022-11-29 12:45:39',1,'成员'),(5,'Izumi','车队网络系统组建与管理者，精通碰撞回正技术和鱼雷技术','2022-11-29 12:45:51',1,'成员'),(6,'God-Collide','汽车改装师兼 AE86 No.2 下坡手','2022-11-29 12:46:05',1,'成员');
 /*!40000 ALTER TABLE `member` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -135,7 +135,7 @@ CREATE TABLE `news_article` (
   `create_date` datetime DEFAULT CURRENT_TIMESTAMP,
   `thumbnail` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='新闻资讯的数据储存表。\n其中id为主键，某篇文章的唯一标识；\nthumbnail为缩略图，暂时不启用，可能后期加；\nindex为新闻资讯的类别：1 = 游戏新闻；2 = 游戏公告。\n';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='新闻资讯的数据储存表。\n其中id为主键，某篇文章的唯一标识；\nthumbnail为缩略图，暂时不启用，可能后期加；\nindex为新闻资讯的类别：1 = 游戏新闻；2 = 游戏公告。\n';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -144,7 +144,6 @@ CREATE TABLE `news_article` (
 
 LOCK TABLES `news_article` WRITE;
 /*!40000 ALTER TABLE `news_article` DISABLE KEYS */;
-INSERT INTO `news_article` VALUES (1,1,'游戏新闻测试','# 游戏新闻测试\n* 文章测试\n```cpp\nint main()\n{\n	cout << \"hello\" << endl;\n	return 0;\n}\n```\n\n* 图片测试\n![04.Evangelion 3.01.01 14.jpg](http://172.16.10.210:8081/newsArticles/download/2a1bd0bed3ae53b177b2962880c1fe11.jpg)\n![04.Evangelion 3.01.01 16.jpg](http://172.16.10.210:8081/newsArticles/download/887d0ec7e9f13bc46a4b9872f2541fdd.jpg)\n![04.Evangelion 3.01.01 17.jpg](http://172.16.10.210:8081/newsArticles/download/4fbaf9f6f6667b375800b7cf72ec9b84.jpg)','2022-11-29 09:17:02',NULL),(2,2,'游戏公告测试','# 游戏新闻测试\n* 文章测试\n```cpp\nint main()\n{\n	cout << \"hello\" << endl;\n	return 0;\n}\n```\n* 图片测试\n![04.Evangelion 3.01.01 10.jpg](http://172.16.10.210:8081/newsArticles/download/bcc6ffcbefeeaf728277b6880a0ecb9c.jpg)![04.Evangelion 3.01.01 11.jpg](http://172.16.10.210:8081/newsArticles/download/4f86f6f4d53881a2bad60353b5511ded.jpg)![04.Evangelion 3.01.01 12.jpg](http://172.16.10.210:8081/newsArticles/download/d1a4073043c26f2686afb0877548daa4.jpg)','2022-11-29 09:18:34',NULL);
 /*!40000 ALTER TABLE `news_article` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -185,7 +184,7 @@ CREATE TABLE `tutorial_article` (
   `create_date` datetime DEFAULT CURRENT_TIMESTAMP,
   `thumbnail` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='跟news_article一样，index键需要跟catergory表进行联查';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='跟news_article一样，index键需要跟catergory表进行联查';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -194,7 +193,6 @@ CREATE TABLE `tutorial_article` (
 
 LOCK TABLES `tutorial_article` WRITE;
 /*!40000 ALTER TABLE `tutorial_article` DISABLE KEYS */;
-INSERT INTO `tutorial_article` VALUES (1,1,'入门测试','# 入门测试\n* 文章测试\n```cpp\nint main()\n{\n	cout << \"hello\" << endl;\n	return 0;\n}\n```','2022-11-29 09:20:29',NULL),(2,2,'进阶测试','# 进阶测试\n* 文章测试\n```cpp\nint main()\n{\n	cout << \"hello\" << endl;\n	return 0;\n}\n```','2022-11-29 09:20:52',NULL),(3,3,'联机测试','# 联机测试\n* 文章测试\n```cpp\nint main()\n{\n	cout << \"hello\" << endl;\n	return 0;\n}\n```','2022-11-29 09:21:19',NULL),(4,4,'守则测试','# 守则测试\n* 文章测试\n```cpp\nint main()\n{\n	cout << \"hello\" << endl;\n	return 0;\n}\n```','2022-11-29 09:21:33',NULL),(5,5,'分类测试01','# 分类测试\n* 文章测试\n```cpp\nint main()\n{\n	cout << \"hello\" << endl;\n	return 0;\n}\n```','2022-11-29 09:21:58',NULL),(6,5,'分类测试02','# 分类测试\n* 文章测试\n```cpp\nint main()\n{\n	cout << \"hello\" << endl;\n	return 0;\n}\n```','2022-11-29 09:22:06',NULL);
 /*!40000 ALTER TABLE `tutorial_article` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -216,7 +214,7 @@ CREATE TABLE `user` (
   `join_date` datetime DEFAULT CURRENT_TIMESTAMP,
   `status` int DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -225,7 +223,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'testuser01','e10adc3949ba59abbe56e057f20f883e','测试用户','uer account for test','male','2002-05-22','2022-11-29 09:04:29',1),(2,'testuser02','e10adc3949ba59abbe56e057f20f883e','测试用户','user account for test','female','2002-05-22','2022-11-29 09:05:43',1);
+INSERT INTO `user` VALUES (1,'testuser','e10adc3949ba59abbe56e057f20f883e','测试用户','user account for test','male','2002-05-22','2022-11-29 09:04:29',1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -289,4 +287,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-11-29  9:30:19
+-- Dump completed on 2022-11-29 12:55:26

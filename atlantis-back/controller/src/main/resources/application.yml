@@ -4,11 +4,13 @@ spring:
     active: dev
 #multi environments
 ---
+# 开发环境
+
 spring:
   profiles: dev
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/atlantis?serverTimezone=GMT%2b8&useSSL=false&characterEncoding=utf-8
+    url: jdbc:mysql://localhost:3306/test?serverTimezone=GMT%2b8&useSSL=false&characterEncoding=utf-8
     username: root
     password: 123456frank
     type: com.alibaba.druid.pool.DruidDataSource
@@ -57,14 +59,23 @@ spring:
       enabled: true
 
 server:
-  port: 8686
+  port: 8081
+  # 内网ip, 部署后填入外网ip
+  address: 172.16.10.210
 
 mybatis:
-  mapper-locations: classpath:com.atlantis.mapper/*.xml
+  mapper-locations: classpath:com/atlantis/mapper/*.xml
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
+# page helper
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+
 atlantis:
   #  需要改成相对路径
-  userphotoBasepath: D:\OneDrive - mail.dlut.edu.cn\Workspace\atlantis-back\Data\userphotos
+  photosBasePath: D:\OneDrive - mail.dlut.edu.cn\Workspace\AtlantisFiles\Data\photos\
+  articlePicturesBasePath: D:\OneDrive - mail.dlut.edu.cn\Workspace\AtlantisFiles\Data\article_pictures\
 ---

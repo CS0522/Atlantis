@@ -13,13 +13,15 @@
                         <td>用户名: </td>
                         <td>
                             <input type="text" name="username" class="form-input"
-                                    v-model="signupData.username" @focus="clearErrorMessage()"/>
+                                    v-model="signupData.username" @focus="clearErrorMessage()"
+                                    @keyup.enter="doSignup()"/>
                         </td>
                     <tr align="right">
                         <td>昵称: </td>
                         <td>
                             <input type="text" name="nickname" 
-                            class="form-input" v-model="signupData.nickname" @focus="clearErrorMessage()"/>
+                            class="form-input" v-model="signupData.nickname" @focus="clearErrorMessage()"
+                            @keyup.enter="doSignup()"/>
                         </td>
                     </tr>
                     </tr>
@@ -27,14 +29,16 @@
                         <td>密码: </td>
                         <td>
                             <input type="password" name="password" class="form-input"
-                                    v-model="signupData.password" @focus="clearErrorMessage()"/>
+                                    v-model="signupData.password" @focus="clearErrorMessage()"
+                                    @keyup.enter="doSignup()"/>
                         </td>
                     </tr>
                     <tr align="right">
                         <td>确认: </td>
                         <td>
                             <input type="password" name="confirm" class="form-input"
-                                    v-model="signupData.confirm" @focus="clearErrorMessage()"/>
+                                    v-model="signupData.confirm" @focus="clearErrorMessage()"
+                                    @keyup.enter="doSignup()"/>
                         </td>
                     </tr>
                     <tr align="right">
@@ -42,7 +46,8 @@
                         <td style="text-align:justify;text-justify:distribute-all-lines;text-align-last:justify">
                             <div id="verifycode-box">
                                 <input type="text" name="verifycode" class="form-input" style="width: 95%" 
-                                        v-model="verifyCode" @focus="clearErrorMessage()"/>
+                                        v-model="verifyCode" @focus="clearErrorMessage()"
+                                        @keyup.enter="doSignup()"/>
                             </div>
                             &nbsp;
                             <div id="verifycode-box">

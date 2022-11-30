@@ -74,25 +74,25 @@
 
 .dropdown-content {
   border-radius: 15px;
-  display: none;
+  /* display: none; */
   position: absolute;
   background-color: #fff;
   width: 200px;
-  box-shadow: 5px 15px 15px 5px #888888;
+  /* box-shadow: 5px 15px 15px 5px #888888; */
   overflow: hidden;
   
   /* padding: 12px 1px; */
   font-size: 25px;
 
-  animation: shadow 3s ease;
+  /* animation: shadow 3s ease; */
   animation-iteration-count: infinite;
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px); 
   background-color: rgba(252, 242, 241, 0.9);
 }
 
-.dropdown:hover .dropdown-content {
-  display: block;
+.dropdown-content {
+  /* display: block; */
   border-radius: 15px;
 }
 

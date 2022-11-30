@@ -2,19 +2,21 @@
     <div>
         <TopBar v-if="!topBarReload"></TopBar>
 
-        <BaseDialog
-            v-if="isShowBase"
-            :dialogType="operationType"
-            @close="closeDialog"
-            @confirm="confirm">
-            <!-- 使用具名slot插槽 -->
-            <template v-slot:title>
-                <div>{{ dialogTitle }}</div>
-            </template>
-            <template v-slot:content>
-                <div>{{ dialogContent }}</div>
-            </template>
-        </BaseDialog>
+        <transition :duration="{enter:200,leave:200}" name="el-zoom-in-center">
+            <BaseDialog
+                v-if="isShowBase"
+                :dialogType="operationType"
+                @close="closeDialog"
+                @confirm="confirm">
+                <!-- 使用具名slot插槽 -->
+                <template v-slot:title>
+                    <div>{{ dialogTitle }}</div>
+                </template>
+                <template v-slot:content>
+                    <div>{{ dialogContent }}</div>
+                </template>
+            </BaseDialog>
+        </transition>
 
         <div id="personal">
             <div id="personal-nav-box">
