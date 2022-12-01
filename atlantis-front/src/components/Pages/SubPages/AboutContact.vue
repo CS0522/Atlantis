@@ -37,6 +37,15 @@
                             <h4>chenshi0220522@outlook.com</h4>
                         </td>
                     </tr>
+                    <tr align="center">
+                        <td align="right">
+                            <h2>开源地址:</h2>
+                        </td>
+                        <td>
+                            <h2><a style="color: #2c3e50; text-decoration: underline;" target="_blank"
+                                href="https://github.com/CS0522/Atlantis">前往 GitHub</a></h2>
+                        </td>
+                    </tr>
                 </table>
             </div>
         </div>

@@ -169,7 +169,7 @@ export default {
                     clearInterval(showTimer);
                 }
                 document.getElementsByClassName("hov-sub-tab-menu2")[0].style.height=oldValveMenu2+4+"px";
-            },10)
+            },5)
 
             }
             if(document.getElementsByClassName("hov-sub-tab-menu2")[0].clientHeight>130){
@@ -180,7 +180,7 @@ export default {
                     clearInterval(hideTimer);
                 }
                 document.getElementsByClassName("hov-sub-tab-menu2")[0].style.height=oldValveMenu2-4+"px";   
-            },10)
+            },5)
             }
         },
         

@@ -5,7 +5,7 @@
         </div>
         <hr class="hr"/>
         <div id="introduction-box">
-            <div id="video-box">
+            <div id="about-video-box">
                 <video id="video" width="1280" height="720" autoplay muted="true" loop="loop">
                     <source :src="videourl" type="video/mp4">
                 </video>

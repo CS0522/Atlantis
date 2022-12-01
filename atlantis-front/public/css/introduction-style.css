@@ -20,6 +20,16 @@
 
 #video-box {
     /* border: solid red; */
+    width: 1777px;
+    height: 1000px;
+    margin: auto auto;
+    margin-top: 50px;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+#about-video-box {
+    /* border: solid red; */
     width: 1280px;
     height: 720px;
     margin: auto auto;

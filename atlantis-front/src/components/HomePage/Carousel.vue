@@ -28,7 +28,16 @@ export default {
                 },
                 {
                     id: 3, img: require('@/../public/imgs/carousels/carousel_04.png')
-                }
+                },
+                {
+                    id: 4, img: require('@/../public/imgs/carousels/carousel_05.png')
+                },
+                {
+                    id: 5, img: require('@/../public/imgs/carousels/carousel_06.png')
+                },
+                {
+                    id: 6, img: require('@/../public/imgs/carousels/carousel_07.png')
+                },
             ]
         }
     },

@@ -2,7 +2,7 @@
     <div id="introduction-box">
         <!-- 插入视频 -->
         <div id="video-box">
-            <video id="video" width="1280" height="720" autoplay muted="true" loop="loop">
+            <video id="video" height="1000" autoplay muted="true" loop="loop">
                 <source :src="videourl" type="video/mp4">
             </video>
         </div>
