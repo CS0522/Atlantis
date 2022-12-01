@@ -1,6 +1,7 @@
 package com.atlantis.controller.base;
 
 import com.atlantis.common.Code;
+import com.atlantis.common.ProjectPath;
 import com.atlantis.common.Result;
 import com.atlantis.exception.ServiceException;
 import com.atlantis.exception.SystemException;
@@ -20,8 +21,7 @@ public abstract class ArticleBaseController<T>{
     @Autowired
     protected ArticleBaseService<T> articleBaseService;
 
-    @Value("${atlantis.articlePicturesBasePath}")
-    private String basePath;
+    private static final String basePath = ProjectPath.getArticlePicturesPath();
 
     @GetMapping("/{id}")
     public Result getById(@PathVariable Integer id) // 从url路径获取id

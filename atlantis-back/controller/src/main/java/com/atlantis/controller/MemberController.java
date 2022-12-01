@@ -1,6 +1,7 @@
 package com.atlantis.controller;
 
 import com.atlantis.common.Code;
+import com.atlantis.common.ProjectPath;
 import com.atlantis.common.Result;
 import com.atlantis.controller.base.BaseController;
 import com.atlantis.exception.SystemException;
@@ -19,8 +20,8 @@ import java.io.IOException;
 // REST风格
 @RequestMapping("/members")
 public class MemberController extends BaseController<Member> {
-    @Value("${atlantis.photosBasePath}")
-    private String basePath;
+
+    private static final String basePath = ProjectPath.getPhotosPath();
 
     @PostMapping("/upload/{id}")
     public Result upload(MultipartFile file, @PathVariable Integer id)

@@ -39,7 +39,7 @@
                     </tr>
                     <tr align="center">
                         <td align="right">
-                            <h2>开源地址:</h2>
+                            <h2>项目地址:</h2>
                         </td>
                         <td>
                             <h2><a style="color: #2c3e50; text-decoration: underline;" target="_blank"

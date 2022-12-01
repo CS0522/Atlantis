@@ -1,6 +1,7 @@
 package com.atlantis.controller;
 
 import com.atlantis.common.Code;
+import com.atlantis.common.ProjectPath;
 import com.atlantis.controller.base.BaseController;
 import com.atlantis.exception.SystemException;
 import com.atlantis.pojo.User;
@@ -22,8 +23,7 @@ import java.util.Objects;
 @RequestMapping("/users")
 public class UserController extends BaseController<User> {
 
-    @Value("${atlantis.photosBasePath}")
-    private String basePath;
+    private static final String basePath = ProjectPath.getPhotosPath();
 
     @PutMapping("/info")
     public Result updateInfo(@RequestBody User user)
