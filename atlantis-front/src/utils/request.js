@@ -1,9 +1,10 @@
 // 轻度封装 axios 请求
 
 import axios from 'axios'
+import baseUrl from '@/utils/baseUrl.js'
 
 const request = axios.create({
-    baseURL: 'http://172.16.10.210:8081',
+    baseURL: baseUrl.baseURL,
     timeout: 5000,
     // 解决前后session不一致问题
     withCredentials: true,

@@ -22,8 +22,9 @@ spring:
 
 server:
   port: 8081
-  # 内网ip, 部署后填入外网ip
-  address: 172.16.10.210
+  address: localhost
+  servlet:
+    context-path: /api
 
 mybatis:
   mapper-locations: classpath:com/atlantis/mapper/*.xml
@@ -54,9 +55,10 @@ spring:
       enabled: true
 
 server:
-  port: 8081
-  # 内网ip, 部署后填入外网ip
-  address: 172.16.10.210
+  port: 8686
+  address: localhost
+  servlet:
+    context-path: /api
 
 mybatis:
   mapper-locations: classpath:com/atlantis/mapper/*.xml

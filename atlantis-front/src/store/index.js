@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import request from '../utils/request'
+import baseUrl from '@/utils/baseUrl.js'
 
 Vue.use(Vuex)
 
@@ -18,9 +18,9 @@ const store = new Vuex.Store({
         tutorialCurrentCategory: {},
 
         // img base url
-        userImgBaseUrl: "http://172.16.10.210:8081/users/",
-        memberImgBaseUrl: "http://172.16.10.210:8081/members/",
-        newsArticleImgBaseUrl: "http://172.16.10.210:8081/newsArticles/",
+        userImgBaseUrl: baseUrl.baseURL + "/users/",
+        memberImgBaseUrl: baseUrl.baseURL + "/members/",
+        newsArticleImgBaseUrl: baseUrl.baseURL + "/newsArticles/",
         // tutorialArticleImgBaseUrl: '',
     },
     mutations: {
