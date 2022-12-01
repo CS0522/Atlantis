@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 
-// TODO @声明这是处理异常的控制层的类，Advice是AOP思想
+// 声明这是处理异常的控制层的类，Advice是AOP思想
 @RestControllerAdvice
 public class ExceptionAdvice {
 

@@ -36,7 +36,6 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
     @Override
     public Admin login(Admin login)
     {
-        // TODO login function
         /*
             1. 密码进行加密处理
             2. 查询数据库

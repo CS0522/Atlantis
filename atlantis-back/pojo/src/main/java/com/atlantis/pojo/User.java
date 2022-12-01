@@ -13,7 +13,6 @@ public class User {
     private String gender;
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date birth;
-    // TODO @make a result map
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date joinDate;
     private Integer status;

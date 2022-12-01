@@ -35,7 +35,6 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
     @Override
     public User login(User login)
     {
-        // TODO login function
         /*
             1. 密码进行加密处理
             2. 查询数据库

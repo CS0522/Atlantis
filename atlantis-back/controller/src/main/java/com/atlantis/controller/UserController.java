@@ -48,7 +48,6 @@ public class UserController extends BaseController<User> {
     @PostMapping("/login") // request用来保存session
     public Result login(HttpServletRequest request, @RequestBody User login)
     {
-        // TODO login function
         System.out.println("logging in...");
         // 在业务层中进行以上处理，返回结果代码
         User result = baseService.login(login);

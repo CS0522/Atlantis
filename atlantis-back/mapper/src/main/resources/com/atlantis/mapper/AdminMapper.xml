@@ -59,7 +59,6 @@
             values(#{username}, #{password}, #{description})
     </insert>
 
-    <!--    TODO @Dynamic SQL is needed-->
     <update id="update">
         update admin set username = #{username},
                          password = #{password},

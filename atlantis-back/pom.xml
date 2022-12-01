@@ -27,7 +27,7 @@
         <druid.version>1.2.13-SNSAPSHOT</druid.version>
     </properties>
 
-<!--    declare modules-->
+<!--    声明子模块-->
     <modules>
         <module>controller</module>
         <module>mapper</module>
@@ -96,7 +96,7 @@
         </dependency>
     </dependencies>
 
-    <!-- 版本说明：这里统一管理依赖的版本号 -->
+    <!-- 版本说明：这里统一管理模块的版本号 -->
     <dependencyManagement>
         <dependencies>
 

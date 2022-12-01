@@ -9,7 +9,6 @@ public class Admin {
     private String username;
     private String password;
     private String description;
-    // TODO @make a result map
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date joinDate;
     private Integer status;

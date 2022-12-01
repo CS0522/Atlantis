@@ -19,7 +19,6 @@ public interface BaseMapper<T> {
     public int insert(T obj);
 
     // 改，返回受影响行数
-    // TODO 动态更新
     public int update(T obj);
 
     public int updateInfo(T obj);
