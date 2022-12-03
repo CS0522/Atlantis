@@ -235,7 +235,7 @@ export default {
             if (file) {
                 // console.log("uploading...actionUrl: " + this.actionUrl);
                 const postfix = file.name.split('.')[1]
-                const isSizeOk = file.size < (2 * 1024 * 1024);
+                const isSizeOk = file.size < (code.MAX_SIZE * 1024 * 1024);
                 if (['png', 'jpeg', 'jpg'].indexOf(postfix) < 0) {
                     this.$notify.error({
                         title: '头像仅支持 png, jpg, jpeg 格式',
@@ -246,7 +246,7 @@ export default {
                 }
                 if (!isSizeOk) {
                     this.$notify.error({
-                        title: '上传头像大小不能超过 2MB',
+                        title: '上传头像大小不能超过' + String(code.MAX_SIZE) + 'MB',
                         offset: code.OFFSET
                     })
                     return false

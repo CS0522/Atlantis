@@ -409,7 +409,7 @@ export default {
                     else 
                     {
                         this.$notify.error({
-                            title: message.UPDATE_ERR,
+                            title: message.UPDATE_ERR + '，请检查是否存在同名用户',
                             offset: code.OFFSET
                         })
                     }

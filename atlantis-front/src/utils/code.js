@@ -3,6 +3,9 @@
 
 const OFFSET = 70;
 
+// mb
+const MAX_SIZE = 5;
+
 const GET_OK = 1001;
 const INSERT_OK = 2001;
 const UPDATE_OK = 3001;
@@ -38,6 +41,8 @@ const EXC_ERR = 9003;
 
 export default {
     OFFSET,
+
+    MAX_SIZE,
 
     GET_OK,
     INSERT_OK,

@@ -5,6 +5,8 @@ import com.atlantis.service.AdminService;
 import com.atlantis.service.base.impl.BaseServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 
 @Service
 // IoC容器管理对象
@@ -12,7 +14,17 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
 
     @Override
     public boolean updateInfo(Admin admin) {
-        return (baseMapper.updateInfo(admin) == 1);
+        // 当不存在该用户名时
+        // 或者存在该用户名但是是要修改的用户本身
+        if (baseMapper.getByName(admin.getUsername()) == null ||
+                Objects.equals(baseMapper.getByName(admin.getUsername()).getId(), admin.getId()))
+        {
+            return (baseMapper.updateInfo(admin) == 1);
+        }
+        else
+        {
+            return false;
+        }
     }
 
     @Override
@@ -26,6 +38,22 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
         if (baseMapper.getByName(admin.getUsername()) == null)
         {
             return (baseMapper.insert(admin) == 1);
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean update(Admin admin) {
+        // 查询数据库发现没有同名用户
+        // 当不存在该用户名时
+        // 或者存在该用户名但是是要修改的用户本身
+        if (baseMapper.getByName(admin.getUsername()) == null ||
+                Objects.equals(baseMapper.getByName(admin.getUsername()).getId(), admin.getId()))
+        {
+            return (baseMapper.update(admin) == 1);
         }
         else
         {

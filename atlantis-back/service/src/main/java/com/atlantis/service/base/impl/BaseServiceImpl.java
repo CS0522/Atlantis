@@ -48,7 +48,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
 
     @Override
     public boolean update(T obj) {
-        return (baseMapper.update(obj) == 1);
+        return false;
     }
 
     // 进行重写

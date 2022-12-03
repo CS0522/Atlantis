@@ -205,6 +205,11 @@ export default {
 
         // 绑定@imgAdd event
         $imgAdd(pos, $file){
+            // 执行上传前方法，检测图片的合格性
+            if (!this.beforeUpload($file))
+            {
+                return;
+            }
             // 第一步：将图片上传到服务器.
            var formdata = new FormData();
            formdata.append('file', $file);
@@ -227,6 +232,30 @@ export default {
                             this.$store.state.newsArticleImgBaseUrl + "download/" + result.data.data);
                 }
            })
+        },
+
+        beforeUpload(file) {
+            if (file) {
+                console.log("uploading...actionUrl: " + this.actionUrl);
+                const postfix = file.name.split('.')[1]
+                const isSizeOk = file.size < (code.MAX_SIZE * 1024 * 1024);
+                if (['png', 'jpeg', 'jpg'].indexOf(postfix) < 0) {
+                    this.$notify.error({
+                        title: '图片仅支持 png, jpg, jpeg 格式',
+                        offset: code.OFFSET
+                    })
+                    this.$refs.upload.clearFiles()
+                    return false
+                }
+                if (!isSizeOk) {
+                    this.$notify.error({
+                        title: '上传图片大小不能超过 ' + String(code.MAX_SIZE) + 'MB！请删除失败文件后重新上传',
+                        offset: code.OFFSET
+                    })
+                    return false
+                }
+                return true
+            }
         }
     },
     created() {

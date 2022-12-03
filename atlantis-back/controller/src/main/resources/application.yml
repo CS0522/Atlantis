@@ -22,7 +22,7 @@ spring:
 
 server:
   port: 8081
-  address: localhost
+#  address: 172.16.10.210
   servlet:
     context-path: /api
 
@@ -56,7 +56,7 @@ spring:
 
 server:
   port: 8686
-  address: localhost
+#  address: localhost
   servlet:
     context-path: /api
 
