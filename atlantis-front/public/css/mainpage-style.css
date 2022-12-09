@@ -15,12 +15,17 @@
 
 .sub-page {
     /* border: solid blue; */
+    /* 居中 */
+    margin: auto auto;
     margin-top: 15px;
     margin-bottom: 20px;
     padding: 50px 50px;
     /* height属性设置auto，高度依据内部的组件而定 */
     height: auto;
     min-height: 1600px;
+
+    /* 两边留白 */
+    width: 80%;
 
     background-color: rgba(252, 242, 241, 0.7);
     border-radius: 15px;
@@ -45,6 +50,7 @@
     position: absolute;
     width: 700px;
     height: 100px;
+    left: 1cm;
 }
 
 .nav-location 
@@ -69,6 +75,13 @@
     margin: 0 auto;
     background-color: #8beeff;
     overflow: hidden;
+
+    animation: shadow 3s ease;
+    animation-iteration-count: infinite;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);  /* css滤镜 */
+
+    box-shadow: 5px 15px 15px 5px rgba(139, 238, 255, 0.7);
 }
 
 .tab {

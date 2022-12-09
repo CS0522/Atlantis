@@ -130,6 +130,7 @@ export default {
         }
     },
     created() {
+        document.title = '用户主页';
         this.load();
     },
     methods: {

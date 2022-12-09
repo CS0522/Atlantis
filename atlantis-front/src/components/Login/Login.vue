@@ -91,6 +91,7 @@ export default {
         }
     },
     created() {
+        document.title = '登录';
         this.load();
     },
     methods:

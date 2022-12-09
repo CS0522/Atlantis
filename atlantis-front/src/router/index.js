@@ -20,6 +20,7 @@ const routes =
             path: "/login/:type",
             component: () => import('@/components/Login/Login.vue'),
             meta: {
+                title: "登录",
                 keepAlive: true // 需要缓存
             },
             props: true
@@ -29,6 +30,7 @@ const routes =
             path: "/signup",
             component: () => import('@/components/Signup/Signup.vue'),
             meta: {
+                title: "注册",
                 keepAlive: true // 需要缓存
             },
             props: true
@@ -135,9 +137,9 @@ const routes =
             path: "/dashboard",
             redirect: "/dashboard/home",
             component: Dashboard,
-            // meta: {
-            //     keepAlive: true // 需要缓存
-            // },
+            meta: {
+                title: "管理面板",
+            },
             props: true,
             children: [
                 {
@@ -209,9 +211,9 @@ const routes =
             path: "/personal",
             redirect: "/personal/profile",
             component: Personal,
-            // meta: {
-            //     keepAlive: true // 需要缓存
-            // },
+            meta: {
+                title: "用户主页",
+            },
             // props: true,
             children: [
                 {
@@ -247,6 +249,19 @@ const routes =
                     }
                 }
             }
+        },
+        // 添加404页面
+        {
+            path: "/404",
+            meta: {
+                title: "404",
+            },
+            component: () => import('@/components/Pages/404.vue'),
+        },
+        {
+            path: "*",
+            name: "page not found",
+            redirect: "/404"
         }
     ]
 

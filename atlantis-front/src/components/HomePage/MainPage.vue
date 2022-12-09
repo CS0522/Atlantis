@@ -7,7 +7,7 @@
                 <!-- 放入当前的路由路径 -->
                 <!-- 怎么实现中文化 -->
                 <div class="nav-location">
-                    &nbsp;当前位置: &nbsp;<p style="display: inline;">{{showPath}}</p>
+                    当前位置: &nbsp;<p style="display: inline;">{{showPath}}</p>
                 </div>
             </div>
             <!-- 放入主要页面导航，主要页面内放入子页面导航 -->

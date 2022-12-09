@@ -257,6 +257,7 @@ export default {
     },
 
     created() {
+        document.title = '管理面板';
         this.load();
     },
 }

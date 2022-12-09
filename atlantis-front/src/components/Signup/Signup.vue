@@ -96,6 +96,7 @@ export default {
         }
     },
     created() {
+        document.title = '注册';
         this.load();
     },
     methods:{

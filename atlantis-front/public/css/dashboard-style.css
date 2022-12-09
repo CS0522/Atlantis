@@ -1,11 +1,14 @@
 #dashboard
 {
     /* border: solid; */
-    /* height: 2100px; */
+    margin: auto auto;
     height: max-content;
     min-height: 1600px;
     margin-top: 200px;
+    margin-bottom: 100px;
     padding: 50px 50px;
+
+    width: 80%;
 
     background-color: rgba(252, 242, 241, 0.7);
     border-radius: 15px;
@@ -37,7 +40,7 @@
 {
     /* border: solid; */
     display: inline;
-    width: 70%;
+    width: 75%;
     float: right;
 }
 

@@ -69,8 +69,8 @@ export default {
 .carousel {
     /* 左右边距 */
     margin-top: 5cm;
-    margin-left: 0.5cm;
-    margin-right: 0.5cm;
+    margin-left: 1cm;
+    margin-right: 1cm;
     height: auto;
 }
 </style>
