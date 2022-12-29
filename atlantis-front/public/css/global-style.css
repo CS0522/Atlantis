@@ -16,6 +16,8 @@ select:focus
 a {
     color: #999;
     text-decoration: none;
+
+    transition: all .3s;
 }
 
 /* 未访问的链接 */
@@ -64,6 +66,7 @@ a:hover {
 button
 {
     cursor: pointer;
+    transition: all .3s;
 }
 
 button:hover

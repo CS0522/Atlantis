@@ -120,6 +120,11 @@ export default {
         },
 
         doSignup() {
+            if (!this.signupData.username || !this.signupData.nickname || !this.signupData.password)
+            {
+                return;
+            }
+
             this.isLoading = true;
             // 首先发送验证码进行确认
             request.post("/verify/" + this.verifyCode).then(res => {
@@ -152,10 +157,12 @@ export default {
                         return;
                     }
 
+                    // 定义一个用来发送的变量
+                    let sendSignupData = JSON.parse(JSON.stringify(this.signupData));
                     // md5加密
-                    this.signupData.password = hex_md5(this.signupData.password);
+                    sendSignupData.password = hex_md5(sendSignupData.password);
                     // 新增
-                    request.post("/users", this.signupData).then(res => {
+                    request.post("/users", sendSignupData).then(res => {
                         if (res.code === code.INSERT_OK) {
                             this.$notify.success({
                                 title: '注册成功！正在返回登录页面',

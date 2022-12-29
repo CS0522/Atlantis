@@ -4,6 +4,7 @@
     /* border: solid; */
     width: 500px;
     font-size: 40px;
+    font-weight: bold;
 }
 
 .hr
@@ -104,6 +105,8 @@ ul
 
     background-color: rgba(252, 242, 241, 0.4);
     box-shadow: 5px 15px 15px 5px #888888;
+
+    transition: all .3s;
 }
 
 /* .item-id
@@ -129,6 +132,15 @@ ul
     box-shadow: 5px 15px 15px 5px #888888;
 }
 
+.item-box:hover
+{
+    background-color: rgba(139, 238, 255, 0.4);
+}
+
+.item-box:hover .item-detail
+{
+    transform: scale(1.1);
+}
 
 .item-detail
 {
@@ -138,6 +150,8 @@ ul
     /* line-height: 130px; */
     /* text-align: center; */
     margin: auto;
+
+    transition: all .3s;
 }
 
 .item-detail-realname

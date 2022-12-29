@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <!-- <router-view ></router-view> -->
-        <router-view v-if="!toReload" :key="$route.fullPath"></router-view>
+        <router-view v-if="!toReload"></router-view>
     </div>
 </template>
 

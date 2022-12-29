@@ -99,6 +99,8 @@
 .content {
   text-align: left;
   font-family: 'Microsoft YaHei';
+
+  transition: all .3s;
 }
 
 .content:hover {

@@ -436,12 +436,13 @@ export default {
                 }
                 // is valid
             if (this.newPwd === this.confirmPwd) {
-                // item设置新密码
-                this.item.password = this.newPwd;
+                let sendItem = JSON.parse(JSON.stringify(this.item));
+                // sendItem设置新密码
+                sendItem.password = this.newPwd;
                 // md5加密
-                this.item.password = hex_md5(this.item.password);
+                sendItem.password = hex_md5(sendItem.password);
                 // 发送新数据
-                request.put('/' +this.typeStr + '/password', this.item).then(res => {
+                request.put('/' +this.typeStr + '/password', sendItem).then(res => {
                     if (res.code === code.UPDATE_OK) {
                         this.$notify.success({
                             title: message.UPDATE_OK,

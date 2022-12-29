@@ -275,11 +275,13 @@ export default {
                     return;
                 }
 
-                this.userData.password = this.newPwd;
+                // 定义一个发送的变量
+                let sendUserData = JSON.parse(JSON.stringify(this.userData));
+                sendUserData.password = this.newPwd;
                 // md5加密
-                this.userData.password = hex_md5(this.userData.password);
+                sendUserData.password = hex_md5(sendUserData.password);
 
-                request.put('/users/password', this.userData).then(res => {
+                request.put('/users/password', sendUserData).then(res => {
                     if (res.code === code.UPDATE_OK) {
                         this.load();
                         this.$notify.success({

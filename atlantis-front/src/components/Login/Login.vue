@@ -152,6 +152,10 @@ export default {
 
         doLogin() {
             // console.log("md5 encrypt: " + hex_md5(this.loginData.password));
+            if (!this.loginData.username || !this.loginData.password)
+            {
+                return;
+            }
 
             this.isLoading = true;
             // console.log(type);
@@ -182,10 +186,12 @@ export default {
             }
             loginDataCopy.username = this.loginData.username;
 
+            // 定义一个用来发送的变量
+            let sendLoginData = JSON.parse(JSON.stringify(this.loginData));
             // 首先进行md5加密
-            this.loginData.password = hex_md5(this.loginData.password);
+            sendLoginData.password = hex_md5(sendLoginData.password);
             // 发送加密后数据
-            request.post('/' + this.typeStr + '/login', this.loginData).then(res => {
+            request.post('/' + this.typeStr + '/login', sendLoginData).then(res => {
                     if (res.code === code.LOGIN_OK) {
                         // 登录成功，保存至本地
                         this.$storage.set("accountInfo", res.data, 24 * 60 * 60 * 1000);

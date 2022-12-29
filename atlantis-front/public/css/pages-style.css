@@ -42,6 +42,7 @@
     height: 130px;
     line-height: 130px;
     /* margin-bottom: 10px; */
+    transition: all .3s;
 }
 
 .sub-tab:hover

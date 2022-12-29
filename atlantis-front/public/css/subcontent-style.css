@@ -88,6 +88,8 @@
     font-size: 30px;
     background-color: rgba(252, 242, 241, 0.4);
     box-shadow: 5px 15px 15px 5px #888888;
+
+    transition: all .3s;
 }
 
 /* .item-id
@@ -100,6 +102,16 @@
     font-size: 40px;
 } */
 
+.item-box:hover
+{
+    background-color: rgba(139, 238, 255, 0.4);
+}
+
+.item-box:hover .item-detail
+{
+    transform: scale(1.02);
+}
+
 .item-detail
 {
     /* border: solid red; */
@@ -109,6 +121,8 @@
     height: 100%;
     line-height: 130px;
     cursor: pointer;
+
+    transition: all .3s;
 }
 
 .item-detail::after {

@@ -92,6 +92,7 @@
     width: 200px; 
     /* border: solid; */
     /* float: left; */
+    transition: all .3s;
 }
 
 .tab:hover {
