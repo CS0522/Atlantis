@@ -7,7 +7,7 @@
                 <!-- 放入当前的路由路径 -->
                 <!-- 怎么实现中文化 -->
                 <div class="nav-location">
-                    当前位置: &nbsp;<p style="display: inline;">{{showPath}}</p>
+                    当前位置: &nbsp;<p style="display: inline;">{{ showPath }}</p>
                 </div>
             </div>
             <!-- 放入主要页面导航，主要页面内放入子页面导航 -->
@@ -34,7 +34,7 @@
                     </router-link>
             </div>
             <div class="sub-page">
-                <router-view></router-view> 
+                <router-view :key="$route.fullPath"></router-view> 
             </div>
         </div>
         
@@ -63,6 +63,11 @@ export default {
         getPath()
         {
             let path = this.$route.path;
+            // 当在论坛界面的时候，不方便，就只显示 forum
+            if (path.includes("forum"))
+            {
+                return "forum";
+            }
             // 拼接 [2, 4), 因为0是空, 1是page, 3可能为空, 不影响
             return path.split("/").slice(2, 4).join(" / ");
         },

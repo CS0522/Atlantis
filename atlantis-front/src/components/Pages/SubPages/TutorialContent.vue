@@ -17,7 +17,7 @@ export default {
     name: "tutorialcontent",
     data() {
         return {
-            // 获取categorie items
+            // 获取category items
             categoryItems: [],
 
             title: '',

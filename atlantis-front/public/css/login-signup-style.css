@@ -103,3 +103,14 @@
     /* border: solid; */
     float: left;
 }
+
+.logo-img
+{
+    transition: all .3s;
+}
+
+.logo-img:hover
+{
+    transform: scale(1.02);
+    cursor: pointer;
+}

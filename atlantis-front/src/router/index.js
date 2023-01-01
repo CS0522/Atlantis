@@ -10,6 +10,7 @@ import Forum from '../components/Pages/Forum.vue'
 import About from '../components/Pages/About.vue'
 import Dashboard from '@/components/Dashboard/Dashboard.vue'
 import Personal from '@/components/PersonalPage/Personal.vue'
+import ForumContent from '@/components/Pages/SubPages/ForumContent.vue'
 
 Vue.use(VueRouter)
 
@@ -106,7 +107,33 @@ const routes =
                 },
                 {
                     path: "forum",
-                    component: Forum
+                    redirect: "/page/forum/1/list",
+                    component: Forum,
+                    props: true,
+                    children: [
+                        {
+                            path: ":topicIndex",
+                            component: () => import('@/components/Pages/SubPages/ForumContent.vue'),
+                            props: true,
+                            children: [
+                                {
+                                    path: "list",
+                                    component: () => import('@/components/Pages/SubPages/ForumList.vue'),
+                                    props: true,
+                                },
+                                {
+                                    path: "thread",
+                                    component: () => import('@/components/Pages/SubPages/ForumThread.vue'),
+                                    props: true,
+                                },
+                            ]
+                        },
+                    ]
+                },
+                {
+                    path: "threadEditor",
+                    component: () => import('@/components/Pages/SubPages/ThreadEditor.vue'),
+                    props: true
                 },
                 {
                     path: "about",

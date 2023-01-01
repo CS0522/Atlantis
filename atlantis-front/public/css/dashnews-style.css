@@ -124,6 +124,8 @@
     background-color: rgba(252, 242, 241, 0.4);
     box-shadow: 5px 15px 15px 5px #888888;
 
+    cursor: pointer;
+
     transition: all .3s;
 }
 
@@ -132,15 +134,15 @@
     background-color: rgba(139, 238, 255, 0.4);
 }
 
-.item-box:hover li
+.item-box:hover
 {
     transform: scale(1.02);
 }
 
-.item-box li
+/* .item-box li
 {
     transition: all .3s;
-}
+} */
 
 .item-id
 {

@@ -22,9 +22,8 @@
             <div id="personal-nav-box">
                 <div id="personal-title">
                     <!-- 设置点击图片跳转至首页 -->
-                    <router-link to="/" target="_self">
-                        <img src="imgs/logo/atlantis-logo.png" height="150px" />
-                    </router-link>
+                    <img src="imgs/logo/atlantis-logo.png" class="logo-img" height="150px" 
+                         @click="toHome()"/>
                 </div>
                 <div id="personal-sub-nav">
 
@@ -134,6 +133,10 @@ export default {
         this.load();
     },
     methods: {
+        toHome() {
+            window.location.href = "/";
+        },
+
         doTopBarReload() {
             this.topBarReload = true;
             this.$nextTick(function() {

@@ -4,7 +4,9 @@
             <div class="search-box">
                 <!-- 纯粹对齐用 -->
                 <div class="add-button-box">
-                    <button style="cursor:auto; opacity: 0"></button>
+                    <button class="add-button" @click="doPost()">
+                        <img src="imgs/icons/post.png" height="40px" style="transform: translateY(10px)"/>
+                        发布帖子</button>
                 </div>
                 <div class="search-bar">
                     <!-- 实现查询实时显示 -->
@@ -39,11 +41,17 @@
                                 <div class="item-detail-title">
                                     {{ item.title }}
                                 </div>
+                                
                                 <div class="item-detail-date">
                                     {{ item.createDate }}
                                 </div>
+
                                 <div class="item-detail-view">
                                     浏览次数: {{ item.view }}
+                                </div>
+
+                                <div class="item-detail-author">
+                                    作者: {{ item.author }}
                                 </div>
                             </div>
                         </li>
@@ -98,11 +106,11 @@ export default {
         },
         setTypeIndex() {
             // 直接从vuex中获取
-            this.typeIndex = this.$store.state.tutorialCurrentCategory.index;
+            this.typeIndex = this.$store.state.forumCurrentTopic.index;
         },
         setItems() {
             console.log("typeIndex: " + this.typeIndex);
-            request.get("/tutorialArticles/" + this.typeIndex + 
+            request.get("/forumArticles/" + this.typeIndex + 
                         "/" + this.currentPage + "/" + this.pageSize + "/create_date desc")
             .then(res => {
                 if (res.code === code.GET_OK) {
@@ -117,6 +125,19 @@ export default {
                 });
             })
         },
+        doPost() {
+            // 点击前检查是否已经登录
+            let info = this.$storage.get("accountInfo");
+            if (!info)
+            {
+                this.$notify.info({
+                    title: "请登录后再发送帖子",
+                    offset: code.OFFSET,
+                })
+                return;
+            }
+            this.$router.push("/page/threadEditor");
+        },
 
         doSearch() {
             // 若输入为空，刷新、退出
@@ -126,7 +147,7 @@ export default {
                 return;
             }
             this.isSearching = true;
-            request.get("/tutorialArticles/search/" + this.searchInput.trim() + 
+            request.get("/forumArticles/search/" + this.searchInput.trim() + 
                         "/" + this.currentPage + "/" + this.pageSize).then(res => {
                         if (res.code === code.GET_OK && res.data.total)
                         {
@@ -154,11 +175,10 @@ export default {
                     })
         },
 
-        // 点击跳转到 id = objId 的新闻详情
+        // 点击跳转到 id = objId 的详情
         goToItemDetail(objId) {
-            // this.$router.push("/page/tutorial/" + this.type + "/detail/" + objId);
             this.$router.push({
-                path: "/page/tutorial/" + this.type + "/detail",
+                path: "/page/forum/" + this.typeIndex + "/thread",
                 query: {
                     id: objId
                 }
@@ -173,12 +193,12 @@ export default {
             let res;
             if (!this.isSearching)
             {
-                res = await request.get("/tutorialArticles/" + this.typeIndex + "/" + 
+                res = await request.get("/forumArticles/" + this.typeIndex + "/" + 
                                     this.currentPage + "/" + this.pageSize + "/create_date desc");
             }
             else
             {
-                res = await request.get("/tutorialArticles/search/" + this.searchInput.trim() + 
+                res = await request.get("/forumArticles/search/" + this.searchInput.trim() + 
                                     "/" + this.currentPage + "/" + this.pageSize);
             }
             if (res.code === code.GET_OK) {
@@ -211,7 +231,7 @@ export default {
             this.isSearching = true;
             // 延迟 0.2s 进行实时显示
             setTimeout(() => {
-                request.get("/tutorialArticles/search/" + val.trim() + 
+                request.get("/forumArticles/search/" + val.trim() + 
                         "/" + this.currentPage + "/" + 100).then(res => {
                         if (res.code === code.GET_OK && res.data.total)
                         {

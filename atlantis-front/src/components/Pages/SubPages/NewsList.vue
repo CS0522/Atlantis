@@ -42,6 +42,9 @@
                                 <div class="item-detail-date">
                                     {{ item.createDate }}
                                 </div>
+                                <div class="item-detail-view">
+                                    浏览次数: {{ item.view }}
+                                </div>
                             </div>
                         </li>
                     </div>

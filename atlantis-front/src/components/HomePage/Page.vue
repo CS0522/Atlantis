@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div ref="page">
         <!-- 顶栏 -->
         <TopBar 
         v-if="!topBarReload"></TopBar>
@@ -44,21 +44,37 @@ export default {
             })
         },
         // 加载教程分类，放在这一层避免闪烁
-        load() {
+        // 加载论坛话题
+        async load() {
             // console.log("loading...")
-            // 获取有哪些分类
-            request.get("/categories").then(res => {
-                if (res.code === code.GET_OK)
-                {
-                    // 保存在localStorage中，方便后续组件读取，避免每次都要请求导致闪烁
-                    this.$storage.set('tutorialCategoryItems', res.data, 24 * 60 * 60);
-                }
-            }).catch(err => {
+            // 获取分类
+            let res1 = await request.get("/categories");
+            if (res1.code === code.GET_OK)
+            {
+                // 保存在localStorage中，方便后续组件读取，避免每次都要请求导致闪烁
+                this.$storage.set('tutorialCategoryItems', res1.data, 24 * 60 * 60);
+            }
+            else 
+            {
                 this.$notify.error({
                     title: message.REQUEST_ERR,
                     offset: code.OFFSET
                 })
-            })
+            }
+            // 获取话题
+            let res2 = await request.get("/topics");
+            if (res2.code === code.GET_OK)
+            {
+                // 保存在localStorage中，方便后续组件读取，避免每次都要请求导致闪烁
+                this.$storage.set("forumTopicItems", res2.data, 24 * 60 * 60);
+            }
+            else
+            {
+                this.$notify.error({
+                    title: message.REQUEST_ERR,
+                    offset: code.OFFSET
+                })
+            }
         },
     },
 

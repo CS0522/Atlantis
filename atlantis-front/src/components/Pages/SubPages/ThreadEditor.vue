@@ -1,7 +1,7 @@
 <template>
     <div>
         <div id="title-box">
-            <div>{{ title }}</div>
+            <div>发布帖子</div>
         </div>
         <hr class="hr" />
         <div id="content-box">
@@ -11,7 +11,7 @@
                     <tr align="center">
                         <td>
                             <button class="operation" style="background-color: #8beeff" 
-                                @click="doSubmit()">提交</button>
+                                @click="doSubmit()">发布</button>
                         </td>
                         <td>
                             <button class="operation" 
@@ -25,21 +25,14 @@
                 <!-- 分类box -->
                 <div class="edit-index-box">
                     <span style="color: red">* </span>选择分类：<br/>
-                    <div class="item-box">
-                        <!-- 资讯编辑 -->
-                        <select name="selectType" class="selectType" v-show="type==='news'"
-                            v-model="form.index">
-                            <option value="1">游戏新闻</option>
-                            <option value="2">游戏公告</option>
-                        </select>
-                        <!-- 教程编辑 -->
-                        <select name="selectType" class="selectType" v-show="type==='tutorial'"
+                    <div class="item-box">                   
+                        <select name="selectType" class="selectType"
                             v-model="form.index">
                             <option 
-                                v-for="categoryItem in categoryItems" 
-                                :key="categoryItem.index"
-                                :value="categoryItem.index">
-                                {{ categoryItem.type }}
+                                v-for="topicItem in topicItems" 
+                                :key="topicItem.index"
+                                :value="topicItem.index">
+                                {{ topicItem.type }}
                             </option>
                         </select>
                     </div>
@@ -49,7 +42,7 @@
                 </div> -->
                 <!-- 标题box -->
                 <div class="edit-title-box">
-                    <span style="color: red">* </span>文章标题：
+                    <span style="color: red">* </span>帖子标题：
                     <div class="item-box">
                         <input type="text" name="title"
                             class="form-input" v-model="form.title"/>
@@ -57,13 +50,13 @@
                 </div>
                 <!-- 文章box -->
                 <div class="edit-content-box">
-                    <span style="color: red">* </span>文章内容：
+                    <span style="color: red">* </span>帖子内容：
                     <div class="item-box" style="border: solid #8beeff; overflow: hidden;">
                         <!-- 富文本编辑器 -->
                         <mavon-editor class="editor" v-model="form.content"
                                     ref = md
                                     @imgAdd = "$imgAdd"
-                                    placeholder = "输入文章内容"
+                                    placeholder = "有什么想分享的，欢迎发帖~"
                                     :toolbars = "toolbars"/>
                     </div>
                 </div>
@@ -74,7 +67,7 @@
                     <tr align="center">
                         <td>
                             <button class="operation" style="background-color: #8beeff" 
-                                @click="doSubmit()">提交</button>
+                                @click="doSubmit()">发布</button>
                         </td>
                         <td>
                             <button class="operation" 
@@ -94,18 +87,21 @@ import request from '@/utils/request';
 import metoolbar from '@/utils/mavon-editor-toolbars'
 
 export default {
-    name: "newseditor",
+    name: "threadeditor",
     data() {
         return {
-            title: '',
-            typeStr: '',
+            topicItems: [],
 
-            categoryItems: [],
+            // accountInfo
+            accountInfo: this.$storage.get("accountInfo"),
 
-            // 读入数据库中
-            item: {},
             // 写入
-            form: {},
+            form: {
+                index: '',
+                title: '',
+                author: '',
+                content: ''
+            },
 
             // 对象属性，传给mavon-editor
             toolbars: metoolbar.toolbars,
@@ -113,49 +109,12 @@ export default {
     },
     methods: {
         load() {
-            this.categoryItems = this.$storage.get('tutorialCategoryItems');
+            this.topicItems = this.$storage.get('forumTopicItems');
 
             this.clearForm();
-            this.setTypeStr();
-            this.setTitle();
-            this.setContent();
         },
         clearForm() {
             this.form = {};
-        },
-        setTypeStr() {
-            if (this.type === 'news') {
-                this.typeStr = 'news';
-            }
-            else if (this.type === 'tutorial') {
-                this.typeStr = 'tutorial';
-            }
-        },
-        setTitle() {
-            if (this.type === 'news') {
-                this.title = '资讯编辑';
-            }
-            else if (this.type === 'tutorial') {
-                this.title = '教程编辑';
-            }
-        },
-        // 获取对应id的文章
-        async setContent() {
-            if (this.id <= 0) {
-                // 操作为新增，或者id不合法
-                return;
-            }
-            let res = await request.get("/" + this.typeStr + "Articles/" + this.id);
-            if (res.code === code.GET_OK) {
-                this.item = res.data;
-                this.form = this.item;
-            }
-            else {
-                this.$notify.error({
-                    title: message.REQUEST_ERR,
-                    offset: code.OFFSET
-                })
-            }
         },
 
         reset() {
@@ -167,37 +126,38 @@ export default {
         },
 
         async doSubmit() {
-            let res;
-            // 新增
-            if (this.id <= 0) {
-                res = await request.post("/" + this.typeStr + "Articles", this.form);
+            // set author
+            if (this.accountInfo)
+            {
+                this.form.author = this.accountInfo.username;
             }
-            // 更新
-            else {
-                // form 中应该包含了查询出来的id
-                res = await request.put("/" + this.typeStr + "Articles", this.form);
-            }
-            // console.log(res);
-            // form 为要提交的表单
-            if (res.code === code.UPDATE_OK) {
-                // 跳转回管理界面
-                // 提示消息
-                this.$notify.success({
-                    title: message.UPDATE_OK,
-                    offset: code.OFFSET,
+            // 发布前检查
+            if (!this.form.index || !this.form.title || !this.form.content)
+            {
+                this.$notify.info({
+                    title: "请填入必要信息",
+                    offset: code.OFFSET
                 })
+                return;
             }
-            else if (res.code === code.INSERT_OK)
+            // submit
+            let res = await request.post("/forumArticles", this.form);
+            if (res.code === code.INSERT_OK)
             {
                 this.$notify.success({
                     title: message.INSERT_OK,
                     offset: code.OFFSET,
                 })
+                // back to home
+                setTimeout(() => {
+                    this.$router.push("/page/forum");
+                }, 1000);
+                
             }
             else if (res.code === code.INSERT_ERR)
             {
                 this.$notify.error({
-                    title: "请检查标题是否重复",
+                    title: "请检查帖子是否重复",
                     offset: code.OFFSET,
                 })
             }
@@ -268,7 +228,6 @@ export default {
     created() {
             this.load();
         },
-    props: ['type', 'id'],
 }
 </script>
 

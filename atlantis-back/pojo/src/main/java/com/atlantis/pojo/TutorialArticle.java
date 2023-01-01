@@ -21,6 +21,8 @@ public class TutorialArticle {
 
     private String thumbnail;
 
+    private Integer view;
+
     public Integer getId() {
         return id;
     }
@@ -69,15 +71,24 @@ public class TutorialArticle {
         this.thumbnail = thumbnail;
     }
 
+    public Integer getView() {
+        return view;
+    }
+
+    public void setView(Integer view) {
+        this.view = view;
+    }
+
     @Override
     public String toString() {
-        return "NewsArticle{" +
+        return "TutorialArticle{" +
                 "id=" + id +
                 ", index=" + index +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", createDate=" + createDate +
                 ", thumbnail='" + thumbnail + '\'' +
+                ", view=" + view +
                 '}';
     }
 }

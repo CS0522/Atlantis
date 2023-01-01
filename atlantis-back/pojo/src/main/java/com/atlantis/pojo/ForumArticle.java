@@ -4,17 +4,17 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
-public class NewsArticle {
+public class ForumArticle {
     // 新闻的唯一标识
     private Integer id;
 
-    // 用于区分资讯的类别
-    // 1 = 新闻，2 = 公告
     private Integer index;
 
     private String title;
 
     private String content;
+
+    private String author;
 
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date createDate;
@@ -22,6 +22,14 @@ public class NewsArticle {
     private String thumbnail;
 
     private Integer view;
+
+    public Integer getView() {
+        return view;
+    }
+
+    public void setView(Integer view) {
+        this.view = view;
+    }
 
     public Integer getId() {
         return id;
@@ -55,6 +63,14 @@ public class NewsArticle {
         this.content = content;
     }
 
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
     public Date getCreateDate() {
         return createDate;
     }
@@ -71,21 +87,14 @@ public class NewsArticle {
         this.thumbnail = thumbnail;
     }
 
-    public Integer getView() {
-        return view;
-    }
-
-    public void setView(Integer view) {
-        this.view = view;
-    }
-
     @Override
     public String toString() {
-        return "NewsArticle{" +
+        return "ForumArticle{" +
                 "id=" + id +
                 ", index=" + index +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
+                ", author='" + author + '\'' +
                 ", createDate=" + createDate +
                 ", thumbnail='" + thumbnail + '\'' +
                 ", view=" + view +

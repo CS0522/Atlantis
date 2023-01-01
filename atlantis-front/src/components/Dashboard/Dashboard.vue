@@ -32,9 +32,8 @@
             <div id="dash-nav-box">
                 <div id="dash-title">
                     <!-- 设置点击图片跳转至首页 -->
-                    <router-link to="/" target="_self">
-                        <img src = "imgs/logo/atlantis-logo.png" height = "150px" />
-                    </router-link>
+                    <img src = "imgs/logo/atlantis-logo.png" class="logo-img" height = "150px" 
+                         @click="toHome()"/>
                 </div>
                 <!-- 点击显示菜单 -->
                 <div id="dash-sub-nav">
@@ -132,6 +131,10 @@ export default {
     },
 
     methods: {
+        toHome() {
+            window.location.href = "/";
+        },
+
         // 通过定时器将高度逐渐修改从而达到二级菜单逐渐展开的动画
         showMenu1() {
             // console.log("do showMenu1")

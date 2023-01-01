@@ -2,7 +2,7 @@
     <div id="bg-blur">
         <div id="img-box">
             <router-link to="/">
-                <img src="imgs/logo/atlantis-logo.png" height="150px" />
+                <img src="imgs/logo/atlantis-logo.png" class="logo-img" height="150px" />
             </router-link>
         </div>
         <div id="not-found-box">
@@ -59,5 +59,16 @@ export default {
 .title
 {
     margin: 0 0;
+}
+
+.logo-img
+{
+    transition: all .3s;
+}
+
+.logo-img:hover
+{
+    transform: scale(1.02);
+    cursor: pointer;
 }
 </style>

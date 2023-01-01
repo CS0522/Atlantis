@@ -16,6 +16,8 @@ const store = new Vuex.Store({
 
         // 保存当前正在哪一个分类下
         tutorialCurrentCategory: {},
+        // 保存当前正在哪一个话题下
+        forumCurrentTopic: {},
 
         // img base url
         userImgBaseUrl: baseUrl.baseURL + "/users/",
@@ -38,7 +40,11 @@ const store = new Vuex.Store({
         setTutorialCurrentCategory(state, newCategory)
         {
             state.tutorialCurrentCategory = newCategory;
-        }
+        },
+        setForumCurrentTopic(state, newTopic)
+        {
+            state.forumCurrentTopic = newTopic;
+        },
     },
 })
 

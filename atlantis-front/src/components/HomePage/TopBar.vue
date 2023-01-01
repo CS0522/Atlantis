@@ -3,9 +3,8 @@
         <div class="logo" style="display:inline-block; border-radius: 15px;">
             &nbsp;
             <!-- 设置点击图片跳转至首页 -->
-            <router-link to="/" target="_self">
-                <img src="@/../public/imgs/logo/atlantis-logo.png" height="135px" />
-            </router-link>
+            <img src="@/../public/imgs/logo/atlantis-logo.png" class="logo-img" height="135px" 
+                 @click="toHome()"/>
         </div>
         <div class="search-bar">
             <el-input placeholder="搜索 (开发中)" v-model="searchInput" class="search-input" disabled>
@@ -28,7 +27,7 @@
                         <router-link to="/personal" target="_blank" v-if="adminOrUser === 'users'">
                             个人主页</router-link>
                         <router-link to="/dashboard" target="_blank" v-if="adminOrUser === 'admins'">
-                            后台管理</router-link>
+                            管理面板</router-link>
                     </th>
                     <th>
                         <router-link to="/login/user" target="_blank" v-if="!isLogin">登录/注册</router-link>
@@ -200,6 +199,10 @@ export default {
                 })
             })
         },
+
+        toHome() {
+            window.location.href = "/";
+        }
     },
 }
 </script>
