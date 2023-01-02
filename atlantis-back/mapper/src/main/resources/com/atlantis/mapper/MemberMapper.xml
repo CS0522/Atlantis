@@ -29,6 +29,7 @@
 -->
     <resultMap id="memberResultMap" type="com.atlantis.pojo.Member">
         <result property="joinDate" column="join_date"></result>
+        <result property="hasPhoto" column="has_photo"></result>
     </resultMap>
 
     <select id="getById" resultMap="memberResultMap">
@@ -58,9 +59,14 @@
 
     <update id="update">
         update member set realname = #{realname},
-                        description = #{description},
-                        status = #{status},
+                        `description` = #{description},
+                        `status` = #{status},
                         position = #{position} where id = #{id}
+    </update>
+
+<!--    更新头像-->
+    <update id="updatePhoto">
+        update member set `has_photo` = #{hasPhoto} where `id` = #{id}
     </update>
 
     <delete id="delete">

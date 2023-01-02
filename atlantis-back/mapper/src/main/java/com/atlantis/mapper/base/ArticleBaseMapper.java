@@ -16,6 +16,8 @@ public interface ArticleBaseMapper<T> {
 
     public int update(T obj);
 
+    public int updateView(T obj);
+
     public int insert(T obj);
 
     public int delete(@Param("id") Integer id);

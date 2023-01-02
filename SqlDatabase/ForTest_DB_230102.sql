@@ -75,7 +75,7 @@ CREATE TABLE `category` (
   `type` varchar(45) DEFAULT NULL,
   `route` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`index`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='category in tutorial that includes ''basic'', ''premium'', ''rules'' and so on.';
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='category in tutorial that includes ''basic'', ''premium'', ''rules'' and so on.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -84,7 +84,7 @@ CREATE TABLE `category` (
 
 LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` VALUES (1,'入门','basic'),(2,'进阶','premium'),(3,'联机','online'),(4,'守则','rules'),(5,'分类测试','test'),(7,'test1','testone');
+INSERT INTO `category` VALUES (1,'入门','basic'),(2,'进阶','premium'),(3,'联机','online'),(4,'守则','rules'),(5,'分类测试','test'),(7,'test1','testone'),(9,'test2','testtwo'),(10,'test3','testthree');
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -143,7 +143,7 @@ CREATE TABLE `forum_article` (
 
 LOCK TABLES `forum_article` WRITE;
 /*!40000 ALTER TABLE `forum_article` DISABLE KEYS */;
-INSERT INTO `forum_article` VALUES (1,1,'测试1','### 测试1内容','testadmin','2022-12-29 15:47:45',NULL,1),(2,1,'测试2','# 测试2内容','testadmin','2022-12-29 15:47:45',NULL,1),(3,2,'测试3','### 测试3内容','11111','2022-12-29 15:47:45',NULL,1),(4,2,'发布帖子测试','# 发布帖子测试  \n![wallpaper 44.png](http://localhost:8081/api/newsArticles/download/a8a7145f4a9974d686597ff15317c40d.png)','testadmin','2023-01-01 17:36:57',NULL,0),(5,2,'贴子发布测试2','1','testadmin','2023-01-01 17:38:01',NULL,0),(6,2,'用户身份发帖测试','你好','testuser01','2023-01-01 17:40:16',NULL,0);
+INSERT INTO `forum_article` VALUES (1,1,'测试1','### 测试1内容','testadmin','2022-12-29 15:47:45',NULL,10),(2,1,'测试2','# 测试2内容','testadmin','2022-12-29 15:47:45',NULL,3),(3,2,'测试3','### 测试3内容','11111','2022-12-29 15:47:45',NULL,2),(4,2,'发布帖子测试','# 发布帖子测试  \n![wallpaper 44.png](http://localhost:8081/api/newsArticles/download/a8a7145f4a9974d686597ff15317c40d.png)','testadmin','2023-01-01 17:36:57',NULL,2),(5,2,'贴子发布测试2','1','testadmin','2023-01-01 17:38:01',NULL,3),(6,2,'用户身份发帖测试','你好','testuser01','2023-01-01 17:40:16',NULL,3);
 /*!40000 ALTER TABLE `forum_article` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -159,10 +159,11 @@ CREATE TABLE `member` (
   `realname` varchar(100) DEFAULT NULL,
   `description` varchar(300) DEFAULT NULL,
   `join_date` datetime DEFAULT CURRENT_TIMESTAMP,
-  `status` int DEFAULT '0',
+  `status` int DEFAULT '1',
   `position` varchar(100) DEFAULT NULL,
+  `has_photo` int DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -171,7 +172,7 @@ CREATE TABLE `member` (
 
 LOCK TABLES `member` WRITE;
 /*!40000 ALTER TABLE `member` DISABLE KEYS */;
-INSERT INTO `member` VALUES (1,'队长','队长','2022-11-29 09:23:09',1,'队长'),(2,'群主','群主','2022-11-29 09:23:20',1,'群主'),(3,'管理01','管理','2022-11-29 09:23:42',1,'管理'),(4,'管理02','管理','2022-11-29 09:23:49',1,'管理'),(5,'成员01','成员\n','2022-11-29 09:24:04',0,'成员'),(6,'成员02','成员','2022-11-29 09:24:12',0,'成员'),(7,'测试01','测试','2022-11-29 09:24:26',0,'测试'),(8,'测试02','测试','2022-11-29 09:24:31',0,'测试'),(9,'成员03',NULL,'2022-11-29 19:32:05',0,'成员'),(10,'成员04',NULL,'2022-11-29 19:32:10',0,'成员'),(11,'成员05',NULL,'2022-11-29 19:32:15',0,'成员'),(12,'成员06',NULL,'2022-11-29 19:32:27',0,'成员'),(13,'成员07',NULL,'2022-11-29 19:32:36',0,'成员'),(14,'成员08',NULL,'2022-11-29 19:32:42',0,'成员'),(15,'测试03','update','2022-12-01 08:15:42',0,'测试');
+INSERT INTO `member` VALUES (1,'队长','队长','2022-11-29 09:23:09',1,'队长',1),(2,'群主','群主','2022-11-29 09:23:20',1,'群主',1),(3,'管理01','管理','2022-11-29 09:23:42',1,'管理',1),(4,'管理02','管理','2022-11-29 09:23:49',1,'管理',1),(5,'成员01','成员\n','2022-11-29 09:24:04',0,'成员',1),(6,'成员02','成员','2022-11-29 09:24:12',0,'成员',0),(7,'测试01','测试','2022-11-29 09:24:26',0,'测试',1),(8,'测试02','测试','2022-11-29 09:24:31',0,'测试',0),(9,'成员03',NULL,'2022-11-29 19:32:05',0,'成员',0),(10,'成员04',NULL,'2022-11-29 19:32:10',0,'成员',0),(11,'成员05',NULL,'2022-11-29 19:32:15',0,'成员',0),(12,'成员06',NULL,'2022-11-29 19:32:27',0,'成员',0),(13,'成员07',NULL,'2022-11-29 19:32:36',0,'成员',0),(14,'成员08',NULL,'2022-11-29 19:32:42',0,'成员',0),(15,'测试03','update','2022-12-01 08:15:42',0,'测试',0),(16,'测试04',NULL,'2023-01-02 10:58:08',1,'测试',1);
 /*!40000 ALTER TABLE `member` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -200,7 +201,7 @@ CREATE TABLE `news_article` (
 
 LOCK TABLES `news_article` WRITE;
 /*!40000 ALTER TABLE `news_article` DISABLE KEYS */;
-INSERT INTO `news_article` VALUES (1,1,'游戏新闻测试 editor','# 游戏新闻测试\n* 文章测试\n```cpp\nint main()\n{\n	cout << \"hello\" << endl;\n	return 0;\n}\n```\n\n* 图片测试\n![04.Evangelion 3.01.01 14.jpg](http://localhost:8081/api/newsArticles/download/2a1bd0bed3ae53b177b2962880c1fe11.jpg)\n![04.Evangelion 3.01.01 16.jpg](http://localhost:8081/api/newsArticles/download/887d0ec7e9f13bc46a4b9872f2541fdd.jpg)\n![04.Evangelion 3.01.01 17.jpg](http://localhost:8081/api/newsArticles/download/4fbaf9f6f6667b375800b7cf72ec9b84.jpg)\n\n![ROG X EVANGELION_3_2.png](http://localhost:8081/api/newsArticles/download/7db32a41090dbefbe6e58c4947017123.png)\n\n![ROG X EVANGELION.png](http://localhost:8080/api/newsArticles/download/6b3107b11c45f1d86a962c24d1c49078.png)','2022-11-29 09:17:02',NULL,0),(2,2,'游戏公告测试','# 游戏新闻测试\n* 文章测试\n```cpp\nint main()\n{\n	cout << \"hello\" << endl;\n	return 0;\n}\n```\n* 图片测试\n![04.Evangelion 3.01.01 10.jpg](http://localhost:8081/api/newsArticles/download/bcc6ffcbefeeaf728277b6880a0ecb9c.jpg)![04.Evangelion 3.01.01 11.jpg](http://localhost:8081/api/newsArticles/download/4f86f6f4d53881a2bad60353b5511ded.jpg)![04.Evangelion 3.01.01 12.jpg](http://localhost:8081/api/newsArticles/download/d1a4073043c26f2686afb0877548daa4.jpg)','2022-11-29 09:18:34',NULL,0),(4,2,'游戏公告测试 添加','## 游戏公告测试','2023-01-01 14:52:35',NULL,0);
+INSERT INTO `news_article` VALUES (1,1,'游戏新闻测试 editor','# 游戏新闻测试\n* 文章测试\n```cpp\nint main()\n{\n	cout << \"hello\" << endl;\n	return 0;\n}\n```\n\n* 图片测试\n![04.Evangelion 3.01.01 14.jpg](http://localhost:8081/api/newsArticles/download/2a1bd0bed3ae53b177b2962880c1fe11.jpg)\n![04.Evangelion 3.01.01 16.jpg](http://localhost:8081/api/newsArticles/download/887d0ec7e9f13bc46a4b9872f2541fdd.jpg)\n![04.Evangelion 3.01.01 17.jpg](http://localhost:8081/api/newsArticles/download/4fbaf9f6f6667b375800b7cf72ec9b84.jpg)\n\n![ROG X EVANGELION_3_2.png](http://localhost:8081/api/newsArticles/download/7db32a41090dbefbe6e58c4947017123.png)\n\n![ROG X EVANGELION.png](http://localhost:8080/api/newsArticles/download/6b3107b11c45f1d86a962c24d1c49078.png)','2022-11-29 09:17:02',NULL,4),(2,2,'游戏公告测试','# 游戏新闻测试\n* 文章测试\n```cpp\nint main()\n{\n	cout << \"hello\" << endl;\n	return 0;\n}\n```\n* 图片测试\n![04.Evangelion 3.01.01 10.jpg](http://localhost:8081/api/newsArticles/download/bcc6ffcbefeeaf728277b6880a0ecb9c.jpg)![04.Evangelion 3.01.01 11.jpg](http://localhost:8081/api/newsArticles/download/4f86f6f4d53881a2bad60353b5511ded.jpg)![04.Evangelion 3.01.01 12.jpg](http://localhost:8081/api/newsArticles/download/d1a4073043c26f2686afb0877548daa4.jpg)','2022-11-29 09:18:34',NULL,2),(4,2,'游戏公告测试 添加','## 游戏公告测试','2023-01-01 14:52:35',NULL,2);
 /*!40000 ALTER TABLE `news_article` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -276,7 +277,7 @@ CREATE TABLE `tutorial_article` (
 
 LOCK TABLES `tutorial_article` WRITE;
 /*!40000 ALTER TABLE `tutorial_article` DISABLE KEYS */;
-INSERT INTO `tutorial_article` VALUES (1,1,'入门测试','# 入门测试\n* 文章测试\n```cpp\nint main()\n{\n	cout << \"hello\" << endl;\n	return 0;\n}\n```','2022-11-29 09:20:29',NULL,0),(2,2,'进阶测试','# 进阶测试\n* 文章测试\n```cpp\nint main()\n{\n	cout << \"hello\" << endl;\n	return 0;\n}\n```','2022-11-29 09:20:52',NULL,0),(3,3,'联机测试','# 联机测试\n* 文章测试\n```cpp\nint main()\n{\n	cout << \"hello\" << endl;\n	return 0;\n}\n```','2022-11-29 09:21:19',NULL,0),(4,4,'守则测试','# 守则测试\n* 文章测试\n```cpp\nint main()\n{\n	cout << \"hello\" << endl;\n	return 0;\n}\n```','2022-11-29 09:21:33',NULL,0),(5,5,'分类测试01','# 分类测试\n* 文章测试\n```cpp\nint main()\n{\n	cout << \"hello\" << endl;\n	return 0;\n}\n```\n![wallpaper 38.jpg](http://172.16.10.210:8081/newsArticles/download/0021a1a16636674c5fc31f86631be369.jpg)','2022-11-29 09:21:58',NULL,0),(6,5,'分类测试02','# 分类测试\n* 文章测试\n```cpp\nint main()\n{\n	cout << \"hello\" << endl;\n	return 0;\n}\n```','2022-11-29 09:22:06',NULL,0);
+INSERT INTO `tutorial_article` VALUES (1,1,'入门测试','# 入门测试\n* 文章测试\n```cpp\nint main()\n{\n	cout << \"hello\" << endl;\n	return 0;\n}\n```','2022-11-29 09:20:29',NULL,5),(2,2,'进阶测试','# 进阶测试\n* 文章测试\n```cpp\nint main()\n{\n	cout << \"hello\" << endl;\n	return 0;\n}\n```','2022-11-29 09:20:52',NULL,2),(3,3,'联机测试','# 联机测试\n* 文章测试\n```cpp\nint main()\n{\n	cout << \"hello\" << endl;\n	return 0;\n}\n```','2022-11-29 09:21:19',NULL,2),(4,4,'守则测试','# 守则测试\n* 文章测试\n```cpp\nint main()\n{\n	cout << \"hello\" << endl;\n	return 0;\n}\n```','2022-11-29 09:21:33',NULL,1),(5,5,'分类测试01','# 分类测试\n* 文章测试\n```cpp\nint main()\n{\n	cout << \"hello\" << endl;\n	return 0;\n}\n```\n![wallpaper 38.jpg](http://172.16.10.210:8081/newsArticles/download/0021a1a16636674c5fc31f86631be369.jpg)','2022-11-29 09:21:58',NULL,1),(6,5,'分类测试02','# 分类测试\n* 文章测试\n```cpp\nint main()\n{\n	cout << \"hello\" << endl;\n	return 0;\n}\n```','2022-11-29 09:22:06',NULL,3);
 /*!40000 ALTER TABLE `tutorial_article` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -371,4 +372,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-01-01 20:17:50
+-- Dump completed on 2023-01-02 11:45:57

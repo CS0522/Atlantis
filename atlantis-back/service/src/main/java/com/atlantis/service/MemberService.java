@@ -4,5 +4,5 @@ import com.atlantis.pojo.Member;
 import com.atlantis.service.base.BaseService;
 
 public interface MemberService extends BaseService<Member> {
-
+    public boolean updatePhoto(Member member);
 }

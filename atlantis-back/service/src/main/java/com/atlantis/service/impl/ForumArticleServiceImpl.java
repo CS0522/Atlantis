@@ -17,6 +17,17 @@ public class ForumArticleServiceImpl extends ArticleBaseServiceImpl<ForumArticle
     @Autowired
     private ForumArticleMapper forumArticleMapper;
 
+    // 对getById进行重写
+    @Override
+    public ForumArticle getById(Integer id) {
+        // view值+1
+        ForumArticle temp = forumArticleMapper.getById(id);
+        temp.setView(temp.getView() + 1);
+        forumArticleMapper.updateView(temp);
+
+        return (forumArticleMapper.getById(id));
+    }
+
     // 对insert进行重写，检查是否存在相同标题
     public boolean insert(ForumArticle forumArticle)
     {

@@ -113,13 +113,28 @@ export default {
     },
     methods: {
         load() {
-            this.categoryItems = this.$storage.get('tutorialCategoryItems');
-
+            this.setCategoryItems();
             this.clearForm();
             this.setTypeStr();
             this.setTitle();
             this.setContent();
         },
+        async setCategoryItems() {
+            // 获取有哪些分类
+            let res = await request.get("/categories");
+            if (res.code === code.GET_OK)
+            {
+                this.categoryItems = res.data;
+            }
+            else 
+            {
+                this.$notify.error({
+                    title: message.REQUEST_ERR,
+                    offset: code.OFFSET
+                })
+            }
+        },
+        
         clearForm() {
             this.form = {};
         },

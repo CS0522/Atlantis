@@ -52,7 +52,7 @@ export default {
             if (res1.code === code.GET_OK)
             {
                 // 保存在localStorage中，方便后续组件读取，避免每次都要请求导致闪烁
-                this.$storage.set('tutorialCategoryItems', res1.data, 24 * 60 * 60);
+                this.$storage.set('tutorialCategoryItems', res1.data, 24 * 60 * 60 * 1000);
             }
             else 
             {
@@ -66,7 +66,7 @@ export default {
             if (res2.code === code.GET_OK)
             {
                 // 保存在localStorage中，方便后续组件读取，避免每次都要请求导致闪烁
-                this.$storage.set("forumTopicItems", res2.data, 24 * 60 * 60);
+                this.$storage.set("forumTopicItems", res2.data, 24 * 60 * 60 * 1000);
             }
             else
             {

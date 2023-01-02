@@ -66,6 +66,8 @@ public interface ArticleBaseService<T> {
      */
     public boolean update(T obj);
 
+    public boolean updateView(T obj);
+
     /**
      * 根据Id，删除T，根据dao层返回值进行操作是否成功
      * @param id

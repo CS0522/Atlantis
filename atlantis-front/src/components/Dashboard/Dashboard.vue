@@ -241,27 +241,27 @@ export default {
         },
 
         // 加载教程分类，放在这一层避免闪烁
-        load() {
-            // console.log("loading...")
-            // 获取有哪些分类
-            request.get("/categories").then(res => {
-                if (res.code === code.GET_OK)
-                {
-                    // 封装后存在localStorage中
-                    this.$storage.set('tutorialCategoryItems', res.data, 24 * 60 * 60);
-                }
-            }).catch(err => {
-                this.$notify.error({
-                    title: message.REQUEST_ERR,
-                    offset: code.OFFSET
-                })
-            })
-        },
+        // load() {
+        //     // console.log("loading...")
+        //     // 获取有哪些分类
+        //     request.get("/categories").then(res => {
+        //         if (res.code === code.GET_OK)
+        //         {
+        //             // 封装后存在localStorage中
+        //             this.$storage.set('tutorialCategoryItems', res.data, 24 * 60 * 60 * 1000);
+        //         }
+        //     }).catch(err => {
+        //         this.$notify.error({
+        //             title: message.REQUEST_ERR,
+        //             offset: code.OFFSET
+        //         })
+        //     })
+        // },
     },
 
     created() {
         document.title = '管理面板';
-        this.load();
+        // this.load();
     },
 }
 

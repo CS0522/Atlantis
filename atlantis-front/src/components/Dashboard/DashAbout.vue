@@ -49,7 +49,7 @@
                                             :show-file-list = "false"
                                             :on-success = "handleAvatarSuccess" 
                                             :before-upload = "beforeAvatarUpload">
-                                            <img v-if = "item.status" 
+                                            <img v-if = "item.hasPhoto" 
                                                     :src = "imgDownloadUrl + item.id" 
                                                     class = "avatar">
                                             <i v-else class = "el-icon-plus avatar-uploader-icon"></i>

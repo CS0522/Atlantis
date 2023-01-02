@@ -8,5 +8,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 // 自动代理
 public interface MemberMapper extends BaseMapper<Member> {
-
+    public int updatePhoto(Member member);
 }

@@ -43,6 +43,7 @@
 
 <script>
 import Carousel from './Carousel.vue'
+import {translate} from '@/utils/translateRoute.js'
 
 export default {
     name: 'MainPage',
@@ -63,13 +64,13 @@ export default {
         getPath()
         {
             let path = this.$route.path;
-            // 当在论坛界面的时候，不方便，就只显示 forum
-            if (path.includes("forum"))
-            {
-                return "forum";
-            }
+            // 当在论坛界面的时候，就只显示 forum
             // 拼接 [2, 4), 因为0是空, 1是page, 3可能为空, 不影响
-            return path.split("/").slice(2, 4).join(" / ");
+            let pathList = path.split("/").slice(2, 4);
+            // translate
+            pathList = translate(pathList);
+
+            return pathList.join(" / ");
         },
     },
     computed:

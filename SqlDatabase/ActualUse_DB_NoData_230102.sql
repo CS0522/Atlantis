@@ -55,7 +55,7 @@ CREATE TABLE `category` (
   `type` varchar(45) DEFAULT NULL,
   `route` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`index`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='category in tutorial that includes ''basic'', ''premium'', ''rules'' and so on.';
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='category in tutorial that includes ''basic'', ''premium'', ''rules'' and so on.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -109,10 +109,11 @@ CREATE TABLE `member` (
   `realname` varchar(100) DEFAULT NULL,
   `description` varchar(300) DEFAULT NULL,
   `join_date` datetime DEFAULT CURRENT_TIMESTAMP,
-  `status` int DEFAULT '0',
+  `status` int DEFAULT '1',
   `position` varchar(100) DEFAULT NULL,
+  `has_photo` int DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -244,4 +245,4 @@ CREATE TABLE `user_message` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-01-01 20:19:05
+-- Dump completed on 2023-01-02 11:46:29

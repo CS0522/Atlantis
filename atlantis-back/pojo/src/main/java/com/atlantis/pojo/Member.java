@@ -13,6 +13,8 @@ public class Member {
     private Integer status;
     private String position;
 
+    private Integer hasPhoto;
+
     public Integer getId() {
         return id;
     }
@@ -61,6 +63,14 @@ public class Member {
         this.position = position;
     }
 
+    public Integer getHasPhoto() {
+        return hasPhoto;
+    }
+
+    public void setHasPhoto(Integer hasPhoto) {
+        this.hasPhoto = hasPhoto;
+    }
+
     @Override
     public String toString() {
         return "Member{" +
@@ -70,6 +80,7 @@ public class Member {
                 ", joinDate=" + joinDate +
                 ", status=" + status +
                 ", position='" + position + '\'' +
+                ", hasPhoto=" + hasPhoto +
                 '}';
     }
 }

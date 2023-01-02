@@ -1,6 +1,7 @@
 package com.atlantis.service.impl;
 
 import com.atlantis.mapper.TutorialArticleMapper;
+import com.atlantis.pojo.ForumArticle;
 import com.atlantis.pojo.TutorialArticle;
 import com.atlantis.service.TutorialArticleService;
 import com.atlantis.service.base.impl.ArticleBaseServiceImpl;
@@ -12,6 +13,17 @@ public class TutorialArticleServiceImpl extends ArticleBaseServiceImpl<TutorialA
         implements TutorialArticleService {
     @Autowired
     private TutorialArticleMapper tutorialArticleMapper;
+
+    // 对getById进行重写
+    @Override
+    public TutorialArticle getById(Integer id) {
+        // view值+1
+        TutorialArticle temp = tutorialArticleMapper.getById(id);
+        temp.setView(temp.getView() + 1);
+        tutorialArticleMapper.updateView(temp);
+
+        return (tutorialArticleMapper.getById(id));
+    }
 
     // 对insert进行重写，检查是否存在相同标题
     public boolean insert(TutorialArticle TutorialArticle)

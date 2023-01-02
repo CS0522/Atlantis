@@ -6,6 +6,8 @@ import com.atlantis.common.Result;
 import com.atlantis.controller.base.BaseController;
 import com.atlantis.exception.SystemException;
 import com.atlantis.pojo.Member;
+import com.atlantis.service.MemberService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,6 +22,8 @@ import java.io.IOException;
 // REST风格
 @RequestMapping("/members")
 public class MemberController extends BaseController<Member> {
+    @Autowired
+    private MemberService memberService;
 
     private static final String basePath = ProjectPath.getPhotosPath();
 
@@ -47,10 +51,11 @@ public class MemberController extends BaseController<Member> {
             throw new SystemException("upload failed", e, Code.SYS_ERR);
         }
 
-        // 多一步：通过status状态表示是否需要显示头像（前台）
-        Member member = baseService.getById(id);
-        member.setStatus(1);
-        baseService.update(member);
+        // 多一步：通过has_photo表示是否需要显示头像（前台）
+        Member member = (Member) baseService.getById(id);
+        member.setHasPhoto(1);
+        // 更新
+        memberService.updatePhoto(member);
 
         return new Result(Code.UPLOAD_OK, (String)fileName, "upload succeeded");
     }

@@ -67,6 +67,10 @@
                         content = #{content} where id = #{id}
     </update>
 
+    <!--    更新view值-->
+    <update id="updateView">
+        update news_article set `view` = #{view} where `id` = #{id}
+    </update>
 
     <delete id="delete">
         delete from news_article where id = #{id}

@@ -1,13 +1,29 @@
 package com.atlantis.service.impl;
 
+import com.atlantis.mapper.NewsArticleMapper;
+import com.atlantis.pojo.ForumArticle;
 import com.atlantis.pojo.NewsArticle;
 import com.atlantis.service.NewsArticleService;
 import com.atlantis.service.base.impl.ArticleBaseServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class NewsArticleServiceImpl extends ArticleBaseServiceImpl<NewsArticle>
         implements NewsArticleService {
+    @Autowired
+    private NewsArticleMapper newsArticleMapper;
+
+    @Override
+    public NewsArticle getById(Integer id) {
+        // view值+1
+        NewsArticle temp = newsArticleMapper.getById(id);
+        temp.setView(temp.getView() + 1);
+        newsArticleMapper.updateView(temp);
+
+        return (newsArticleMapper.getById(id));
+    }
+
     // 对insert进行重写，检查是否存在相同标题
     public boolean insert(NewsArticle newsArticle)
     {

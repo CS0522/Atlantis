@@ -60,6 +60,12 @@ public abstract class ArticleBaseServiceImpl<T> implements ArticleBaseService<T>
     }
 
     @Override
+    public boolean updateView(T obj)
+    {
+        return (articleBaseMapper.updateView(obj) == 1);
+    }
+
+    @Override
     public boolean delete(Integer id) {
         return (articleBaseMapper.delete(id) == 1);
     }
