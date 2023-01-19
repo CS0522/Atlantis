@@ -37,7 +37,7 @@
 
 .sub-tab
 {
-    background-color: #8beeff;
+    background-color: #eb1d2a;
     font-size: 50px;
     height: 130px;
     line-height: 130px;
@@ -47,7 +47,8 @@
 
 .sub-tab:hover
 {
-    background-color: #53c1ff;
+    background-color: rgba(53, 53, 53);
+    transform: scale(1.01);
 }
 
 .sub-nav

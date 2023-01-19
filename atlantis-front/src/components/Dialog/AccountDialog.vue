@@ -143,10 +143,11 @@
                 <tr align="center">
                     <td>
                         <button class="operation" @click="clickConfirm()" 
-                                style="background-color: #8beeff">确定</button>
+                                style="background-color: #eb1d2a">确定</button>
                     </td>
                     <td>
-                        <button class="operation" @click="cancel()">取消</button>
+                        <button class="operation" @click="cancel()"
+                                style="background-color: #f64530">取消</button>
                     </td>
                 </tr>
             </table>
@@ -324,8 +325,9 @@ export default {
             }
             // is valid
             // md5加密
-            this.form.password = hex_md5(this.form.password);
-            request.post('/' + this.typeStr, this.form).then(res => {
+            let sendItem = JSON.parse(JSON.stringify(this.form));
+            sendItem.password = hex_md5(sendItem.password);
+            request.post('/' + this.typeStr, sendItem).then(res => {
                     if (res.code === code.INSERT_OK) {
                         this.$notify.success({
                             title: message.INSERT_OK,

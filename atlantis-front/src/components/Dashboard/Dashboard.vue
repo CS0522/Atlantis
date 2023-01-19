@@ -32,7 +32,7 @@
             <div id="dash-nav-box">
                 <div id="dash-title">
                     <!-- 设置点击图片跳转至首页 -->
-                    <img src = "imgs/logo/atlantis-logo.png" class="logo-img" height = "150px" 
+                    <img src = "imgs/logo/jmvt-logo-inline.png" class="logo-img" height = "180px" 
                          @click="toHome()"/>
                 </div>
                 <!-- 点击显示菜单 -->

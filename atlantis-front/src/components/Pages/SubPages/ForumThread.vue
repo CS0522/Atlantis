@@ -26,7 +26,7 @@
                 </textarea>
                 <div class="comment-button-box">
                     <button class="comment-button"
-                            style="background-color: #8beeff"
+                            style="background-color: #eb1d2a"
                             @click="doInsert()">写下留言</button>
                     <div class="comment-noname">
                         <input class="comment-button-noname" type="checkbox" name="noname"

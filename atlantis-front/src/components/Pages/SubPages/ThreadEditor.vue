@@ -10,11 +10,11 @@
                 <table class="table-operation" cellpadding=10px cellspacing=15px>
                     <tr align="center">
                         <td>
-                            <button class="operation" style="background-color: #8beeff" 
+                            <button class="operation" style="background-color: #eb1d2a" 
                                 @click="doSubmit()">发布</button>
                         </td>
                         <td>
-                            <button class="operation" 
+                            <button class="operation" style="background-color: #f64530"
                                 @click="reset()">重置</button>
                         </td>
                     </tr>
@@ -51,7 +51,7 @@
                 <!-- 文章box -->
                 <div class="edit-content-box">
                     <span style="color: red">* </span>帖子内容：
-                    <div class="item-box" style="border: solid #8beeff; overflow: hidden;">
+                    <div class="item-box" style="border: solid #eb1d2a; overflow: hidden;">
                         <!-- 富文本编辑器 -->
                         <mavon-editor class="editor" v-model="form.content"
                                     ref = md
@@ -66,11 +66,11 @@
                 <table class="table-operation" cellpadding=10px cellspacing=15px>
                     <tr align="center">
                         <td>
-                            <button class="operation" style="background-color: #8beeff" 
+                            <button class="operation" style="background-color: #eb1d2a" 
                                 @click="doSubmit()">发布</button>
                         </td>
                         <td>
-                            <button class="operation" 
+                            <button class="operation" style="background-color: #f64530"
                                 @click="reset()">重置</button>
                         </td>
                     </tr>

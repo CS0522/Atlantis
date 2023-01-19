@@ -2,7 +2,7 @@
     <div id="bg-blur">
         <div id="img-box">
             <router-link to="/">
-                <img src="imgs/logo/atlantis-logo.png" class="logo-img" height="150px" />
+                <img src="imgs/logo/jmvt-logo-inline.png" class="logo-img" height="220px" />
             </router-link>
         </div>
         <div id="login-box">

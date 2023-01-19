@@ -3,7 +3,7 @@
         <div class="logo" style="display:inline-block; border-radius: 15px;">
             &nbsp;
             <!-- 设置点击图片跳转至首页 -->
-            <img src="@/../public/imgs/logo/atlantis-logo.png" class="logo-img" height="135px" 
+            <img src="@/../public/imgs/logo/jmvt-logo.png" class="logo-img" height="150px" 
                  @click="toHome()"/>
         </div>
         <div class="search-bar">

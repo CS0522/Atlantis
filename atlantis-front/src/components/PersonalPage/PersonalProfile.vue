@@ -66,11 +66,11 @@
                     <table class="table-operation" cellpadding=10px cellspacing=15px>
                         <tr align="center">
                             <td>
-                                <button class="operation" style="background-color: #8beeff"
+                                <button class="operation" style="background-color: #eb1d2a"
                                 @click="doUpdateInfo()">资料更新</button>
                             </td>
                             <td>
-                                <button class="operation"
+                                <button class="operation" style="background-color: #f64530"
                                 @click="reset()">重置</button>
                             </td>
                         </tr>
@@ -112,11 +112,11 @@
                     <table class="table-operation" cellpadding=10px cellspacing=15px>
                         <tr align="center">
                             <td>
-                                <button class="operation" style="background-color: #8beeff"
+                                <button class="operation" style="background-color: #eb1d2a"
                                 @click="doUpdatePwd()">密码更新</button>
                             </td>
                             <td>
-                                <button class="operation"
+                                <button class="operation" style="background-color: #f64530"
                                 @click="reset()">重置</button>
                             </td>
                         </tr>

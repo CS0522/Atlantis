@@ -15,9 +15,11 @@
   right: 1cm;
   /* border: solid; */
   /* 设置top bar背景色 */
-  background-color: rgba(252, 242, 241, 0.85);
+  /* background-color: rgba(252, 242, 241, 0.85); */
+  background-color: rgba(0, 0, 0, 0.5);
+  /* background-color: rgba(53, 53, 53, 0.8); */
   /* 设置top bar阴影 */
-  box-shadow: 5px 15px 15px 5px #888888;
+  box-shadow: 0px 0px 15px 15px rgba(63, 63, 63, 0.5);
   /* 设置层级为1000，最大 */
   z-index: 1000;
 
@@ -88,7 +90,7 @@
   animation-iteration-count: infinite;
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px); 
-  background-color: rgba(252, 242, 241, 0.9);
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 .dropdown-content {
@@ -104,7 +106,7 @@
 }
 
 .content:hover {
-  background-color: #53c1ff;
+      background-color: rgba(53, 53, 53);
 }
 
 .outLogin
@@ -113,6 +115,8 @@
    height: 45px;
    margin-bottom: -12px;
    margin-left: 0px;
+
+   filter: drop-shadow(0px 0px 5px #eb1d2a);
 
    transition: all .3s;
 }

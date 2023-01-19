@@ -52,7 +52,7 @@
                                     <div class="item-detail-operation">
                                         <button 
                                             class="item-detail-operation-button" 
-                                            style="background-color: #8beeff"
+                                            style="background-color: #eb1d2a"
                                             @click="doOperation('updateinfo', type, item.id)">更新</button>
                                             <!-- 点击按钮，执行doOperaion(operation, contentType, objId) -->
                                             <!-- operation: 操作类型 -->
@@ -74,8 +74,8 @@
                                         <el-switch 
                                             id="switch"
                                             style="zoom: 220%" 
-                                            active-color="#8beeff" 
-                                            inactive-color="#f64530" 
+                                            active-color="#eb1d2a" 
+                                            inactive-color="rgb(40, 40, 40)" 
                                             :active-value="1" 
                                             active-text="启用"
                                             :inactive-value="0" 

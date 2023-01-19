@@ -10,7 +10,7 @@
 .hr
 {
     border: none; 
-    border-top: solid #8beeff;
+    border-top: solid #eb1d2a;
 }
 
 /* #content-box
@@ -50,6 +50,8 @@
     /* 实现旋转效果 */
     cursor: pointer;
     transition: transform 1.0s;
+
+    filter: invert(100%);
 }
 
 #refresh-icon:hover
@@ -80,7 +82,7 @@
     line-height: 80px;
     border-radius: 15px;
     border: none;
-    background-color: #8beeff;
+    background-color: #eb1d2a;
 }
 
 ul
@@ -105,8 +107,8 @@ ul
 
     cursor: pointer;
 
-    background-color: rgba(252, 242, 241, 0.4);
-    box-shadow: 5px 15px 15px 5px #888888;
+    background-color: rgba(81, 81, 81, 0.8);
+    box-shadow: 0px 0px 15px 10px rgba(94, 94, 94, 0.7);
 
     transition: all .3s;
 }
@@ -122,7 +124,7 @@ ul
 
 .item-photo
 {
-    border: solid #8beeff;
+    border: solid #eb1d2a;
     border-radius: 200px;
     width: 300px;
     height: 300px;
@@ -131,12 +133,13 @@ ul
     margin-top: 60px;
     /* text-align: center; */
 
-    box-shadow: 5px 15px 15px 5px #888888;
+    /* box-shadow: 5px 15px 15px 5px #888888; */
 }
 
 .item-box:hover
 {
-    background-color: rgba(139, 238, 255, 0.4);
+    background-color: rgba(233, 29, 42, 0.6);
+    box-shadow: 0px 0px 15px 10px rgba(233, 29, 42, 0.6);
 }
 
 .item-box:hover

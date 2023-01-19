@@ -22,7 +22,7 @@
             <div id="personal-nav-box">
                 <div id="personal-title">
                     <!-- 设置点击图片跳转至首页 -->
-                    <img src="imgs/logo/atlantis-logo.png" class="logo-img" height="150px" 
+                    <img src="imgs/logo/jmvt-logo-inline.png" class="logo-img" height="180px" 
                          @click="toHome()"/>
                 </div>
                 <div id="personal-sub-nav">
@@ -62,11 +62,11 @@
                             class="table-operation" cellpadding=10px cellspacing=15px>
                             <tr align="center">
                                 <td>
-                                    <button class="operation" style="background-color: #8beeff"
+                                    <button class="operation" style="background-color: #eb1d2a"
                                     @click="doApplyAdmin()">管理员申请</button>
                                 </td>
                                 <td>
-                                    <button class="operation"
+                                    <button class="operation" style="background-color: #f64530"
                                     @click="doDeleteApply()">撤销申请</button>
                                 </td>
                             </tr>
@@ -76,7 +76,7 @@
                             <tr align="center">
                                 <td>
                                     <button class="operation"
-                                            style="background-color: #8beeff">你已经是管理员</button>
+                                            style="background-color: #eb1d2a">你已经是管理员</button>
                                 </td>
                             </tr>
                         </table>

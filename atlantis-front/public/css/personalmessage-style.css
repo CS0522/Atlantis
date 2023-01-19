@@ -2,7 +2,7 @@
 {
     margin-top: 20px;
     border: none; 
-    border-top: solid #8beeff;
+    border-top: solid #eb1d2a;
 }
 
 #content-box
@@ -57,7 +57,7 @@
 {
     font-size: 40px;
     border-radius: 15px;
-    border: solid #8beeff;
+    border: solid #eb1d2a;
     font-family: 'Microsoft YaHei';
     width: 100%;
 }

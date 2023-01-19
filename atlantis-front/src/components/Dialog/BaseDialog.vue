@@ -19,10 +19,11 @@
                 <tr align="center">
                     <td>
                         <button class="operation" @click="clickConfirm()" 
-                                style="background-color: #8beeff">确定</button>
+                                style="background-color: #eb1d2a">确定</button>
                     </td>
                     <td>
-                        <button class="operation" @click="cancel()">取消</button>
+                        <button class="operation" @click="cancel()"
+                            style="background-color: #f64530">取消</button>
                     </td>
                 </tr>
             </table>

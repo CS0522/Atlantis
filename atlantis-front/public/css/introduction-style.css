@@ -10,7 +10,7 @@
 .hr
 {
     border: none; 
-    border-top: solid #8beeff;
+    border-top: solid #eb1d2a;
 }
 
 #introduction-box {
@@ -26,6 +26,8 @@
     margin-top: 50px;
     border-radius: 15px;
     overflow: hidden;
+
+    background-color: #000;
 }
 
 #about-video-box {
@@ -36,6 +38,8 @@
     margin-top: 50px;
     border-radius: 15px;
     overflow: hidden;
+
+    background-color: #000;
 }
 
 /* #video-box:hover {

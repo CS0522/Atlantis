@@ -10,7 +10,7 @@
 .hr
 {
     border: none; 
-    border-top: solid #8beeff;
+    border-top: solid #eb1d2a;
 }
 
 /* #content-box
@@ -50,6 +50,8 @@
     /* 实现旋转效果 */
     cursor: pointer;
     transition: transform 1.0s;
+
+    filter: invert(100%);
 }
 
 #refresh-icon:hover
@@ -92,8 +94,8 @@
     height: 140px;
     line-height: 100px;
     font-size: 30px;
-    background-color: rgba(252, 242, 241, 0.4);
-    box-shadow: 5px 15px 15px 5px #888888;
+    background-color: rgba(81, 81, 81, 0.8);
+    box-shadow: 0px 0px 15px 5px rgba(94, 94, 94, 0.7);
 
     cursor: pointer;
 
@@ -102,7 +104,8 @@
 
 .item-box:hover
 {
-    background-color: rgba(139, 238, 255, 0.4);
+    background-color: rgba(233, 29, 42, 0.6);
+    box-shadow: 0px 0px 15px 5px rgba(233, 29, 42, 0.6);
 }
 
 .item-box:hover

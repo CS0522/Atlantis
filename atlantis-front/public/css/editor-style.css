@@ -10,7 +10,7 @@
 .hr
 {
     border: none; 
-    border-top: solid #8beeff;
+    border-top: solid #eb1d2a;
 }
 
 #content-box
@@ -71,7 +71,7 @@
 {
     font-size: 40px;
     border-radius: 15px;
-    border: solid #8beeff;
+    border: solid #eb1d2a;
     font-family: 'Microsoft YaHei';
     float: left;
     width: 25%;
@@ -81,7 +81,7 @@
 {
     font-size: 40px;
     border-radius: 15px;
-    border: solid #8beeff;
+    border: solid #eb1d2a;
     font-family: 'Microsoft YaHei';
     min-width: 100%;
 }
@@ -90,5 +90,5 @@
 {
     zoom: 2;
 
-    border: solid #8beeff;
+    border: solid #eb1d2a;
 }

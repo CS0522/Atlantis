@@ -10,8 +10,10 @@
     z-index: 10000;
     width: 40%;
     margin: auto auto;
-    background-color: rgba(252, 242, 241, 0.4);
-    box-shadow: 5px 15px 15px 5px #888888;
+
+    background-color: rgba(44, 44, 44, 0.8);
+    box-shadow: 0px 0px 15px 15px rgba(63, 63, 63, 0.7);
+
     animation: shadow 3s ease;
     animation-iteration-count: infinite;
     -webkit-backdrop-filter: blur(10px);
@@ -36,7 +38,7 @@
 .hr
 {
     border: none; 
-    border-top: solid #8beeff;
+    border-top: solid #eb1d2a;
 }
 
 .update-form .add-form
@@ -61,7 +63,7 @@
     /* 由于缩放问题导致，只能暂时缩放回去 */
     font-size: 20px;
     border-radius: 7.5px;
-    border: solid #8beeff;
+    border: solid #eb1d2a;
     font-family: 'Microsoft YaHei';
     width: 100%;
     zoom: 2;

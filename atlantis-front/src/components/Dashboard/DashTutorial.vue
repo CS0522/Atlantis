@@ -76,7 +76,7 @@
                                     <div class="item-detail-operation">
                                         <button 
                                             class="item-detail-operation-button" 
-                                            style="background-color: #8beeff"
+                                            style="background-color: #eb1d2a"
                                             @click="doOperation('edit', item.id)">编辑</button>
                                         <button 
                                             class="item-detail-operation-button" 

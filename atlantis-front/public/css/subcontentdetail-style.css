@@ -11,11 +11,13 @@
     /* line-height: 80px; */
 }
 
+/* TODO 修改字体颜色 */
 .markdown-body
 {
-    color: #2c3e50;
+    color: #847272;
     font-size: 30px;
-    background-color: rgba(252, 242, 241, 0);
+    /* background-color: rgba(252, 242, 241, 0); */
+    background-color: rgba(53, 53, 53, 0);
 }
 
 /* #detail-box
@@ -26,7 +28,7 @@
 #comment-box
 {
     border: none; 
-    border-top: solid #8beeff;
+    border-top: solid #eb1d2a;
 
     width: 70%;
     margin: auto auto;
@@ -49,7 +51,7 @@
 {
     font-size: 30px;
     border-radius: 15px;
-    border: solid #8beeff;
+    border: solid #eb1d2a;
     font-family: 'Microsoft YaHei';
     margin: 15px;
     width: 97%;
@@ -85,7 +87,7 @@
 {
     font-size: 30px;
     border-radius: 15px;
-    border: solid #8beeff;
+    border: solid #eb1d2a;
     zoom: 200%;
 }
 
@@ -97,8 +99,8 @@
     /* height: 140px; */
     line-height: 100px;
     font-size: 30px;
-    background-color: rgba(252, 242, 241, 0.4);
-    box-shadow: 5px 15px 15px 5px #888888;
+    background-color: rgba(81, 81, 81, 0.8);
+    box-shadow: 0px 0px 15px 10px rgba(94, 94, 94, 0.7);
 
     cursor: pointer;
 
@@ -107,7 +109,8 @@
 
 .comment-item:hover
 {
-    background-color: rgba(139, 238, 255, 0.4);
+    background-color: rgba(233, 29, 42, 0.6);
+    box-shadow: 0px 0px 15px 10px rgba(233, 29, 42, 0.6);
 }
 
 .comment-item:hover
@@ -184,13 +187,13 @@
     line-height: 50px;
     border-radius: 15px;
     border: none;
-    background-color: #f64530;
+    background-color: #eb1d2a;
 }
 
 .comment-item-content
 {
     border: none; 
-    border-top: solid #8beeff;
+    border-top: solid #eb1d2a;
     
     margin-left: 20px;
     margin-right: 20px;

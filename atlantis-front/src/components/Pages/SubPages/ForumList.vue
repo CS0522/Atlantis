@@ -5,7 +5,8 @@
                 <!-- 纯粹对齐用 -->
                 <div class="add-button-box">
                     <button class="add-button" @click="doPost()">
-                        <img src="imgs/icons/post.png" height="40px" style="transform: translateY(10px)"/>
+                        <img src="imgs/icons/post.png" height="40px" style="transform: translateY(10px); 
+                                                                    filter: invert(100%)"/>
                         发布帖子</button>
                 </div>
                 <div class="search-bar">

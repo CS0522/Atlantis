@@ -8,10 +8,10 @@
         </div>
         <p style="font-size: 35px">默认
             <a style="cursor: pointer;" @click="muteOrUnmute()">
-                <span style="color: #2c3e50">[<img src="@/../public/imgs/icons/volume.png" height=25px/> 静音]</span></a>
+                <span style="color: #fff">[<img src="@/../public/imgs/icons/volume.png" height=25px style="filter: invert(100%)"/> 静音]</span></a>
             并自动
             <a style="cursor: pointer;" @click="playOrPause()">
-                <span style="color: #2c3e50">[<img src="@/../public/imgs/icons/play.png" height=24px/> 播放]</span></a>
+                <span style="color: #fff">[<img src="@/../public/imgs/icons/play.png" height=24px style="filter: invert(100%)"/> 播放]</span></a>
         </p>
         <br/>
         <div class="introduction-part">
