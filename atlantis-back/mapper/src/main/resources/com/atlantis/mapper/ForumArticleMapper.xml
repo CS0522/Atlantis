@@ -57,6 +57,12 @@
     <select id="fuzzyQuery" resultMap="forumArticleResultMap">
         select * from forum_article where title like concat('%', #{searchKey}, '%')
                                 or content like concat('%', #{searchKey}, '%')
+                                or `author` like concat('%', #{searchKey}, '%')
+    </select>
+
+<!--    查询数量-->
+    <select id="getCount" resultType="int">
+        select count(*) from forum_article where `index` = #{index}
     </select>
 
 <!--    返回主键-->

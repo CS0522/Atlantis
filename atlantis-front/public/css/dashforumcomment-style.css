@@ -1,0 +1,351 @@
+#title-box
+{
+    margin: 30px;
+    /* border: solid; */
+    width: 500px;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.hr
+{
+    border: none; 
+    border-top: solid #eb1d2a;
+}
+
+/* #content-box
+{
+    border: solid;
+} */
+
+.add-and-search-box
+{
+    /* border: solid; */
+    text-align: left;
+}
+
+.search-bar
+{
+    /* border: solid; */
+    border-radius: 15px;
+    width: 45%;
+    display: inline-block;
+    zoom: 200%;
+    /* z-index: 10000; */
+    font-family: 'Microsoft YaHei';
+}
+
+.refresh-box
+{
+    /* border: solid; */
+    display: inline-block;
+    position: relative;
+    width: 10%;
+    top: 25px;
+    text-align: center;
+}
+
+#refresh-icon
+{
+    /* 实现旋转效果 */
+    cursor: pointer;
+    transition: transform 1.0s;
+
+    filter: invert(100%);
+}
+
+#refresh-icon:hover
+{
+    transform: rotate(360deg);
+}
+
+.search-input
+{
+    border-radius: 15px;
+}
+
+.add-button-box
+{
+    /* border: solid; */
+    width: 30%; 
+    margin-top: 40px; 
+    margin-bottom: 40px;
+    text-align: center;
+    display: inline-block;
+}
+
+.add-button {
+    font-size: 30px;
+    height: 80px;
+    width: 70%;
+    margin: auto auto;
+    line-height: 80px;
+    border-radius: 15px;
+    border: none;
+    background-color: #eb1d2a;
+}
+
+.select-box
+{
+    /* border: solid; */
+    margin: auto auto;
+    width: 90%;
+
+    margin-bottom: 50px;
+}
+
+.select-box::after
+{
+    content:"";
+    /*清除浮动*/
+    clear: both;
+    /*确保该元素是一个块级元素*/
+    display: block;
+}
+
+.selectType
+{
+    font-size: 40px;
+    border-radius: 15px;
+    border: solid #eb1d2a;
+    font-family: 'Microsoft YaHei';
+    float: left;
+    width: 23%;
+
+    margin-right: 30px;
+}
+
+.item-box
+{
+    /* border: solid; */
+    border-radius: 15px;
+    margin: 15px;
+    height: 140px;
+    line-height: 100px;
+    font-size: 30px;
+    background-color: rgba(81, 81, 81, 0.8);
+    box-shadow: 0px 0px 15px 5px rgba(94, 94, 94, 0.7);
+
+    cursor: pointer;
+
+    transition: all .3s;
+}
+
+.item-box:hover
+{
+    background-color: rgba(233, 29, 42, 0.6);
+    box-shadow: 0px 0px 15px 5px rgba(233, 29, 42, 0.6);
+}
+
+.item-box:hover
+{
+    transform: scale(1.02);
+}
+
+/* .item-box li
+{
+    transition: all .3s;
+} */
+
+.item-id
+{
+    /* border: solid; */
+    float: left;
+    width: 10%;
+    height: 100%;
+    line-height: 130px;
+    font-size: 40px;
+}
+
+.item-detail
+{
+    /* border: solid red; */
+    float: left;
+    width: 60%;
+    height: 100%;
+    line-height: 130px;
+}
+
+.item-detail-title
+{
+    /* border: solid blue; */
+    display: inline;
+    float: left;
+    height: 100%;
+    font-size: 40px;
+}
+
+.item-detail-author
+{
+
+    display: inline;
+    float: right;
+    width: 30%;
+    height: 20px;
+
+    text-align: left;
+    line-height: 200px;
+    font-size: 35px;
+}
+
+.item-detail-operation
+{
+    /* border: solid black; */
+    border-radius: 15px;
+    display: inline;
+    float: right;
+    height: 100%;
+    margin: 10px;
+}
+
+.item-detail-operation-button {
+    font-size: 30px;
+    margin: 10px;
+    border: none;
+    border-radius: 15px;
+    height: 60px;
+    width: 150px;
+}
+.item-detail-status
+{
+    margin: 10px;
+    /* border: solid yellow; */
+    display: inline;
+    float: right;
+    height: 100%;
+}
+
+/* comment */
+.comment-item
+{
+    /* border: solid; */
+    border-radius: 15px;
+    margin: 30px auto;
+    /* height: 140px; */
+    line-height: 100px;
+    font-size: 30px;
+    background-color: rgba(81, 81, 81, 0.8);
+    box-shadow: 0px 0px 15px 10px rgba(94, 94, 94, 0.7);
+
+    width: 80%;
+
+    cursor: pointer;
+
+    transition: all .3s;
+}
+
+.comment-item:hover
+{
+    background-color: rgba(233, 29, 42, 0.6);
+    box-shadow: 0px 0px 15px 10px rgba(233, 29, 42, 0.6);
+}
+
+.comment-item:hover
+{
+    transform: scale(1.02);
+}
+
+.comment-item-detail
+{
+    transition: all .3s;
+    font-size: 30px;
+}
+
+.comment-item-info
+{
+    /* border: solid red; */
+    line-height: 75px;
+
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.comment-item-info::after {
+    content:"";
+    /*清除浮动*/
+    clear: both;
+    /*确保该元素是一个块级元素*/
+    display: block;
+}
+
+.comment-item-admin-mark
+{
+    /* border: solid; */
+
+    font-weight: 900;
+    font-size: 40px;
+    display: inline;
+    float: left;
+}
+
+.comment-item-index
+{
+    font-weight: 900;
+    font-size: 40px;
+    display: inline;
+    float: left;
+    margin-right: 30px;
+
+    /* border: solid; */
+}
+
+.comment-item-name
+{
+    /* border: solid; */
+
+    font-weight: 900;
+    font-size: 40px;
+    display: inline;
+    float: left;
+}
+
+.comment-item-title
+{
+    /* border: solid; */
+    margin-right: 30px;
+    /* font-weight: 900; */
+    font-size: 30px;
+    display: inline;
+    float: right;
+
+    text-align: right;
+}
+
+.comment-item-date
+{
+    /* border: solid; */
+
+    font-size: 30px;
+    display: inline;
+    float: right;
+    /* margin-left: 50px; */
+}
+
+.comment-item-operation
+{
+    /* border: solid; */
+    display: inline;
+    float: right;
+    width: 20%;
+}
+
+.delete-button
+{
+    font-size: 30px;
+    width: 80%;
+    margin: auto auto;
+    line-height: 50px;
+    border-radius: 15px;
+    border: none;
+    background-color: #eb1d2a;
+}
+
+.comment-item-content
+{
+    border: none; 
+    border-top: solid #eb1d2a;
+    
+    margin-left: 20px;
+    margin-right: 20px;
+    text-align: justify;
+}

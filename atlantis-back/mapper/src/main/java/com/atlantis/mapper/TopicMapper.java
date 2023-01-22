@@ -1,6 +1,7 @@
 package com.atlantis.mapper;
 
 import com.atlantis.pojo.Topic;
+import com.atlantis.pojo.TopicJoinForumArticle;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -13,9 +14,15 @@ public interface TopicMapper {
 
     public Topic getByIndex(@Param("index") Integer index);
 
-    public Topic getByTypeOrRoute(@Param("type") String type, @Param("route") String route);
+    public Topic getByType(@Param("type") String type);
 
-    public int insert(Topic category);
+    public List<TopicJoinForumArticle> fuzzyQuery(@Param("search") String search);
+
+    public List<TopicJoinForumArticle> getCount();
+
+    public int insert(Topic topic);
+
+    public int update(Topic topic);
 
     public int delete(@Param("index") Integer index);
 }

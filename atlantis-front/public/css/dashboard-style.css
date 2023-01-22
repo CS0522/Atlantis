@@ -75,6 +75,14 @@
    /* 将初始高度设为一级菜单标签高度，初始状况下隐藏二级菜单 */
 }
 
+.hov-sub-tab-menu3
+{
+    font-size: 35px;
+   overflow: hidden;
+   height: 130px;
+   /* 将初始高度设为一级菜单标签高度，初始状况下隐藏二级菜单 */
+}
+
 .hov-sub-tab-item
 {
     height: 100px;

@@ -36,6 +36,23 @@ public class ForumArticleController extends ArticleBaseController<ForumArticle> 
         }
     }
 
+    @GetMapping("/count/{index}")
+    public Result getCount(@PathVariable Integer index)
+    {
+        try
+        {
+            Integer count = forumArticleService.getCount(index);
+            Integer code = Code.GET_OK;
+            String msg = "get succeeded";
+
+            return new Result(code, count, msg);
+        }
+        catch (SystemException e)
+        {
+            throw new SystemException("unknown error occurred", e, Code.SYS_ERR);
+        }
+    }
+
     @DeleteMapping("/index/{index}")
     public Result deleteByIndex(@PathVariable Integer index)
     {

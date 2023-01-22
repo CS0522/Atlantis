@@ -26,12 +26,26 @@ public class TutorialArticleServiceImpl extends ArticleBaseServiceImpl<TutorialA
     }
 
     // 对insert进行重写，检查是否存在相同标题
-    public boolean insert(TutorialArticle TutorialArticle)
+    public boolean insert(TutorialArticle tutorialArticle)
     {
         // 如果没有相同标题，则可以进行插入
-        if (articleBaseMapper.getByTitle(TutorialArticle.getTitle()) == null)
+        if (articleBaseMapper.getByTitle(tutorialArticle.getTitle()) == null)
         {
-            return (articleBaseMapper.insert(TutorialArticle) == 1);
+            return (articleBaseMapper.insert(tutorialArticle) == 1);
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean update(TutorialArticle tutorialArticle)
+    {
+        // 如果没有相同标题，则可以进行更新
+        if (articleBaseMapper.getByTitle(tutorialArticle.getTitle()) == null)
+        {
+            return (articleBaseMapper.update(tutorialArticle) == 1);
         }
         else
         {

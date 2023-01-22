@@ -1,6 +1,7 @@
 package com.atlantis.mapper;
 
 import com.atlantis.pojo.Comment;
+import com.atlantis.pojo.CommentJoinForumArticle;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -9,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface CommentMapper {
 
-    public List<Comment> getAll();
+    public List<CommentJoinForumArticle> getAll();
 
     public Comment getByIndex(@Param("index") Integer index);
 
@@ -23,4 +24,8 @@ public interface CommentMapper {
     public int update(Comment comment);
 
     public int delete(@Param("index") Integer index);
+
+    public int deleteById(@Param("id") Integer id);
+
+    public List<CommentJoinForumArticle> fuzzyQuery(@Param("searchKey") String searchKey);
 }

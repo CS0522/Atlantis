@@ -2,6 +2,7 @@ package com.atlantis.service.impl;
 
 import com.atlantis.mapper.ForumArticleMapper;
 import com.atlantis.pojo.ForumArticle;
+import com.atlantis.service.CommentService;
 import com.atlantis.service.ForumArticleService;
 import com.atlantis.service.base.impl.ArticleBaseServiceImpl;
 import com.github.pagehelper.PageHelper;
@@ -17,6 +18,9 @@ public class ForumArticleServiceImpl extends ArticleBaseServiceImpl<ForumArticle
     @Autowired
     private ForumArticleMapper forumArticleMapper;
 
+    @Autowired
+    private CommentService commentService;
+
     // 对getById进行重写
     @Override
     public ForumArticle getById(Integer id) {
@@ -29,6 +33,7 @@ public class ForumArticleServiceImpl extends ArticleBaseServiceImpl<ForumArticle
     }
 
     // 对insert进行重写，检查是否存在相同标题
+    @Override
     public boolean insert(ForumArticle forumArticle)
     {
         // 如果没有相同标题，则可以进行插入
@@ -43,9 +48,42 @@ public class ForumArticleServiceImpl extends ArticleBaseServiceImpl<ForumArticle
     }
 
     @Override
+    public boolean update(ForumArticle forumArticle)
+    {
+        // 如果没有相同标题，则可以进行更新
+        if (articleBaseMapper.getByTitle(forumArticle.getTitle()) == null)
+        {
+            return (articleBaseMapper.update(forumArticle) == 1);
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    @Override
     public boolean deleteByIndex(Integer index) {
-        // 可能不止一个
-        return (forumArticleMapper.deleteByIndex(index) != 0);
+        // 删除对应评论
+        // 获取话题下的所有帖子
+        List<ForumArticle> forumArticleList = forumArticleMapper.getByIndex(index, "id asc");
+        // 循环删除 comment
+        for (ForumArticle forumArticle : forumArticleList) {
+            if (!commentService.deleteById(forumArticle.getId()))
+            {
+                return false;
+            }
+        }
+        // 删除话题下的所有帖子
+        forumArticleMapper.deleteByIndex(index);
+        return true;
+    }
+
+    @Override
+    public boolean delete(Integer id) {
+        // 删除对应评论
+        commentService.deleteById(id);
+        // 删除帖子
+        return (forumArticleMapper.delete(id) == 1);
     }
 
     @Override
@@ -59,5 +97,11 @@ public class ForumArticleServiceImpl extends ArticleBaseServiceImpl<ForumArticle
         List<ForumArticle> forumArticleList = forumArticleMapper.getByAuthor(author);
 
         return new PageInfo<ForumArticle>(forumArticleList);
+    }
+
+    @Override
+    public int getCount(Integer index)
+    {
+        return (forumArticleMapper.getCount(index));
     }
 }

@@ -28,6 +28,14 @@
         <result column="type" property="type"></result>
         <result column="route" property="route"></result>
     </resultMap>
+
+    <resultMap id="TopicJoinResultMap" type="com.atlantis.pojo.TopicJoinForumArticle">
+<!--        <id column="index" property="index"></id>-->
+<!--        <result column="type" property="type"></result>-->
+<!--        <association property="count" javaType="int">-->
+<!--        </association>-->
+    </resultMap>
+
     <select id="getAll" resultMap="topicResultMap">
         select * from topic
     </select>
@@ -36,13 +44,36 @@
         select * from topic where `index` = #{index}
     </select>
 
-    <select id="getByTypeOrRoute" resultMap="topicResultMap">
-        select * from topic where `type` = #{type} or `route` = #{route}
+    <select id="getByType" resultMap="topicResultMap">
+        select * from topic where `type` = #{type}
+    </select>
+
+    <select id="fuzzyQuery" resultMap="TopicJoinResultMap">
+        select topic.`index` as `index`, topic.`type` as `type`, count(forum_article.id) as `count`
+        from topic
+        left join
+        forum_article
+        on topic.`index` = forum_article.`index`
+        where topic.`type` like concat('%', #{search}, '%')
+        group by topic.`index`
+    </select>
+
+    <select id="getCount" resultMap="TopicJoinResultMap">
+        select topic.`index` as `index`, topic.`type` as `type`, count(forum_article.id) as `count`
+        from topic
+        left join
+             forum_article
+        on topic.`index` = forum_article.`index`
+        group by topic.`index`
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="index">
         insert into topic(`type`, `route`) values(#{type}, #{route})
     </insert>
+
+    <update id="update">
+        update topic set `type` = #{type} where `index` = #{index}
+    </update>
 
     <delete id="delete">
         delete from topic where `index` = #{index}

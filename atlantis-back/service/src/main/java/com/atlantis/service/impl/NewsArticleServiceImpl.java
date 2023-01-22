@@ -37,4 +37,18 @@ public class NewsArticleServiceImpl extends ArticleBaseServiceImpl<NewsArticle>
             return false;
         }
     }
+
+    @Override
+    public boolean update(NewsArticle newsArticle)
+    {
+        // 如果没有相同标题，则可以进行更新
+        if (articleBaseMapper.getByTitle(newsArticle.getTitle()) == null)
+        {
+            return (articleBaseMapper.update(newsArticle) == 1);
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

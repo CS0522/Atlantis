@@ -83,6 +83,7 @@ import request from '@/utils/request';
 import message from '@/utils/message';
 // 将markdown转换成html
 import VueMarkDown from 'vue-markdown';
+import 'github-markdown-css/github-markdown-dark.css'
 
 export default {
     name: "thread",

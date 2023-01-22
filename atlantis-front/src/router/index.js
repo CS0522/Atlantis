@@ -174,36 +174,59 @@ const routes =
                     component: () => import('@/components/Dashboard/DashHome.vue'),
                     props: true,
                 },
+                // account
                 {
                     path: "account/:type",
                     component: () => import('@/components/Dashboard/DashAccount.vue'),
                     props: true,
                 },
+                // message
                 {
                     path: "message/:type",
                     component: () => import('@/components/Dashboard/DashMessage.vue'),
                     props: true,
                 },
+                // news
                 {
                     path: "news",
                     component: () => import('@/components/Dashboard/DashNews.vue'),
                     props: true,
                 },
+                // tutorial
                 {
                     path: "tutorial",
                     component: () => import('@/components/Dashboard/DashTutorial.vue'),
                     props: true,
                 },
+                // editor
                 {
                     path: "editor/:type/:id",
                     component: () => import('@/components/Dashboard/Editor.vue'), 
                     props: true, 
                 },
+                // thread editor
                 {
-                    path: "forum",
-                    component: () => import('@/components/Dashboard/DashForum.vue'),
+                    path: "threadEditor",
+                    component: () => import('@/components/Dashboard/ThreadEditor.vue'),
                     props: true,
                 },
+                // forum
+                {
+                    path: "forum/topic",
+                    component: () => import('@/components/Dashboard/DashForumTopic.vue'),
+                    props: true,
+                },
+                {
+                    path: "forum/thread",
+                    component: () => import('@/components/Dashboard/DashForumThread.vue'),
+                    props: true,
+                },
+                {
+                    path: "forum/comment",
+                    component: () => import('@/components/Dashboard/DashForumComment.vue'),
+                    props: true,
+                },
+                // about
                 {
                     path: "about",
                     component: () => import('@/components/Dashboard/DashAbout.vue'),

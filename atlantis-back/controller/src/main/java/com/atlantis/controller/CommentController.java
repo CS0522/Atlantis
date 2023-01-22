@@ -5,6 +5,7 @@ import com.atlantis.common.Result;
 import com.atlantis.exception.ServiceException;
 import com.atlantis.exception.SystemException;
 import com.atlantis.pojo.Comment;
+import com.atlantis.pojo.CommentJoinForumArticle;
 import com.atlantis.service.CommentService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.aop.scope.ScopedObject;
@@ -24,7 +25,7 @@ public class CommentController {
     public Result getAll(@PathVariable Integer pageNum, @PathVariable Integer pageSize) {
         try
         {
-            PageInfo<Comment> pageInfo = commentService.getAllByPage(pageNum, pageSize);
+            PageInfo<CommentJoinForumArticle> pageInfo = commentService.getAllByPage(pageNum, pageSize);
             Integer code = pageInfo != null ? Code.GET_OK : Code.GET_ERR;
             String msg = pageInfo != null ? "get succeeded" : "get failed";
 
@@ -79,6 +80,24 @@ public class CommentController {
         {
             PageInfo<Comment> pageInfo = commentService.getByNameByPage(pageNum, pageSize,
                                                                     name, loginType);
+            Integer code = pageInfo != null ? Code.GET_OK : Code.GET_ERR;
+            String msg = pageInfo != null ? "get succeeded" : "get failed";
+
+            return new Result(code, pageInfo, msg);
+        }
+        catch (SystemException e)
+        {
+            throw new SystemException("unknown error occurred", Code.SYS_ERR);
+        }
+    }
+
+    @GetMapping("/search/{searchKey}/{pageNum}/{pageSize}")
+    public Result findByPage(@PathVariable String searchKey,
+                             @PathVariable Integer pageNum, @PathVariable Integer pageSize)
+    {
+        try
+        {
+            PageInfo<CommentJoinForumArticle> pageInfo = commentService.findByPage(pageNum, pageSize, searchKey);
             Integer code = pageInfo != null ? Code.GET_OK : Code.GET_ERR;
             String msg = pageInfo != null ? "get succeeded" : "get failed";
 

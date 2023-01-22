@@ -10,7 +10,7 @@ import {VueJsonp} from 'vue-jsonp'
 import storage from './utils/storage.js'
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
-import 'github-markdown-css/github-markdown-light.css'
+// import 'github-markdown-css/github-markdown-dark.css'
 import axios from 'axios'
 
 Vue.prototype.$jsonp = VueJsonp;

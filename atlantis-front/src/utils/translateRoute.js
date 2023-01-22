@@ -53,6 +53,12 @@ export function translate(toTranslateList) {
                 toTranslateList[i + 1] = '联系我们';
             }
         }
+        else if ('threadEditor' === toTranslateList[i])
+        {
+            toTranslateList[i] = '发布帖子';
+
+            toTranslateList[i + 1] = '';
+        }
     }
 
     return toTranslateList;

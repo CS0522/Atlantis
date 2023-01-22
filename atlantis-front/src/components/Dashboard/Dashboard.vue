@@ -24,6 +24,24 @@
             @close="closeDialog"
             @confirm="confirm">
             </TutorialDialog>
+
+            <ForumTopicDialog 
+            v-if="isShowForumTopic"
+            @close="closeDialog"
+            @confirm="confirm">
+            </ForumTopicDialog>
+
+            <ForumThreadDialog 
+            v-if="isShowForumThread"
+            @close="closeDialog"
+            @confirm="confirm">
+            </ForumThreadDialog>
+
+            <ForumCommentDialog 
+            v-if="isShowForumComment"
+            @close="closeDialog"
+            @confirm="confirm">
+            </ForumCommentDialog>
     </transition>
 
         <TopBar v-if="!topBarReload"></TopBar>
@@ -37,31 +55,27 @@
                 </div>
                 <!-- 点击显示菜单 -->
                 <div id="dash-sub-nav">
-                    <a>
-                        <!-- 二级菜单 -->
-                        <div class="hov-sub-tab-menu1">
-                            <div class="sub-tab" @click="showMenu1()">用户管理</div>
-                            <router-link to="/dashboard/account/admin">
-                                <div class="hov-sub-tab-item">管理员账号管理</div>
-                            </router-link>
-                            <router-link to="/dashboard/account/user">
-                                <div class="hov-sub-tab-item">用户账号管理</div>
-                            </router-link>                          
-                        </div>
-                    </a>
+                    <!-- 二级菜单 -->
+                    <div class="hov-sub-tab-menu1">
+                        <a><div class="sub-tab" @click="showMenu1()">用户管理</div></a>
+                        <router-link to="/dashboard/account/admin">
+                            <div class="hov-sub-tab-item">管理员账号管理</div>
+                        </router-link>
+                        <router-link to="/dashboard/account/user">
+                            <div class="hov-sub-tab-item">用户账号管理</div>
+                        </router-link>                          
+                    </div>
 
-                    <a>
-                        <!-- 二级菜单 -->
-                        <div class="hov-sub-tab-menu2">
-                            <div class="sub-tab" @click="showMenu2()">消息中心</div>
-                            <router-link to="/dashboard/message/apply">
-                                <div class="hov-sub-tab-item">管理员申请</div>
-                            </router-link>
-                            <!-- <router-link to="/dashboard/message/reset">
-                                <div class="hov-sub-tab-item">重置密码申请</div>
-                            </router-link> -->
-                        </div>
-                    </a>
+                    <!-- 二级菜单 -->
+                    <div class="hov-sub-tab-menu2">
+                        <a><div class="sub-tab" @click="showMenu2()">消息中心</div></a>
+                        <router-link to="/dashboard/message/apply">
+                            <div class="hov-sub-tab-item">管理员申请</div>
+                        </router-link>
+                        <!-- <router-link to="/dashboard/message/reset">
+                            <div class="hov-sub-tab-item">重置密码申请</div>
+                        </router-link> -->
+                    </div>
 
                     <router-link to="/dashboard/news">
                         <div class="sub-tab">资讯管理</div>
@@ -71,9 +85,19 @@
                         <div class="sub-tab">教程管理 </div>
                     </router-link>
 
-                    <router-link to="/dashboard/forum">
-                        <div class="sub-tab">论坛管理 </div>
-                    </router-link>
+                    <!-- 二级菜单 -->
+                    <div class="hov-sub-tab-menu3">
+                        <a><div class="sub-tab" @click="showMenu3()">论坛管理</div></a>
+                        <router-link to="/dashboard/forum/topic">
+                            <div class="hov-sub-tab-item">话题管理</div>
+                        </router-link>
+                        <router-link to="/dashboard/forum/thread">
+                            <div class="hov-sub-tab-item">帖子管理</div>
+                        </router-link>  
+                        <router-link to="/dashboard/forum/comment">
+                            <div class="hov-sub-tab-item">评论管理</div>
+                        </router-link>                        
+                    </div>
 
                     <router-link to="/dashboard/about">
                         <div class="sub-tab">车队管理 </div>
@@ -98,6 +122,9 @@ import AccountDialog from '@/components/Dialog/AccountDialog.vue'
 import AboutDialog from '@/components/Dialog/AboutDialog.vue'
 import NewsDialog from '@/components/Dialog/NewsDialog.vue'
 import TutorialDialog from '@/components/Dialog/TutorialDialog.vue'
+import ForumTopicDialog from '@/components/Dialog/ForumTopicDialog.vue';
+import ForumThreadDialog from '@/components/Dialog/ForumThreadDialog.vue';
+import ForumCommentDialog from '@/components/Dialog/ForumCommentDialog.vue';
 import TopBar from '../HomePage/TopBar.vue'
 import code from '@/utils/code';
 import message from '@/utils/message';
@@ -110,6 +137,9 @@ export default {
         AboutDialog,
         NewsDialog,
         TutorialDialog,
+        ForumTopicDialog,
+        ForumThreadDialog,
+        ForumCommentDialog,
         TopBar,
     },
     data() {
@@ -118,6 +148,10 @@ export default {
             isShowAbout: false,
             isShowNews: false,
             isShowTutorial: false,
+            isShowForumTopic: false,
+            isShowForumThread: false,
+            isShowForumComment: false,
+
             isRouterAlive: true,
             topBarReload: false,
         }
@@ -186,6 +220,32 @@ export default {
             },5)
             }
         },
+
+        showMenu3() {
+            // console.log("do showMenu1")
+            if(document.getElementsByClassName("hov-sub-tab-menu3")[0].clientHeight<330){
+             var showTimer=setInterval(function(){
+                // 获取上一次移动之后的高度
+                var oldValveMenu3=document.getElementsByClassName("hov-sub-tab-menu3")[0].clientHeight;
+                 // 判断移动后的结果是否完全展开，即高度的变化范围为130px-430px
+                 if(oldValveMenu3+12>=430){
+                    clearInterval(showTimer);
+                }
+                // 将高度每10ms移动8像素的距离，从而达到0.25s完全展开的效果
+                document.getElementsByClassName("hov-sub-tab-menu3")[0].style.height=oldValveMenu3+12+"px";
+            },15)
+            }
+
+            if(document.getElementsByClassName("hov-sub-tab-menu3")[0].clientHeight>130){
+             var hideTimer=setInterval(function(){
+                var oldValveMenu3=document.getElementsByClassName("hov-sub-tab-menu3")[0].clientHeight;
+                if(oldValveMenu3-12<=130){
+                    clearInterval(hideTimer);
+                }
+                document.getElementsByClassName("hov-sub-tab-menu3")[0].style.height=oldValveMenu3-12+"px";
+            },15)
+            }
+        },
         
         // 显示dialog
         showDialog(showWhich) {
@@ -205,6 +265,18 @@ export default {
             {
                 this.isShowTutorial = true;
             }
+            else if (showWhich === 'topic')
+            {
+                this.isShowForumTopic = true;
+            }
+            else if (showWhich === 'thread')
+            {
+                this.isShowForumThread = true;
+            }
+            else if (showWhich === 'comment')
+            {
+                this.isShowForumComment = true;
+            }
         },
         // Dialog点击按钮的事件
         // 点击取消按钮
@@ -214,6 +286,9 @@ export default {
             this.isShowAbout = false;
             this.isShowNews = false;
             this.isShowTutorial = false;
+            this.isShowForumTopic = false;
+            this.isShowForumThread = false;
+            this.isShowForumComment = false;
         },
         // 点击确定按钮
         confirm() {
@@ -241,27 +316,43 @@ export default {
         },
 
         // 加载教程分类，放在这一层避免闪烁
-        // load() {
-        //     // console.log("loading...")
-        //     // 获取有哪些分类
-        //     request.get("/categories").then(res => {
-        //         if (res.code === code.GET_OK)
-        //         {
-        //             // 封装后存在localStorage中
-        //             this.$storage.set('tutorialCategoryItems', res.data, 24 * 60 * 60 * 1000);
-        //         }
-        //     }).catch(err => {
-        //         this.$notify.error({
-        //             title: message.REQUEST_ERR,
-        //             offset: code.OFFSET
-        //         })
-        //     })
-        // },
+        // 加载论坛话题
+        async load() {
+            // console.log("loading...")
+            // 获取分类
+            let res1 = await request.get("/categories");
+            if (res1.code === code.GET_OK)
+            {
+                // 保存在localStorage中，方便后续组件读取，避免每次都要请求导致闪烁
+                this.$storage.set('tutorialCategoryItems', res1.data, 24 * 60 * 60 * 1000);
+            }
+            else 
+            {
+                this.$notify.error({
+                    title: message.REQUEST_ERR,
+                    offset: code.OFFSET
+                })
+            }
+            // 获取话题
+            let res2 = await request.get("/topics");
+            if (res2.code === code.GET_OK)
+            {
+                // 保存在localStorage中，方便后续组件读取，避免每次都要请求导致闪烁
+                this.$storage.set("forumTopicItems", res2.data, 24 * 60 * 60 * 1000);
+            }
+            else
+            {
+                this.$notify.error({
+                    title: message.REQUEST_ERR,
+                    offset: code.OFFSET
+                })
+            }
+        },
     },
 
     created() {
         document.title = '管理面板';
-        // this.load();
+        this.load();
     },
 }
 

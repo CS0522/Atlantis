@@ -2,6 +2,7 @@ package com.atlantis.service.impl;
 
 import com.atlantis.mapper.CommentMapper;
 import com.atlantis.pojo.Comment;
+import com.atlantis.pojo.CommentJoinForumArticle;
 import com.atlantis.service.CommentService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -17,15 +18,15 @@ public class CommentServiceImpl implements CommentService {
     private CommentMapper commentMapper;
 
     @Override
-    public List<Comment> getAll() {
+    public List<CommentJoinForumArticle> getAll() {
         return (commentMapper.getAll());
     }
 
     @Override
-    public PageInfo<Comment> getAllByPage(Integer pageNum, Integer pageSize) {
+    public PageInfo<CommentJoinForumArticle> getAllByPage(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Comment> commentList = commentMapper.getAll();
-        return new PageInfo<Comment>(commentList);
+        List<CommentJoinForumArticle> commentList = commentMapper.getAll();
+        return new PageInfo<CommentJoinForumArticle>(commentList);
     }
 
     @Override
@@ -53,6 +54,13 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    public PageInfo<CommentJoinForumArticle> findByPage(Integer pageNum, Integer pageSize, String searchKey) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<CommentJoinForumArticle> commentList = commentMapper.fuzzyQuery(searchKey);
+        return new PageInfo<CommentJoinForumArticle>(commentList);
+    }
+
+    @Override
     public List<Comment> getById(Integer id) {
         return (commentMapper.getById(id));
     }
@@ -70,5 +78,12 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public boolean delete(Integer index) {
         return (commentMapper.delete(index) == 1);
+    }
+
+    @Override
+    public boolean deleteById(Integer id) {
+        commentMapper.deleteById(id);
+
+        return true;
     }
 }

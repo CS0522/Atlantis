@@ -2,10 +2,11 @@
     <div>
         <div id="title-box">
             <div style="font-size: 50px; width: 1500px; text-align: left;">
-                <h1>欢迎进入管理员界面</h1></div>
+                <h1>欢迎进入管理面板</h1></div>
         </div>
         <hr class="hr" />
         <div id="content-box">
+            <!-- TODO 做一些统计图 -->
             <div style="font-size: 60px">
                 管理员 {{ accountInfo.username }}，请在左侧导航栏选择管理选项</div>
         </div>

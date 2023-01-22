@@ -30,8 +30,16 @@
         <result column="login_type" property="loginType"></result>
     </resultMap>
 
-    <select id="getAll" resultMap="commentResultMap">
-        select * from comment
+    <resultMap id="commentJoinResultMap" type="com.atlantis.pojo.CommentJoinForumArticle">
+        <result column="create_date" property="createDate"></result>
+    </resultMap>
+    
+    <select id="getAll" resultMap="commentJoinResultMap">
+        select comment.`index` as `index`, comment.`id` as `id`, comment.`name` as `name`,
+               comment.`content` as `content`, comment.`create_date` as `create_date`,
+               forum_article.`title` as `title` from comment
+        join forum_article
+        on comment.`id` = forum_article.`id`
     </select>
 
     <select id="getByIndex" resultMap="commentResultMap">
@@ -64,6 +72,21 @@
         delete from comment where `index` = #{index}
     </delete>
 
+    <delete id="deleteById">
+        delete from comment where `id` = #{id}
+    </delete>
+
+    <select id="fuzzyQuery" resultMap="commentJoinResultMap">
+        select comment.`index` as `index`, comment.`id` as `id`, comment.`name` as `name`,
+               comment.`content` as `content`, comment.`create_date` as `create_date`,
+               forum_article.`title` as `title`
+        from comment
+        join forum_article
+        on comment.`id` = forum_article.`id`
+        where forum_article.`title` like concat('%', #{searchKey}, '%') or
+              comment.`name` like concat('%', #{searchKey}, '%') or
+              comment.`content` like concat('%', #{searchKey}, '%')
+    </select>
     <!--    ${}: 用于表名、列名
         #{}: 用于参数
 -->

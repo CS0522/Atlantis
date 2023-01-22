@@ -54,9 +54,10 @@ public abstract class ArticleBaseServiceImpl<T> implements ArticleBaseService<T>
         return false;
     }
 
+    // 需要再重写，检查是否存在相同标题
     @Override
     public boolean update(T obj) {
-        return (articleBaseMapper.update(obj) == 1);
+        return false;
     }
 
     @Override

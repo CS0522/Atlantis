@@ -1,7 +1,7 @@
 <template>
     <div>
         <div id="title-box">
-            <div>发布帖子</div>
+            <div>帖子编辑</div>
         </div>
         <hr class="hr" />
         <div id="content-box">
@@ -11,7 +11,7 @@
                     <tr align="center">
                         <td>
                             <button class="operation" style="background-color: #eb1d2a" 
-                                @click="doSubmit()">发布</button>
+                                @click="doEdit()">提交</button>
                         </td>
                         <td>
                             <button class="operation" style="background-color: #f64530"
@@ -67,7 +67,7 @@
                     <tr align="center">
                         <td>
                             <button class="operation" style="background-color: #eb1d2a" 
-                                @click="doSubmit()">发布</button>
+                                @click="doEdit()">提交</button>
                         </td>
                         <td>
                             <button class="operation" style="background-color: #f64530"
@@ -94,15 +94,12 @@ export default {
             topicItems: [],
 
             // accountInfo
-            accountInfo: this.$storage.get("accountInfo"),
+            // accountInfo: this.$storage.get("accountInfo"),
 
-            // 写入
-            form: {
-                index: '',
-                title: '',
-                author: '',
-                content: ''
-            },
+            id: this.$route.query.id,
+
+            // 获取
+            form: {},
 
             // 对象属性，传给mavon-editor
             toolbars: metoolbar.toolbars,
@@ -111,8 +108,21 @@ export default {
     methods: {
         load() {
             this.topicItems = this.$storage.get('forumTopicItems');
-
+            this.setForm();
             this.clearForm();
+        },
+        setForm() {
+            request.get("/forumArticles/" + this.id).then(res => {
+                if (res.code === code.GET_OK)
+                {
+                    this.form = res.data;
+                }
+            }).catch(err => {
+                this.$notify.error({
+                    title: message.REQUEST_ERR,
+                    offset: code.OFFSET
+                })
+            })
         },
         clearForm() {
             this.form = {};
@@ -126,12 +136,7 @@ export default {
             })
         },
 
-        async doSubmit() {
-            // set author
-            if (this.accountInfo)
-            {
-                this.form.author = this.accountInfo.username;
-            }
+        async doEdit() {
             // 发布前检查
             if (!this.form.index || !this.form.title || !this.form.content)
             {
@@ -141,24 +146,26 @@ export default {
                 })
                 return;
             }
-            // submit
-            let res = await request.post("/forumArticles", this.form);
-            if (res.code === code.INSERT_OK)
+            // update
+            let res = await request.put("/forumArticles", this.form);
+            if (res.code === code.UPDATE_OK)
             {
                 this.$notify.success({
-                    title: message.INSERT_OK,
+                    title: message.UPDATE_OK,
                     offset: code.OFFSET,
                 })
-                // back to home
+                // back to dashboard
+                // setTimeout(() => {
+                //     this.$router.push("/dashboard/forum/thread");
+                // }, 1000);
                 setTimeout(() => {
-                    this.$router.push("/page/forum");
+                    this.load();
                 }, 1000);
-                
             }
-            else if (res.code === code.INSERT_ERR)
+            else if (res.code === code.UPDATE_ERR)
             {
                 this.$notify.error({
-                    title: "请检查帖子是否重复",
+                    title: message.UPDATE_ERR + "，请检查帖子是否重复",
                     offset: code.OFFSET,
                 })
             }

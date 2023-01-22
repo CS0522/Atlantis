@@ -11,10 +11,9 @@
     /* line-height: 80px; */
 }
 
-/* TODO 修改字体颜色 */
 .markdown-body
 {
-    color: #847272;
+    color: #fff;
     font-size: 30px;
     /* background-color: rgba(252, 242, 241, 0); */
     background-color: rgba(53, 53, 53, 0);

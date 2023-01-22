@@ -24,4 +24,7 @@ public interface ArticleBaseMapper<T> {
 
     // 模糊查询
     public List<T> fuzzyQuery(@Param("searchKey") String searchKey);
+
+    // 查询数量
+    public int getCount(@Param("index") Integer index);
 }

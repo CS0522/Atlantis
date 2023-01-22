@@ -92,6 +92,7 @@ import code from '@/utils/code';
 import message from '@/utils/message';
 import request from '@/utils/request';
 import metoolbar from '@/utils/mavon-editor-toolbars'
+// import 'github-markdown-css/github-markdown-light.css'
 
 export default {
     name: "newseditor",
