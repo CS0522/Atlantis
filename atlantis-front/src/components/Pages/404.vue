@@ -46,14 +46,14 @@ export default {
     top: 150px;
     margin: 0 auto;
 
-    background-color: rgba(252, 242, 241, 0.7);
+    background-color: rgba(53, 53, 53, 0.8);
     border-radius: 15px;
     animation: shadow 3s ease;
     animation-iteration-count: infinite;
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);  /* css滤镜 */
 
-    box-shadow: inset 0px 0px 40px 40px rgba(252, 242, 241, 0.7);
+    box-shadow: 0px 0px 15px 15px rgba(63, 63, 63, 0.7);
 }
 
 .title

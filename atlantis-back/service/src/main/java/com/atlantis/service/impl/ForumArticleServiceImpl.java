@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ForumArticleServiceImpl extends ArticleBaseServiceImpl<ForumArticle>
@@ -51,7 +52,10 @@ public class ForumArticleServiceImpl extends ArticleBaseServiceImpl<ForumArticle
     public boolean update(ForumArticle forumArticle)
     {
         // 如果没有相同标题，则可以进行更新
-        if (articleBaseMapper.getByTitle(forumArticle.getTitle()) == null)
+        if (articleBaseMapper.getByTitle(forumArticle.getTitle()) == null ||
+                // 或者是同一个文章
+                Objects.equals(articleBaseMapper.getByTitle(forumArticle.getTitle()).getId(),
+                        forumArticle.getId()))
         {
             return (articleBaseMapper.update(forumArticle) == 1);
         }

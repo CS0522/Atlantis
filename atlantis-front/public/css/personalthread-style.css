@@ -1,118 +1,14 @@
-#title-box
-{
-    margin: 30px;
-    /* border: solid; */
-    width: 500px;
-    font-size: 40px;
-    font-weight: bold;
-}
-
 .hr
 {
+    margin-top: 20px;
     border: none; 
     border-top: solid #eb1d2a;
 }
 
-/* #content-box
-{
-    border: solid;
-} */
-
-.add-and-search-box
+#content-box
 {
     /* border: solid; */
-    text-align: left;
-}
-
-.search-bar
-{
-    /* border: solid; */
-    border-radius: 15px;
-    width: 45%;
-    display: inline-block;
-    zoom: 200%;
-    /* z-index: 10000; */
-    font-family: 'Microsoft YaHei';
-}
-
-.refresh-box
-{
-    /* border: solid; */
-    display: inline-block;
-    position: relative;
-    width: 10%;
-    top: 25px;
-    text-align: center;
-}
-
-#refresh-icon
-{
-    /* 实现旋转效果 */
-    cursor: pointer;
-    transition: transform 1.0s;
-
-    filter: invert(100%);
-}
-
-#refresh-icon:hover
-{
-    transform: rotate(360deg);
-}
-
-.search-input
-{
-    border-radius: 15px;
-}
-
-.add-button-box
-{
-    /* border: solid; */
-    width: 30%; 
-    margin-top: 40px; 
-    margin-bottom: 40px;
-    text-align: center;
-    display: inline-block;
-}
-
-.add-button {
     font-size: 30px;
-    height: 80px;
-    width: 70%;
-    margin: auto auto;
-    line-height: 80px;
-    border-radius: 15px;
-    border: none;
-    background-color: #eb1d2a;
-}
-
-.select-box
-{
-    /* border: solid; */
-    margin: auto auto;
-    width: 90%;
-
-    margin-bottom: 50px;
-}
-
-.select-box::after
-{
-    content:"";
-    /*清除浮动*/
-    clear: both;
-    /*确保该元素是一个块级元素*/
-    display: block;
-}
-
-.selectType
-{
-    font-size: 40px;
-    border-radius: 15px;
-    border: solid #eb1d2a;
-    font-family: 'Microsoft YaHei';
-    float: left;
-    width: 23%;
-
-    margin-right: 30px;
 }
 
 .item-box
@@ -142,6 +38,14 @@
     transform: scale(1.02);
 }
 
+.item-box::after {
+    content:"";
+    /*清除浮动*/
+    clear: both;
+    /*确保该元素是一个块级元素*/
+    display: block;
+}
+
 /* .item-box li
 {
     transition: all .3s;
@@ -155,12 +59,6 @@
     height: 100%;
     line-height: 130px;
     font-size: 40px;
-
-    /* width: 60%; */
-    /* text-align: left; */
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
 
 .item-detail
@@ -187,9 +85,9 @@
     white-space: nowrap;
 }
 
-.item-detail-author
+.item-detail-view
 {
-
+    /* border: solid; */
     display: inline;
     float: right;
     width: 30%;

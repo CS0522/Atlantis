@@ -25,8 +25,8 @@ public class ForumArticleController extends ArticleBaseController<ForumArticle> 
         {
             PageInfo<ForumArticle> pageInfo = forumArticleService.getByAuthorByPage(
                                                 pageNum, pageSize, author);
-            Integer code = pageInfo != null ? Code.GET_OK : Code.GET_ERR;
-            String msg = pageInfo != null ? "get succeeded" : "get failed";
+            Integer code = pageInfo.hasContent() ? Code.GET_OK : Code.GET_ERR;
+            String msg = pageInfo.hasContent() ? "get succeeded" : "get failed";
 
             return new Result(code, pageInfo, msg);
         }

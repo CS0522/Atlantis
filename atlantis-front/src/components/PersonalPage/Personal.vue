@@ -16,6 +16,18 @@
                     <div>{{ dialogContent }}</div>
                 </template>
             </BaseDialog>
+
+            <PersonalThreadDialog
+            v-if="isShowThread"
+            @close="closeDialog"
+            @confirm="confirm">
+            </PersonalThreadDialog>
+
+            <PersonalCommentDialog
+            v-if="isShowComment"
+            @close="closeDialog"
+            @confirm="confirm">
+            </PersonalCommentDialog>
         </transition>
 
         <div id="personal">
@@ -35,6 +47,13 @@
                         <div class="sub-tab">消息中心</div>
                     </router-link>
 
+                    <router-link to="/personal/thread">
+                        <div class="sub-tab">我的帖子</div>
+                    </router-link>
+
+                    <router-link to="/personal/comment">
+                        <div class="sub-tab">我的评论</div>
+                    </router-link>
                 </div>
             </div>
             <div id="personal-content-box">
@@ -82,7 +101,11 @@
                         </table>
                     </div>
                 </div>
-                <router-view :key="$route.fullPath"></router-view>
+                <hr class="hr" />
+                <router-view v-if="isRouterAlive"
+                            @show-dialog="showDialog"
+                            :key="$route.fullPath">
+                </router-view>
             </div>
         </div>
     </div>
@@ -91,8 +114,10 @@
 <script>
 import code from '@/utils/code';
 import request from '@/utils/request';
-import TopBar from '../HomePage/TopBar.vue';
-import BaseDialog from '../Dialog/BaseDialog.vue';
+import TopBar from '@/components/HomePage/TopBar.vue';
+import BaseDialog from '@/components/Dialog/BaseDialog.vue';
+import PersonalThreadDialog from '@/components/Dialog/PersonalThreadDialog.vue';
+import PersonalCommentDialog from '@/components/Dialog/PersonalCommentDialog.vue';
 import message from '@/utils/message';
 
 export default {
@@ -100,11 +125,14 @@ export default {
     components: {
         TopBar,
         BaseDialog,
+        PersonalThreadDialog,
+        PersonalCommentDialog,
     },
-    inject: ['reload'],
+    // inject: ['reload'],
 
     provide() {
         return {
+            reload: this.reload,
             doTopBarReload: this.doTopBarReload,
         }     
     },
@@ -115,6 +143,8 @@ export default {
             dialogTitle: '',
             dialogContent: '',
             operationType: '',
+            isShowThread: false,
+            isShowComment: false,
 
             // 需要通过userId获取图像
             imgBaseUrl: this.$store.state.userImgBaseUrl,
@@ -123,6 +153,7 @@ export default {
             imageUrl: '',
 
             topBarReload: false,
+            isRouterAlive: true,
 
             // 判断是否是管理员，用于申请按钮的显示隐藏
             isAdmin: '',
@@ -137,6 +168,14 @@ export default {
             window.location.href = "/";
         },
 
+        // 刷新路由
+        reload() {
+            this.isRouterAlive = false;
+            this.$nextTick(function() {
+                this.isRouterAlive = true;
+            })
+        },
+        // 刷新 topbar
         doTopBarReload() {
             this.topBarReload = true;
             this.$nextTick(function() {
@@ -155,7 +194,43 @@ export default {
             this.getUserPhoto();
             // if is admin
             this.checkIsAdmin();
+            // get
+            this.getCategoriesAndTopics();
         },
+        // 加载教程分类，放在这一层避免闪烁
+        // 加载论坛话题
+        async getCategoriesAndTopics() {
+            // console.log("loading...")
+            // 获取分类
+            let res1 = await request.get("/categories");
+            if (res1.code === code.GET_OK)
+            {
+                // 保存在localStorage中，方便后续组件读取，避免每次都要请求导致闪烁
+                this.$storage.set('tutorialCategoryItems', res1.data, 24 * 60 * 60 * 1000);
+            }
+            else 
+            {
+                this.$notify.error({
+                    title: message.REQUEST_ERR,
+                    offset: code.OFFSET
+                })
+            }
+            // 获取话题
+            let res2 = await request.get("/topics");
+            if (res2.code === code.GET_OK)
+            {
+                // 保存在localStorage中，方便后续组件读取，避免每次都要请求导致闪烁
+                this.$storage.set("forumTopicItems", res2.data, 24 * 60 * 60 * 1000);
+            }
+            else
+            {
+                this.$notify.error({
+                    title: message.REQUEST_ERR,
+                    offset: code.OFFSET
+                })
+            }
+        },
+
         getUserPhoto() {
             request.get("/users/download/" + this.userId).then(res => {
                 // 没有userphoto
@@ -223,11 +298,25 @@ export default {
             this.isShowBase = true;
         },
 
+        // 显示dialog
+        showDialog(showWhich) {
+            if (showWhich === 'thread')
+            {
+                this.isShowThread = true;
+            }
+            else if (showWhich === 'comment')
+            {
+                this.isShowComment = true;
+            }
+        },
+
         // Dialog点击按钮的事件
         // 点击取消按钮
         closeDialog()
         {
             this.isShowBase = false;
+            this.isShowThread = false;
+            this.isShowComment = false;
         },
         // 点击确定按钮
         // type值是操作的类型
@@ -272,6 +361,14 @@ export default {
                         offset: code.OFFSET
                     })
                 })
+            }
+            // 其他 threaddialog & commentdialog
+            else 
+            {
+                // 延迟 300ms 刷新子路由
+                setTimeout(() => {
+                    this.reload(); // 执行方法
+                }, 300);
             }
         },
 

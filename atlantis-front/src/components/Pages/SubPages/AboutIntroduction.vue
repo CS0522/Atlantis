@@ -20,7 +20,7 @@
             <br/>
             <div class="introduction-part">
                 <div class="paragraph-box">
-                    Atlantis Racer JMVT 车队，是以日系车、改装、与其惊人的驾驶技术作为特色的业余车队。由反对山路恶劣管理的反叛军首领 Shark-Melon 组建。“放荡不羁的漂移技术”与“牢固的抓地跑法”是车队两大核心要素。车队内有两名汽车改装专业级人员与数名优秀的飙车手。  
+                    JMVT Atlantis 车队，是以日系车、改装、与其惊人的驾驶技术作为特色的业余车队。由反对山路恶劣管理的反叛军首领 Shark-Melon 组建。“放荡不羁的漂移技术”与“牢固的抓地跑法”是车队两大核心要素。车队内有两名汽车改装专业级人员与数名优秀的飙车手。  
                 </div>
                 <div class="paragraph-box">
                     <p>

@@ -50,6 +50,12 @@
                                 :total="totalNumber">
                     </el-pagination>
 
+                    <div v-if="isShowFlag">
+                        <img src="@/../public/imgs/commons/ae86.png" height="150px"
+                            style="filter: drop-shadow(0px 5px 15px #eb1d2a);"/>
+                        <p style="color: rgb(200, 200, 200);zoom:2">这里什么也没有~</p>
+                    </div>
+
                     <ul v-for="item in items" :key="item.id" style="list-style-type: none">
                         <div class="item-box">
                             <li>
@@ -107,6 +113,8 @@ export default {
 
             items: [],
 
+            isShowFlag: false,
+
             // 发送请求时的拼接字符串
             typeIndex: "",
             // 排序方式
@@ -119,21 +127,32 @@ export default {
             this.clearSearch();
         },
 
+        setIsShowFlag(val) {
+            this.isShowFlag = val;
+        },
+
         async setItem() {
-            let res = await request.get("/newsArticles" + this.typeIndex + 
-                                    "/" + this.currentPage + "/" + this.pageSize + "/" + this.order);
-            if (res.code === code.GET_OK)
-            {
-                this.items = res.data.list;
-                this.totalNumber = res.data.total;
+            try {
+                let res = await request.get("/newsArticles" + this.typeIndex +
+                    "/" + this.currentPage + "/" + this.pageSize + "/" + this.order);
+                if (res.code === code.GET_OK) {
+                    this.items = res.data.list;
+                    this.totalNumber = res.data.total;
+                    this.setIsShowFlag(false);
+                }
+                else if (res.code === code.GET_ERR) {
+                    this.items = [];
+                    this.totalNumber = 0;
+                    this.setIsShowFlag(true);
+                }
             }
-            else 
-            {
+            catch (err) {
+                this.setIsShowFlag(true);
                 this.$notify.error({
                     title: message.REQUEST_ERR,
                     offset: code.OFFSET
                 })
-            }
+            }  
         },
         clearSearch() {
             this.searchInput = '';
@@ -159,7 +178,7 @@ export default {
         },
 
         // search
-        doSearch() {
+        async doSearch() {
             // 若输入为空，刷新、退出
             if (this.searchInput.trim() === '')
             {
@@ -167,32 +186,36 @@ export default {
                 return;
             }
             this.isSearching = true;
-            request.get("/newsArticles/search/" + this.searchInput.trim() + 
-                        "/" + this.currentPage + "/" + this.pageSize).then(res => {
-                        if (res.code === code.GET_OK && res.data.total)
-                        {
-                            this.items = res.data.list;
-                            this.totalNumber = res.data.total;
-                            this.$notify.success({
-                                title: message.FIND_OK + "，共 " + this.totalNumber + " 条",
-                                offset: code.OFFSET
-                            })
-                        }
-                        else 
-                        {
-                            this.items = [];
-                            this.totalNumber = 0;
-                            this.$notify.error({
-                                title: message.FIND_ERR,
-                                offset: code.OFFSET
-                            })
-                        }
-                    }).catch(err => {
-                        this.$notify.error({
-                            title: message.REQUEST_ERR,
-                            offset: code.OFFSET
-                        })
+            try
+            {
+                let res = await request.get("/newsArticles/search/" + this.searchInput.trim() +
+                    "/" + this.currentPage + "/" + this.pageSize)
+                if (res.code === code.GET_OK) {
+                    this.items = res.data.list;
+                    this.totalNumber = res.data.total;
+                    this.setIsShowFlag(false);
+                    this.$notify.success({
+                        title: message.FIND_OK + "，共 " + this.totalNumber + " 条",
+                        offset: code.OFFSET
                     })
+                }
+                else if (res.code === code.GET_ERR) {
+                    this.items = [];
+                    this.totalNumber = 0;
+                    this.setIsShowFlag(true);
+                    this.$notify.error({
+                        title: message.FIND_ERR,
+                        offset: code.OFFSET
+                    })
+                }
+            }
+            catch (err) {
+                this.setIsShowFlag(true);
+                this.$notify.error({
+                    title: message.REQUEST_ERR,
+                    offset: code.OFFSET
+                })
+            }
         },
 
         // pagination
@@ -202,30 +225,34 @@ export default {
         },
         async handleCurrentChange(val) {
             // console.log("val: " + val);
-            let res;
-            if (!this.isSearching)
-            {
-                res = await request.get("/newsArticles" + this.typeIndex + 
-                                    "/" + this.currentPage + "/" + this.pageSize + "/" + this.order);
-            }
-            else
-            {
-                res = await request.get("/newsArticles/search/" + this.searchInput.trim() + 
-                                    "/" + this.currentPage + "/" + this.pageSize);
-            }
-            if (res.code === code.GET_OK) {
-                this.items = res.data.list;
-                this.totalNumber = res.data.total;
-                // console.log("total number: " + this.totalNumber);
-            }
-            else 
-            {
+            try {
+                let res;
+                if (!this.isSearching) {
+                    res = await request.get("/newsArticles" + this.typeIndex +
+                        "/" + this.currentPage + "/" + this.pageSize + "/" + this.order);
+                }
+                else {
+                    res = await request.get("/newsArticles/search/" + this.searchInput.trim() +
+                        "/" + this.currentPage + "/" + this.pageSize);
+                }
+                if (res.code === code.GET_OK) {
+                    this.items = res.data.list;
+                    this.totalNumber = res.data.total;
+                    this.setIsShowFlag(false);
+                    // console.log("total number: " + this.totalNumber);
+                }
+                else if (res.code === code.GET_ERR) {
+                    this.items = [];
+                    this.totalNumber = 0;
+                    this.setIsShowFlag(true);
+                }
+            } catch (err) {
+                this.setIsShowFlag(true);
                 this.$notify.error({
                     title: message.REQUEST_ERR,
                     offset: code.OFFSET
                 })
             }
-            // console.log(`当前页: ${val}`);
         },
     },
 
@@ -234,40 +261,54 @@ export default {
     },
 
     watch: {
-        typeIndex(val) {
-            request.get("/newsArticles" + val + 
-                    "/" + this.currentPage + "/" + this.pageSize + "/" + this.order).then(res => {
-                        if (res.code === code.GET_OK)
-                        {
-                            this.items = res.data.list;
-                            this.totalNumber = res.data.total;
-                        }
-                    }).catch(err => {
-                        this.$notify.error({
-                            title: message.REQUEST_ERR,
-                            offset: code.OFFSET
-                        })
-                    })
+        async typeIndex(val) {
+            try {
+                let res = await request.get("/newsArticles" + val +
+                    "/" + this.currentPage + "/" + this.pageSize + "/" + this.order);
+                if (res.code === code.GET_OK) {
+                    this.items = res.data.list;
+                    this.totalNumber = res.data.total;
+                    this.setIsShowFlag(false);
+                }
+                else if (res.code === code.GET_ERR) {
+                    this.items = [];
+                    this.totalNumber = 0;
+                    this.setIsShowFlag(true);
+                }
+            } catch (err) {
+                this.setIsShowFlag(true);
+                this.$notify.error({
+                    title: message.REQUEST_ERR,
+                    offset: code.OFFSET
+                })
+            }
         },
         
-        order(val) {
-            request.get("/newsArticles" + this.typeIndex + 
-                    "/" + this.currentPage + "/" + this.pageSize + "/" + val).then(res => {
-                        if (res.code === code.GET_OK)
-                        {
-                            this.items = res.data.list;
-                            this.totalNumber = res.data.total;
-                        }
-                    }).catch(err => {
-                        this.$notify.error({
-                            title: message.REQUEST_ERR,
-                            offset: code.OFFSET
-                        })
-                    })
+        async order(val) {
+            try {
+                let res = await request.get("/newsArticles" + this.typeIndex +
+                    "/" + this.currentPage + "/" + this.pageSize + "/" + val);
+                if (res.code === code.GET_OK) {
+                    this.items = res.data.list;
+                    this.totalNumber = res.data.total;
+                    this.setIsShowFlag(false);
+                }
+                else if (res.code === code.GET_ERR) {
+                    this.items = [];
+                    this.totalNumber = 0;
+                    this.setIsShowFlag(true);
+                }
+            } catch (err) {
+                this.setIsShowFlag(true);
+                this.$notify.error({
+                    title: message.REQUEST_ERR,
+                    offset: code.OFFSET
+                })
+            }
         },
 
         // 含输入的记得掐空格
-        searchInput(val) {
+        async searchInput(val) {
             this.currentPage = 1;
 
             if (val.trim() === '')
@@ -284,29 +325,27 @@ export default {
             // 正在搜索状态
             this.isSearching = true;
             // 延迟 0.2s 进行实时显示
-            setTimeout(() => {
-                request.get("/newsArticles/search/" + this.searchInput.trim() + 
-                        "/" + this.currentPage + "/" + this.pageSize).then(res => {
-                        if (res.code === code.GET_OK && res.data.total)
-                        {
-                            this.items = res.data.list;
-                            this.totalNumber = res.data.total;
-                        }
-                        else 
-                        {
-                            this.items = [];
-                            this.totalNumber = 0;
-                            // this.$notify.error({
-                            //     title: message.FIND_ERR,
-                            // })
-                        }
-                    }).catch(err => {
-                        console.log(err);
-                        // this.$notify.error({
-                        //     title: message.REQUEST_ERR,
-                        //     offset: code.OFFSET
-                        //})
+            setTimeout(async () => {
+                try {
+                    let res = await request.get("/newsArticles/search/" + this.searchInput.trim() +
+                        "/" + this.currentPage + "/" + this.pageSize);
+                    if (res.code === code.GET_OK) {
+                        this.items = res.data.list;
+                        this.totalNumber = res.data.total;
+                        this.setIsShowFlag(false);
+                    }
+                    else if (res.code === code.GET_ERR) {
+                        this.items = [];
+                        this.totalNumber = 0;
+                        this.setIsShowFlag(true);
+                    }
+                } catch (err) {
+                    this.setIsShowFlag(true);
+                    this.$notify.error({
+                        title: message.REQUEST_ERR,
+                        offset: code.OFFSET
                     })
+                }
             }, 200);
         }
     }

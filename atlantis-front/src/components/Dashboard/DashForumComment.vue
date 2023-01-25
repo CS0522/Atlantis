@@ -38,6 +38,13 @@
                                 layout="prev, pager, next, jumper"  
                                 :total="totalNumber">
                     </el-pagination>
+
+                    <div v-if="isShowFlag">
+                        <img src="@/../public/imgs/commons/ae86.png" height="150px"
+                            style="filter: drop-shadow(0px 5px 15px #eb1d2a);"/>
+                        <p style="color: rgb(200, 200, 200);zoom:2">这里什么也没有~</p>
+                    </div>
+
                     <div class="comment-item" v-for="item in items" :key="item.index">
                         <div class="comment-item-detail">
                             <div class="comment-item-info">
@@ -89,6 +96,8 @@ export default {
             // 消息数据
             items: [],
 
+            isShowFlag: false,
+
             // for pagination
             currentPage: 1,
             pageSize: 10,
@@ -97,23 +106,31 @@ export default {
         }
     },
     methods: {
+        setIsShowFlag(val) {
+            this.isShowFlag = val;
+        },
         // 分页查询
-        setItems() {
+        async setItems() {
             // get all
-            request.get("/comments/" + this.currentPage + "/" + this.pageSize).then(res => {
-                if (res.code === code.GET_OK)
-                {
+            try {
+                let res = await request.get("/comments/" + this.currentPage + "/" + this.pageSize)
+                if (res.code === code.GET_OK) {
                     this.items = res.data.list;
                     this.totalNumber = res.data.total;
+                    this.setIsShowFlag(false);
                 }
-                else 
-                {
-                    this.$notify.error({
-                        title: message.REQUEST_ERR,
-                        offset: code.OFFSET
-                    })
+                else if (res.code === code.GET_ERR) {
+                    this.items = [];
+                    this.totalNumber = 0;
+                    this.setIsShowFlag(true);
                 }
-            })
+            } catch (err) {
+                this.setIsShowFlag(true);
+                this.$notify.error({
+                    title: message.REQUEST_ERR,
+                    offset: code.OFFSET
+                })
+            }
         },
         clearSearch() {
             this.searchInput = '';
@@ -134,7 +151,7 @@ export default {
             this.$emit('show-dialog', 'comment');
         },
 
-        doSearch() {
+        async doSearch() {
             // 若输入为空，刷新、退出
             if (this.searchInput.trim() === '')
             {
@@ -142,62 +159,66 @@ export default {
                 return;
             }
             this.isSearching = true;
-            request.get("/comments/search/" + this.searchInput.trim() + "/" + 
-                            this.currentPage + "/" + this.pageSize).then(res => {
-                        if (res.code === code.GET_OK && res.data.total)
-                        {
-                            this.items = res.data.list;
-                            this.totalNumber = res.data.total;
-                            this.$notify.success({
-                                title: message.FIND_OK + "，共 " + this.totalNumber + " 条",
-                                offset: code.OFFSET
-                            })
-                        }
-                        else 
-                        {
-                            this.items = [];
-                            this.totalNumber = 0;
-                            this.$notify.error({
-                                title: message.FIND_ERR,
-                                offset: code.OFFSET
-                            })
-                        }
-                    }).catch(err => {
-                        this.$notify.error({
-                            title: message.REQUEST_ERR,
-                            offset: code.OFFSET
-                        })
+            try {
+                let res = await request.get("/comments/search/" + this.searchInput.trim() + "/" +
+                    this.currentPage + "/" + this.pageSize)
+                if (res.code === code.GET_OK) {
+                    this.items = res.data.list;
+                    this.totalNumber = res.data.total;
+                    this.setIsShowFlag(false);
+                    this.$notify.success({
+                        title: message.FIND_OK + "，共 " + this.totalNumber + " 条",
+                        offset: code.OFFSET
                     })
+                }
+                else if (res.code === code.GET_ERR) {
+                    this.items = [];
+                    this.totalNumber = 0;
+                    this.setIsShowFlag(true);
+                    this.$notify.error({
+                        title: message.FIND_ERR,
+                        offset: code.OFFSET
+                    })
+                }
+            } catch (err) {
+                this.setIsShowFlag(true);
+                this.$notify.error({
+                    title: message.REQUEST_ERR,
+                    offset: code.OFFSET
+                })
+            }
         },
 
         handleSizeChange(val) {
             // console.log("val: " + val);
         },
         async handleCurrentChange(val) {
-            // console.log("val: " + val);
-            let res;
-            if (!this.isSearching)
-            {
-                res = await request.get("/comments/" + this.currentPage + "/" + this.pageSize);
-            }
-            else
-            {
-                res = await request.get("/comments/search/" + this.searchInput + "/" + 
-                                        this.currentPage + "/" + this.pageSize);
-            }
-            if (res.code === code.GET_OK) {
-                this.items = res.data.list;
-                this.totalNumber = res.data.total;
-                // console.log("total number: " + this.totalNumber);
-            }
-            else
-            {
+            try {
+                let res;
+                if (!this.isSearching) {
+                    res = await request.get("/comments/" + this.currentPage + "/" + this.pageSize);
+                }
+                else {
+                    res = await request.get("/comments/search/" + this.searchInput + "/" +
+                        this.currentPage + "/" + this.pageSize);
+                }
+                if (res.code === code.GET_OK) {
+                    this.items = res.data.list;
+                    this.totalNumber = res.data.total;
+                    this.setIsShowFlag(false);
+                }
+                else if (res.code === code.GET_ERR) {
+                    this.items = [];
+                    this.totalNumber = 0;
+                    this.setIsShowFlag(true);
+                }
+            } catch (err) {
+                this.setIsShowFlag(true);
                 this.$notify.error({
                     title: message.REQUEST_ERR,
                     offset: code.OFFSET
-                });
+                })
             }
-            // console.log(`当前页: ${val}`);
         },
     },
     created() {
@@ -206,7 +227,7 @@ export default {
 
     watch: {
         // 含输入的记得掐空格
-        searchInput(val) {
+        async searchInput(val) {
             this.currentPage = 1;
 
             if (val.trim() === '')
@@ -216,28 +237,27 @@ export default {
             }
             this.isSearching = true;
             // 延迟 0.2s 进行实时显示
-            setTimeout(() => {
-                request.get("/comments/search/" + val.trim() + 
-                                "/" + this.currentPage + "/" + this.pageSize).then(res => {
-                        if (res.code === code.GET_OK && res.data.total)
-                        {
-                            this.items = res.data.list;
-                            this.totalNumber = res.data.total;
-                        }
-                        else 
-                        {
-                            this.items = [];
-                            this.totalNumber = 0;
-                            // this.$notify.error({
-                            //     title: message.FIND_ERR,
-                            // })
-                        }
-                    }).catch(err => {
-                        this.$notify.error({
-                            title: message.REQUEST_ERR,
-                            offset: code.OFFSET
-                        })
+            setTimeout(async () => {
+                try {
+                    let res = await request.get("/comments/search/" + val.trim() +
+                        "/" + this.currentPage + "/" + this.pageSize)
+                    if (res.code === code.GET_OK) {
+                        this.items = res.data.list;
+                        this.totalNumber = res.data.total;
+                        this.setIsShowFlag(false);
+                    }
+                    else if (res.code === code.GET_ERR) {
+                        this.items = [];
+                        this.totalNumber = 0;
+                        this.setIsShowFlag(true);
+                    }
+                } catch (err) {
+                    this.setIsShowFlag(true);
+                    this.$notify.error({
+                        title: message.REQUEST_ERR,
+                        offset: code.OFFSET
                     })
+                }
             }, 200);
         }
     },

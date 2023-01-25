@@ -16,7 +16,7 @@ public interface CommentMapper {
 
     public List<Comment> getById(@Param("id") Integer id);
 
-    public List<Comment> getByName(@Param("name") String name,
+    public List<CommentJoinForumArticle> getByName(@Param("name") String name,
                                    @Param("loginType") String loginType);
 
     public int insert(Comment comment);

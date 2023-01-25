@@ -29,7 +29,7 @@
     display: inline;
     height: 70px;
     line-height: 40px;
-    width: 100px;
+    width: 200px;
     font-size: 30px;
     border-radius: 15px;
     border: none;
@@ -48,18 +48,20 @@
     margin: auto auto;
     border-radius: 15px;
     /* 加入底色 */
-    background-color: rgba(252, 242, 241, 0.3);
-    box-shadow: 5px 15px 15px 5px #888888;
+    background-color: rgba(81, 81, 81, 0.8);
+    box-shadow: 0px 0px 15px 5px rgba(94, 94, 94, 0.7);
 
 }
 
 .form-input
 {
-    font-size: 40px;
-    border-radius: 15px;
+    /* 由于缩放问题导致，只能暂时缩放回去 */
+    font-size: 20px;
+    border-radius: 7.5px;
     border: solid #eb1d2a;
     font-family: 'Microsoft YaHei';
     width: 100%;
+    zoom: 2;
 }
 
 #changepwd-form

@@ -112,6 +112,12 @@
     font-size: 40px;
 
     transition: all .3s;
+
+    /* width: 60%; */
+    /* text-align: left; */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .item-box:hover
@@ -146,6 +152,12 @@
     float: left;
     height: 100%;
     font-size: 40px;
+
+    width: 35%;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .item-detail-operation

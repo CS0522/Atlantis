@@ -273,6 +273,12 @@ ul
     /* height: 100%; */
     font-weight: bold;
     font-size: 45px;
+
+    width: 100%;
+    /* text-align: left; */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .topic-item-detail-count

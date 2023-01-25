@@ -26,8 +26,8 @@ public class CommentController {
         try
         {
             PageInfo<CommentJoinForumArticle> pageInfo = commentService.getAllByPage(pageNum, pageSize);
-            Integer code = pageInfo != null ? Code.GET_OK : Code.GET_ERR;
-            String msg = pageInfo != null ? "get succeeded" : "get failed";
+            Integer code = pageInfo.hasContent() ? Code.GET_OK : Code.GET_ERR;
+            String msg = pageInfo.hasContent() ? "get succeeded" : "get failed";
 
             return new Result(code, pageInfo, msg);
         }
@@ -61,8 +61,8 @@ public class CommentController {
         try
         {
             PageInfo<Comment> pageInfo = commentService.getByIdByPage(pageNum, pageSize, id);
-            Integer code = pageInfo != null ? Code.GET_OK : Code.GET_ERR;
-            String msg = pageInfo != null ? "get succeeded" : "get failed";
+            Integer code = pageInfo.hasContent() ? Code.GET_OK : Code.GET_ERR;
+            String msg = pageInfo.hasContent() ? "get succeeded" : "get failed";
 
             return new Result(code, pageInfo, msg);
         }
@@ -78,10 +78,10 @@ public class CommentController {
     {
         try
         {
-            PageInfo<Comment> pageInfo = commentService.getByNameByPage(pageNum, pageSize,
+            PageInfo<CommentJoinForumArticle> pageInfo = commentService.getByNameByPage(pageNum, pageSize,
                                                                     name, loginType);
-            Integer code = pageInfo != null ? Code.GET_OK : Code.GET_ERR;
-            String msg = pageInfo != null ? "get succeeded" : "get failed";
+            Integer code = pageInfo.hasContent() ? Code.GET_OK : Code.GET_ERR;
+            String msg = pageInfo.hasContent() ? "get succeeded" : "get failed";
 
             return new Result(code, pageInfo, msg);
         }
@@ -98,8 +98,8 @@ public class CommentController {
         try
         {
             PageInfo<CommentJoinForumArticle> pageInfo = commentService.findByPage(pageNum, pageSize, searchKey);
-            Integer code = pageInfo != null ? Code.GET_OK : Code.GET_ERR;
-            String msg = pageInfo != null ? "get succeeded" : "get failed";
+            Integer code = pageInfo.hasContent() ? Code.GET_OK : Code.GET_ERR;
+            String msg = pageInfo.hasContent() ? "get succeeded" : "get failed";
 
             return new Result(code, pageInfo, msg);
         }

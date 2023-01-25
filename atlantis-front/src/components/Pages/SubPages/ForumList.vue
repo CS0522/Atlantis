@@ -31,6 +31,11 @@
                             layout="prev, pager, next, jumper" 
                             :total="totalNumber">
             </el-pagination>
+            <div v-if="isShowFlag">
+                <img src="@/../public/imgs/commons/ae86.png" height="150px"
+                    style="filter: drop-shadow(0px 5px 15px #eb1d2a);"/>
+                <p style="color: rgb(200, 200, 200)">这里什么也没有~</p>
+            </div>
             <div>
                 <ul v-for="item in items" :key="item.id" style="list-style-type: none">
                     <div class="item-box">
@@ -48,7 +53,7 @@
                                 </div>
 
                                 <div class="item-detail-view">
-                                    浏览次数: {{ item.view }}
+                                    浏览: {{ item.view }}
                                 </div>
 
                                 <div class="item-detail-author">
@@ -88,6 +93,9 @@ export default {
 
             // 后端传入数据，根据路由的不同
             items: [],
+
+            // 用于显示没有数据的图案
+            isShowFlag: false,
         }
     },
     created() {
@@ -100,6 +108,9 @@ export default {
             this.setItems();
             this.clearSearch();
         },
+        setIsShowFlag(val) {
+            this.isShowFlag = val;
+        },
 
         clearSearch() {
             this.searchInput = '';
@@ -109,23 +120,29 @@ export default {
             // 直接从vuex中获取
             this.typeIndex = this.$store.state.forumCurrentTopic.index;
         },
-        setItems() {
-            console.log("typeIndex: " + this.typeIndex);
-            request.get("/forumArticles/" + this.typeIndex + 
-                        "/" + this.currentPage + "/" + this.pageSize + "/create_date desc")
-            .then(res => {
+        async setItems() {
+            try {
+                let res = await request.get("/forumArticles/" + this.typeIndex +
+                    "/" + this.currentPage + "/" + this.pageSize + "/create_date desc");
                 if (res.code === code.GET_OK) {
                     this.items = res.data.list;
                     this.totalNumber = res.data.total;
+                    this.setIsShowFlag(false);
                 }
-            }).catch(err => {
-                console.log(err)
+                else if (res.code === code.GET_ERR) {
+                    this.items = [];
+                    this.totalNumber = 0;
+                    this.setIsShowFlag(true);
+                }
+            } catch (err) {
+                this.setIsShowFlag(true);
                 this.$notify.error({
                     title: message.REQUEST_ERR,
                     offset: code.OFFSET
-                });
-            })
+                })
+            }
         },
+
         doPost() {
             // 点击前检查是否已经登录
             let info = this.$storage.get("accountInfo");
@@ -140,7 +157,7 @@ export default {
             this.$router.push("/page/threadEditor");
         },
 
-        doSearch() {
+        async doSearch() {
             // 若输入为空，刷新、退出
             if (this.searchInput.trim() === '')
             {
@@ -148,32 +165,34 @@ export default {
                 return;
             }
             this.isSearching = true;
-            request.get("/forumArticles/search/" + this.searchInput.trim() + 
-                        "/" + this.currentPage + "/" + this.pageSize).then(res => {
-                        if (res.code === code.GET_OK && res.data.total)
-                        {
-                            this.items = res.data.list;
-                            this.totalNumber = res.data.total;
-                            this.$notify.success({
-                                title: message.FIND_OK + "，共 " + this.totalNumber + " 条",
-                                offset: code.OFFSET
-                            })
-                        }
-                        else 
-                        {
-                            this.items = [];
-                            this.totalNumber = 0;
-                            this.$notify.error({
-                                title: message.FIND_ERR,
-                                offset: code.OFFSET
-                            })
-                        }
-                    }).catch(err => {
-                        this.$notify.error({
-                            title: message.REQUEST_ERR,
-                            offset: code.OFFSET
-                        })
+            try {
+                let res = await request.get("/forumArticles/search/" + this.searchInput.trim() +
+                    "/" + this.currentPage + "/" + this.pageSize);
+                if (res.code === code.GET_OK) {
+                    this.items = res.data.list;
+                    this.totalNumber = res.data.total;
+                    this.setIsShowFlag(false);
+                    this.$notify.success({
+                        title: message.FIND_OK + "，共 " + this.totalNumber + " 条",
+                        offset: code.OFFSET
                     })
+                }
+                else if (res.code === code.GET_ERR) {
+                    this.items = [];
+                    this.totalNumber = 0;
+                    this.setIsShowFlag(true);
+                    this.$notify.error({
+                        title: message.FIND_ERR,
+                        offset: code.OFFSET
+                    })
+                }
+            } catch (err) {
+                this.setIsShowFlag(true);
+                this.$notify.error({
+                    title: message.REQUEST_ERR,
+                    offset: code.OFFSET
+                })
+            }
         },
 
         // 点击跳转到 id = objId 的详情
@@ -190,38 +209,39 @@ export default {
             console.log(`每页 ${val} 条`);
         },
         async handleCurrentChange(val) {
-            console.log("val: " + val);
-            let res;
-            if (!this.isSearching)
-            {
-                res = await request.get("/forumArticles/" + this.typeIndex + "/" + 
-                                    this.currentPage + "/" + this.pageSize + "/create_date desc");
-            }
-            else
-            {
-                res = await request.get("/forumArticles/search/" + this.searchInput.trim() + 
-                                    "/" + this.currentPage + "/" + this.pageSize);
-            }
-            if (res.code === code.GET_OK) {
-                this.items = res.data.list;
-                this.totalNumber = res.data.total;
-                // console.log("currentpage after: " + this.currentPage);
-                // console.log("total number: " + this.totalNumber);
-            }
-            else
-            {
+            try {
+                let res;
+                if (!this.isSearching) {
+                    res = await request.get("/forumArticles/" + this.typeIndex + "/" +
+                        this.currentPage + "/" + this.pageSize + "/create_date desc");
+                }
+                else {
+                    res = await request.get("/forumArticles/search/" + this.searchInput.trim() +
+                        "/" + this.currentPage + "/" + this.pageSize);
+                }
+                if (res.code === code.GET_OK) {
+                    this.items = res.data.list;
+                    this.totalNumber = res.data.total;
+                    this.setIsShowFlag(false);
+                }
+                else if (res.code === code.GET_ERR) {
+                    this.items = [];
+                    this.totalNumber = 0;
+                    this.setIsShowFlag(true);
+                }
+            } catch (err) {
+                this.setIsShowFlag(true);
                 this.$notify.error({
                     title: message.REQUEST_ERR,
                     offset: code.OFFSET
                 })
             }
-            // console.log(`当前页: ${val}`);
         },
     },
 
     watch: {
         // 含输入的记得掐空格！！！
-        searchInput(val) {
+        async searchInput(val) {
             this.currentPage = 1;
             
             if (val.trim() === '')
@@ -231,29 +251,28 @@ export default {
             }
             this.isSearching = true;
             // 延迟 0.2s 进行实时显示
-            setTimeout(() => {
-                request.get("/forumArticles/search/" + val.trim() + 
-                        "/" + this.currentPage + "/" + 100).then(res => {
-                        if (res.code === code.GET_OK && res.data.total)
-                        {
-                            this.items = res.data.list;
-                            this.totalNumber = res.data.total;
-                        }
-                        else 
-                        {
-                            this.items = [];
-                            this.totalNumber = 0;
-                            // this.$notify.error({
-                            //     title: message.FIND_ERR,
-                            //     offset: code.OFFSET
-                            // })
-                        }
-                    }).catch(err => {
-                        this.$notify.error({
-                            title: message.REQUEST_ERR,
-                            offset: code.OFFSET
-                        })
+            setTimeout(async () => {
+                try {
+                    let res = await request.get("/forumArticles/search/" + val.trim() +
+                        "/" + this.currentPage + "/" + this.pageSize);
+                    if (res.code === code.GET_OK) {
+                        this.items = res.data.list;
+                        this.totalNumber = res.data.total;
+                        this.setIsShowFlag(false);
+                    }
+                    else if (res.code === code.GET_ERR) {
+                        this.items = [];
+                        this.totalNumber = 0;
+                        this.setIsShowFlag(true);
+                    }
+                }
+                catch (err) {
+                    this.setIsShowFlag(true);
+                    this.$notify.error({
+                        title: message.REQUEST_ERR,
+                        offset: code.OFFSET
                     })
+                }
             }, 200);
         }
     },

@@ -45,8 +45,8 @@ public abstract class ArticleBaseController<T>{
         try
         {
             PageInfo<T> pageInfo = articleBaseService.getAllByPage(pageNum, pageSize, order);
-            Integer code = pageInfo != null ? Code.GET_OK : Code.GET_ERR;
-            String msg = pageInfo != null ? "get succeeded" : "get failed";
+            Integer code = pageInfo.hasContent()  ? Code.GET_OK : Code.GET_ERR;
+            String msg = pageInfo.hasContent() ? "get succeeded" : "get failed";
             return new Result(code, pageInfo, msg);
         }
         catch (SystemException e)
@@ -64,8 +64,8 @@ public abstract class ArticleBaseController<T>{
         try
         {
             PageInfo<T> pageInfo = articleBaseService.getByIndexByPage(pageNum, pageSize, index, order);
-            Integer code = pageInfo != null ? Code.GET_OK : Code.GET_ERR;
-            String msg = pageInfo != null ? "get succeeded" : "get failed";
+            Integer code = pageInfo.hasContent() ? Code.GET_OK : Code.GET_ERR;
+            String msg = pageInfo.hasContent() ? "get succeeded" : "get failed";
             return new Result(code, pageInfo, msg);
         }
         catch (SystemException e)
@@ -82,8 +82,8 @@ public abstract class ArticleBaseController<T>{
         try
         {
             PageInfo<T> pageInfo = articleBaseService.findByPage(pageNum, pageSize, searchKey);
-            Integer code = pageInfo != null ? Code.GET_OK : Code.GET_ERR;
-            String msg = pageInfo != null ? "get succeeded" : "get failed";
+            Integer code = pageInfo.hasContent() ? Code.GET_OK : Code.GET_ERR;
+            String msg = pageInfo.hasContent() ? "get succeeded" : "get failed";
             return new Result(code, pageInfo, msg);
         }
         catch (SystemException e)

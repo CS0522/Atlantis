@@ -17,9 +17,9 @@ public interface CommentService {
 
     public PageInfo<Comment> getByIdByPage(Integer pageNum, Integer pageSize, Integer id);
 
-    public List<Comment> getByName(String name, String loginType);
+    public List<CommentJoinForumArticle> getByName(String name, String loginType);
 
-    public PageInfo<Comment> getByNameByPage(Integer pageNum, Integer pageSize,
+    public PageInfo<CommentJoinForumArticle> getByNameByPage(Integer pageNum, Integer pageSize,
                                              String name, String loginType);
 
     public PageInfo<CommentJoinForumArticle> findByPage(Integer pageNum, Integer pageSize, String searchKey);

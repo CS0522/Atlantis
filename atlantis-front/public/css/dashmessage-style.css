@@ -126,6 +126,10 @@
     height: 100%;
     line-height: 130px;
     font-size: 40px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .item-detail
@@ -144,6 +148,12 @@
     float: left;
     height: 100%;
     font-size: 40px;
+
+    width: 35%;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .item-detail-operation

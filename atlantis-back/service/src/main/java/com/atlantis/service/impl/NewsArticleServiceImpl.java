@@ -8,6 +8,8 @@ import com.atlantis.service.base.impl.ArticleBaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 public class NewsArticleServiceImpl extends ArticleBaseServiceImpl<NewsArticle>
         implements NewsArticleService {
@@ -42,7 +44,10 @@ public class NewsArticleServiceImpl extends ArticleBaseServiceImpl<NewsArticle>
     public boolean update(NewsArticle newsArticle)
     {
         // 如果没有相同标题，则可以进行更新
-        if (articleBaseMapper.getByTitle(newsArticle.getTitle()) == null)
+        if (articleBaseMapper.getByTitle(newsArticle.getTitle()) == null ||
+                // 或者是同一个文章
+                Objects.equals(articleBaseMapper.getByTitle(newsArticle.getTitle()).getId(),
+                        newsArticle.getId()))
         {
             return (articleBaseMapper.update(newsArticle) == 1);
         }

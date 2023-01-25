@@ -276,6 +276,21 @@ const routes =
                     component: () => import('@/components/PersonalPage/PersonalMessage.vue'),
                     props: true
                 },
+                {
+                    path: "/personal/thread",
+                    component: () => import('@/components/PersonalPage/PersonalThread.vue'),
+                    props: true
+                },
+                {
+                    path: "/personal/comment",
+                    component: () => import('@/components/PersonalPage/PersonalComment.vue'),
+                    props: true
+                },
+                {
+                    path: "/personal/threadEditor",
+                    component: () => import('@/components/PersonalPage/ThreadEditor.vue'),
+                    props: true,
+                }
             ],
             // 添加单独路由守卫
             beforeEnter: (to, from, next) => {

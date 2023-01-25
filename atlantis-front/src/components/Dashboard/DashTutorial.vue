@@ -64,6 +64,12 @@
                                 :total="totalNumber">
                     </el-pagination>
 
+                    <div v-if="isShowFlag">
+                        <img src="@/../public/imgs/commons/ae86.png" height="150px"
+                            style="filter: drop-shadow(0px 5px 15px #eb1d2a);"/>
+                        <p style="color: rgb(200, 200, 200);zoom:2">这里什么也没有~</p>
+                    </div>
+
                     <ul v-for="item in items" :key="item.id" style="list-style-type: none">
                         <div class="item-box">
                             <li>
@@ -119,6 +125,8 @@ export default {
             items: [],
             categoryItems: [],
 
+            isShowFlag: false,
+
             typeIndex: '',
             order: "id asc",
         }
@@ -129,6 +137,10 @@ export default {
             this.setCategoryItems();
             this.clearSearch();
             this.setItem();
+        },
+
+        setIsShowFlag(val) {
+            this.isShowFlag = val;
         },
 
         async setCategoryItems() {
@@ -148,15 +160,21 @@ export default {
         },
 
         async setItem() {
-            let res = await request.get("/tutorialArticles" + this.typeIndex + 
-                                "/" + this.currentPage + "/" + this.pageSize + "/" + this.order);
-            if (res.code === code.GET_OK)
-            {
-                this.items = res.data.list;
-                this.totalNumber = res.data.total;
-            }
-            else 
-            {
+            try {
+                let res = await request.get("/tutorialArticles" + this.typeIndex +
+                    "/" + this.currentPage + "/" + this.pageSize + "/" + this.order);
+                if (res.code === code.GET_OK) {
+                    this.items = res.data.list;
+                    this.totalNumber = res.data.total;
+                    this.setIsShowFlag(false);
+                }
+                else if (res.code === code.GET_ERR) {
+                    this.items = [];
+                    this.totalNumber = 0;
+                    this.setIsShowFlag(true);
+                }
+            } catch (err) {
+                this.setIsShowFlag(true);
                 this.$notify.error({
                     title: message.REQUEST_ERR,
                     offset: code.OFFSET
@@ -195,7 +213,7 @@ export default {
         },
 
         // search
-        doSearch() {
+        async doSearch() {
             // 若输入为空，刷新、退出
             if (this.searchInput.trim() === '')
             {
@@ -203,32 +221,34 @@ export default {
                 return;
             }
             this.isSearching = true;
-            request.get("/tutorialArticles/search/" + this.searchInput.trim() + 
-                        "/" + this.currentPage + "/" + this.pageSize).then(res => {
-                        if (res.code === code.GET_OK && res.data.total)
-                        {
-                            this.items = res.data.list;
-                            this.totalNumber = res.data.total;
-                            this.$notify.success({
-                                title: message.FIND_OK + "，共 " + this.totalNumber + " 条",
-                                offset: code.OFFSET
-                            })
-                        }
-                        else 
-                        {
-                            this.items = [];
-                            this.totalNumber = 0;
-                            this.$notify.error({
-                                title: message.FIND_ERR,
-                                offset: code.OFFSET
-                            })
-                        }
-                    }).catch(err => {
-                        this.$notify.error({
-                            title: message.REQUEST_ERR,
-                            offset: code.OFFSET
-                        })
+            try {
+                let res = await request.get("/tutorialArticles/search/" + this.searchInput.trim() +
+                    "/" + this.currentPage + "/" + this.pageSize);
+                if (res.code === code.GET_OK) {
+                    this.items = res.data.list;
+                    this.totalNumber = res.data.total;
+                    this.setIsShowFlag(false);
+                    this.$notify.success({
+                        title: message.FIND_OK + "，共 " + this.totalNumber + " 条",
+                        offset: code.OFFSET
                     })
+                }
+                else if (res.code === code.GET_ERR) {
+                    this.items = [];
+                    this.totalNumber = 0;
+                    this.setIsShowFlag(true);
+                    this.$notify.error({
+                        title: message.FIND_ERR,
+                        offset: code.OFFSET
+                    })
+                }
+            } catch (err) {
+                this.setIsShowFlag(true);
+                this.$notify.error({
+                    title: message.REQUEST_ERR,
+                    offset: code.OFFSET
+                })
+            }
         },
 
         // 页面条数修改时（没有设置这个功能）
@@ -237,30 +257,33 @@ export default {
         },
         async handleCurrentChange(val) {
             // console.log("val: " + val);
-            let res;
-            if (!this.isSearching)
-            {
-                res = await request.get("/tutorialArticles" + this.typeIndex + 
-                                    "/" + this.currentPage + "/" + this.pageSize + "/" + this.order);
-            }
-            else
-            {
-                res = await request.get("/tutorialArticles/search/" + this.searchInput.trim() + 
-                                    "/" + this.currentPage + "/" + this.pageSize);
-            }
-            if (res.code === code.GET_OK) {
-                this.items = res.data.list;
-                this.totalNumber = res.data.total;
-                // console.log("total number: " + this.totalNumber);
-            }
-            else 
-            {
+            try {
+                let res;
+                if (!this.isSearching) {
+                    res = await request.get("/tutorialArticles" + this.typeIndex +
+                        "/" + this.currentPage + "/" + this.pageSize + "/" + this.order);
+                }
+                else {
+                    res = await request.get("/tutorialArticles/search/" + this.searchInput.trim() +
+                        "/" + this.currentPage + "/" + this.pageSize);
+                }
+                if (res.code === code.GET_OK) {
+                    this.items = res.data.list;
+                    this.totalNumber = res.data.total;
+                    this.setIsShowFlag(false);
+                }
+                else if (res.code === code.GET_ERR) {
+                    this.items = [];
+                    this.totalNumber = 0;
+                    this.setIsShowFlag(true);
+                }
+            } catch (err) {
+                this.setIsShowFlag(true);
                 this.$notify.error({
                     title: message.REQUEST_ERR,
                     offset: code.OFFSET
                 })
             }
-            // console.log(`当前页: ${val}`);
         },
     },
     created() {
@@ -269,29 +292,36 @@ export default {
 
     // 监控select选择的变化
     watch: {
-        typeIndex(val) {
+        async typeIndex(val) {
             // 如果val为空（查询全部），则不需要加/
             // 不为空，则要加/，因为后端的请求路径是这样的
             if (val !== '')
             {
                 val = '/' + val;
             }
-            request.get("/tutorialArticles" + val + 
-                    "/" + this.currentPage + "/" + this.pageSize + "/" + this.order).then(res => {
-                        if (res.code === code.GET_OK)
-                        {
-                            this.items = res.data.list;
-                            this.totalNumber = res.data.total;
-                        }
-                    }).catch(err => {
-                        this.$notify.error({
-                            title: message.REQUEST_ERR,
-                            offset: code.OFFSET
-                        })
-                    })
+            try {
+                let res = await request.get("/tutorialArticles" + val +
+                    "/" + this.currentPage + "/" + this.pageSize + "/" + this.order);
+                if (res.code === code.GET_OK) {
+                    this.items = res.data.list;
+                    this.totalNumber = res.data.total;
+                    this.setIsShowFlag(false);
+                }
+                else if (res.code === code.GET_ERR) {
+                    this.items = [];
+                    this.totalNumber = 0;
+                    this.setIsShowFlag(true);
+                }
+            } catch (err) {
+                this.setIsShowFlag(true);
+                this.$notify.error({
+                    title: message.REQUEST_ERR,
+                    offset: code.OFFSET
+                })
+            }
         },
         
-        order(val) {
+        async order(val) {
             let tempStr;
             if (this.typeIndex === '')
             {
@@ -301,23 +331,30 @@ export default {
             {
                 tempStr = "/tutorialArticles/";
             }
-            request.get(tempStr + this.typeIndex + 
-                    "/" + this.currentPage + "/" + this.pageSize + "/" + val).then(res => {
-                        if (res.code === code.GET_OK)
-                        {
-                            this.items = res.data.list;
-                            this.totalNumber = res.data.total;
-                        }
-                    }).catch(err => {
-                        this.$notify.error({
-                            title: message.REQUEST_ERR,
-                            offset: code.OFFSET
-                        })
-                    })
+            try {
+                let res = await request.get(tempStr + this.typeIndex +
+                    "/" + this.currentPage + "/" + this.pageSize + "/" + val);
+                if (res.code === code.GET_OK) {
+                    this.items = res.data.list;
+                    this.totalNumber = res.data.total;
+                    this.setIsShowFlag(false);
+                }
+                else if (res.code === code.GET_ERR) {
+                    this.items = [];
+                    this.totalNumber = 0;
+                    this.setIsShowFlag(true);
+                }
+            } catch (err) {
+                this.setIsShowFlag(true);
+                this.$notify.error({
+                    title: message.REQUEST_ERR,
+                    offset: code.OFFSET
+                })
+            }
         },
 
         // 含输入的记得掐空格
-        searchInput(val) {
+        async searchInput(val) {
             this.currentPage = 1;
 
             if (val.trim() === '')
@@ -334,28 +371,28 @@ export default {
             
             this.isSearching = true;
             // 延迟 0.2s 进行实时显示
-            setTimeout(() => {
-                request.get("/tutorialArticles/search/" + this.searchInput.trim() + 
-                        "/" + this.currentPage + "/" + this.pageSize).then(res => {
-                        if (res.code === code.GET_OK && res.data.total)
-                        {
-                            this.items = res.data.list;
-                            this.totalNumber = res.data.total;
-                        }
-                        else 
-                        {
-                            this.items = [];
-                            this.totalNumber = 0;
-                            // this.$notify.error({
-                            //     title: message.FIND_ERR,
-                            // })
-                        }
-                    }).catch(err => {
-                        // this.$notify.error({
-                        //     title: message.REQUEST_ERR,
-                        //     offset: code.OFFSET
-                        //})
+            setTimeout(async () => {
+                try {
+                    let res = await request.get("/tutorialArticles/search/" + this.searchInput.trim() +
+                        "/" + this.currentPage + "/" + this.pageSize);
+                    if (res.code === code.GET_OK) {
+                        this.items = res.data.list;
+                        this.totalNumber = res.data.total;
+                        this.setIsShowFlag(false);
+                    }
+                    else if (res.code === code.GET_ERR) {
+                        this.items = [];
+                        this.totalNumber = 0;
+                        this.setIsShowFlag(true);
+                    }
+                }
+                catch (err) {
+                    this.setIsShowFlag(true);
+                    this.$notify.error({
+                        title: message.REQUEST_ERR,
+                        offset: code.OFFSET
                     })
+                }
             }, 200);
         }
     }

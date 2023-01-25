@@ -35,15 +35,15 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<Comment> getByName(String name, String loginType) {
+    public List<CommentJoinForumArticle> getByName(String name, String loginType) {
         return (commentMapper.getByName(name, loginType));
     }
 
     @Override
-    public PageInfo<Comment> getByNameByPage(Integer pageNum, Integer pageSize, String name, String loginType) {
+    public PageInfo<CommentJoinForumArticle> getByNameByPage(Integer pageNum, Integer pageSize, String name, String loginType) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Comment> commentList = commentMapper.getByName(name, loginType);
-        return new PageInfo<Comment>(commentList);
+        List<CommentJoinForumArticle> commentList = commentMapper.getByName(name, loginType);
+        return new PageInfo<CommentJoinForumArticle>(commentList);
     }
 
     @Override

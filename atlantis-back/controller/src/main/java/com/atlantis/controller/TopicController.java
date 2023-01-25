@@ -42,8 +42,8 @@ public class TopicController {
         try
         {
             PageInfo<Topic> pageInfo = topicService.getAllByPage(pageNum, pageSize);
-            Integer code = pageInfo != null ? Code.GET_OK : Code.GET_ERR;
-            String msg = pageInfo != null ? "get succeeded" : "get failed";
+            Integer code = pageInfo.hasContent() ? Code.GET_OK : Code.GET_ERR;
+            String msg = pageInfo.hasContent() ? "get succeeded" : "get failed";
 
             return new Result(code, pageInfo, msg);
         }
@@ -77,8 +77,8 @@ public class TopicController {
         try
         {
             PageInfo<TopicJoinForumArticle> pageInfo = topicService.findByPage(pageNum, pageSize, search);
-            Integer code = pageInfo != null ? Code.GET_OK : Code.GET_ERR;
-            String msg = pageInfo != null ? "get succeeded" : "get failed";
+            Integer code = pageInfo.hasContent() ? Code.GET_OK : Code.GET_ERR;
+            String msg = pageInfo.hasContent() ? "get succeeded" : "get failed";
             return new Result(code, pageInfo, msg);
         }
         catch (SystemException e)
@@ -94,8 +94,8 @@ public class TopicController {
         {
             PageInfo<TopicJoinForumArticle> pageInfo =
                     topicService.getCountByPage(pageNum, pageSize);
-            Integer code = pageInfo != null ? Code.GET_OK : Code.GET_ERR;
-            String msg = pageInfo != null ? "get succeeded" : "get failed";
+            Integer code = pageInfo.hasContent() ? Code.GET_OK : Code.GET_ERR;
+            String msg = pageInfo.hasContent() ? "get succeeded" : "get failed";
 
             return new Result(code, pageInfo, msg);
         }

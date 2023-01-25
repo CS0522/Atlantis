@@ -1,6 +1,6 @@
 <template>
     <div>
-        <hr class="hr" />
+        <!-- <hr class="hr" /> -->
         <div id="content-box">
                 <br/>
                 <form id="userprofile-form">

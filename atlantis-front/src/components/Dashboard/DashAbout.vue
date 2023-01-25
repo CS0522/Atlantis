@@ -34,9 +34,15 @@
                                 :current-page.sync="currentPage" 
                                 :page-size="pageSize"
                                 layout="prev, pager, next, jumper" 
-                                :total="totalNumber">
+                                :total="totalNumber"> 
                     </el-pagination>
+                    <div v-if="isShowFlag">
+                        <img src="@/../public/imgs/commons/ae86.png" height="150px"
+                            style="filter: drop-shadow(0px 5px 15px #eb1d2a);"/>
+                        <p style="color: rgb(200, 200, 200); zoom: 2">这里什么也没有~</p>
+                    </div>
                     <!-- 内容列表 -->
+                    
                     <ul v-for="item in items" :key="item.id" style="list-style-type: none">
                         <div class="item-box">
                             <li>
@@ -94,6 +100,8 @@ export default {
             isSearching: false,
 
             items: [],
+            
+            isShowFlag: false,
 
             // for pagination
             currentPage: 1,
@@ -118,9 +126,13 @@ export default {
             this.searchInput = '';
             this.isSearching = false;
         },
+        setIsShowFlag(val) {
+            this.isShowFlag = val;
+        },
         // 分页查询 getAll
-        setItems() {
-            request.get("/members/" + this.currentPage + "/" + this.pageSize).then(res => {
+        async setItems() {
+            try {
+                let res = await request.get("/members/" + this.currentPage + "/" + this.pageSize)
                 if (res.code === code.GET_OK) {
                     // res.data 返回数据
                     // list 包含内容
@@ -128,14 +140,21 @@ export default {
                     this.items = res.data.list;
                     this.totalNumber = res.data.total;
                     // console.log("total number: " + this.totalNumber);
+                    this.setIsShowFlag(false);
                 }
-            }).catch(err => {
-                console.log(err)
+                else if (res.code === code.GET_ERR) {
+                    this.items = [];
+                    this.totalNumber = 0;
+
+                    this.setIsShowFlag(true);
+                }
+            } catch (err) {
+                this.setIsShowFlag(true);
                 this.$notify.error({
                     title: message.REQUEST_ERR,
                     offset: code.OFFSET
-                });
-            })
+                })
+            }
         },
 
         doOperation(operation, objId) {
@@ -146,7 +165,7 @@ export default {
             this.$emit('show-dialog', 'about')
         },
 
-        doSearch() {
+        async doSearch() {
             // 若输入为空，刷新、退出
             if (this.searchInput.trim() === '')
             {
@@ -156,68 +175,73 @@ export default {
             // 输入不为空
             // 搜索状态设置为 true
             this.isSearching = true;
-            request.get("/members/" + this.searchInput.trim() + 
-                        "/" + this.currentPage + "/" + this.pageSize).then(res => {
-                        // 获取成功 且 存在数据
-                        if (res.code === code.GET_OK && res.data.total)
-                        {
-                            this.items = res.data.list;
-                            this.totalNumber = res.data.total;
-                            this.$notify.success({
-                                title: message.FIND_OK + "，共 " + this.totalNumber + " 条",
-                                offset: code.OFFSET
-                            })
-                        }
-                        // 获取失败 或 没有数据
-                        else 
-                        {
-                            this.items = [];
-                            this.totalNumber = 0;
-                            this.$notify.error({
-                                title: message.FIND_ERR,
-                                offset: code.OFFSET
-                            })
-                        }
-                    // 请求失败
-                    }).catch(err => {
-                        this.$notify.error({
-                            title: message.REQUEST_ERR,
-                            offset: code.OFFSET
-                        })
+            try {
+                let res = await request.get("/members/" + this.searchInput.trim() +
+                    "/" + this.currentPage + "/" + this.pageSize);
+                // 获取成功 且 存在数据
+                if (res.code === code.GET_OK) {
+                    this.items = res.data.list;
+                    this.totalNumber = res.data.total;
+                    this.setIsShowFlag(false);
+                    this.$notify.success({
+                        title: message.FIND_OK + "，共 " + this.totalNumber + " 条",
+                        offset: code.OFFSET
                     })
+                }
+                // 获取失败 或 没有数据
+                else if (res.code === code.GET_ERR) {
+                    this.items = [];
+                    this.totalNumber = 0;
+                    this.setIsShowFlag(true);
+
+                    this.$notify.error({
+                        title: message.FIND_ERR,
+                        offset: code.OFFSET
+                    })
+                }
+            } catch (err) {
+                this.setIsShowFlag(true);
+                this.$notify.error({
+                    title: message.REQUEST_ERR,
+                    offset: code.OFFSET
+                })
+            }
         },
 
         handleSizeChange(val) {
             // console.log("val: " + val);
         },
         async handleCurrentChange(val) {
-            // console.log("val: " + val);
-            let res;
-            // 首先判断是否处在搜索状态
-            // 不是，则请求 getAll
-            if (!this.isSearching)
-            {
-                res = await request.get("/members/" + this.currentPage + "/" + this.pageSize);
-            }
-            // 是，则请求 find 且页面改变
-            else 
-            {
-                res = await request.get("/members/" + this.searchInput.trim() + 
-                                    "/" + this.currentPage + "/" + this.pageSize);
-            }
-            if (res.code === code.GET_OK) {
-                this.items = res.data.list;
-                this.totalNumber = res.data.total;
-                // console.log("total number: " + this.totalNumber);
-            }
-            else
-            {
+            try {
+                let res;
+                // 首先判断是否处在搜索状态
+                // 不是，则请求 getAll
+                if (!this.isSearching) {
+                    res = await request.get("/members/" + this.currentPage + "/" + this.pageSize);
+                }
+                // 是，则请求 find 且页面改变
+                else {
+                    res = await request.get("/members/" + this.searchInput.trim() +
+                        "/" + this.currentPage + "/" + this.pageSize);
+                }
+
+                if (res.code === code.GET_OK) {
+                    this.items = res.data.list;
+                    this.totalNumber = res.data.total;
+                    this.setIsShowFlag(false);
+                }
+                else if (res.code === code.GET_ERR) {
+                    this.items = [];
+                    this.totalNumber = 0;
+                    this.setIsShowFlag(true);
+                }
+            } catch (err) {
+                this.setIsShowFlag(true);
                 this.$notify.error({
                     title: message.REQUEST_ERR,
                     offset: code.OFFSET
                 })
             }
-            // console.log(`当前页: ${val}`);
         },
 
         // 成员头像上传
@@ -262,7 +286,7 @@ export default {
     
     watch: {
         // 含输入的记得掐空格
-        searchInput(val) {
+        async searchInput(val) {
             // 首先让当前页面回到 1
             this.currentPage = 1;
 
@@ -276,29 +300,27 @@ export default {
             // 否则在搜索，将搜索状态设置为 true
             this.isSearching = true;
             // 延迟 0.2s 进行实时显示
-            setTimeout(() => {
-                request.get("/members/" + val.trim() + 
-                        "/" + this.currentPage + "/" + this.pageSize).then(res => {
-                        if (res.code === code.GET_OK && res.data.total)
-                        {
-                            this.items = res.data.list;
-                            this.totalNumber = res.data.total;
-                        }
-                        else 
-                        {
-                            this.items = [];
-                            this.totalNumber = 0;
-                            // this.$notify.error({
-                            //     title: message.FIND_ERR,
-                            //     offset: code.OFFSET
-                            // })
-                        }
-                    }).catch(err => {
-                        this.$notify.error({
-                            title: message.REQUEST_ERR,
-                            offset: code.OFFSET
-                        })
+            setTimeout(async () => {
+                try {
+                    let res = await request.get("/members/" + val.trim() +
+                        "/" + this.currentPage + "/" + this.pageSize);
+                    if (res.code === code.GET_OK) {
+                        this.items = res.data.list;
+                        this.totalNumber = res.data.total
+                        this.setIsShowFlag(false);
+                    }
+                    else if (res.code === code.GET_ERR) {
+                        this.items = [];
+                        this.totalNumber = 0
+                        this.setIsShowFlag(true);
+                    }
+                } catch (err) {
+                    this.setIsShowFlag(true);
+                    this.$notify.error({
+                        title: message.REQUEST_ERR,
+                        offset: code.OFFSET
                     })
+                }
             }, 200);
         }
     },

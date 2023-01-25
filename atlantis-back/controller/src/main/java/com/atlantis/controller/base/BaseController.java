@@ -54,8 +54,8 @@ public abstract class BaseController<T> {
         try
         {
             PageInfo<T> pageInfo = baseService.getAllByPage(pageNum, pageSize);
-            Integer code = pageInfo != null ? Code.GET_OK : Code.GET_ERR;
-            String msg = pageInfo != null ? "get succeeded" : "get failed";
+            Integer code = pageInfo.hasContent() ? Code.GET_OK : Code.GET_ERR;
+            String msg = pageInfo.hasContent() ? "get succeeded" : "get failed";
             return new Result(code, pageInfo, msg);
         }
         catch (SystemException e)
@@ -73,8 +73,8 @@ public abstract class BaseController<T> {
         try
         {
             PageInfo<T> pageInfo = baseService.findByPage(pageNum, pageSize, name);
-            Integer code = pageInfo != null ? Code.GET_OK : Code.GET_ERR;
-            String msg = pageInfo != null ? "get succeeded" : "get failed";
+            Integer code = pageInfo.hasContent() ? Code.GET_OK : Code.GET_ERR;
+            String msg = pageInfo.hasContent() ? "get succeeded" : "get failed";
             return new Result(code, pageInfo, msg);
         }
         catch (SystemException e)

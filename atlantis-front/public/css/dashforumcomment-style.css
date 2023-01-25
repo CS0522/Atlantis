@@ -297,6 +297,12 @@
     font-size: 40px;
     display: inline;
     float: left;
+
+    width: 30%;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .comment-item-title
@@ -308,7 +314,13 @@
     display: inline;
     float: right;
 
-    text-align: right;
+    /* text-align: right; */
+
+    width: 30%;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .comment-item-date

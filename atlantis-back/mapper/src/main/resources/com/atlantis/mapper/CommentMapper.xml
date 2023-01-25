@@ -53,9 +53,15 @@
     </select>
 
 <!--    集合-->
-    <select id="getByName" resultMap="commentResultMap">
-        select * from comment where `name` = #{name} and `login_type` = #{loginType}
-                              order by create_date desc
+    <select id="getByName" resultMap="commentJoinResultMap">
+        select comment.`index` as `index`, comment.`id` as `id`, comment.`name` as `name`,
+               comment.`content` as `content`, comment.`create_date` as `create_date`,
+               forum_article.`title` as `title`
+        from comment
+        join forum_article
+        on comment.`id` = forum_article.`id`
+        where comment.`name` = #{name} and comment.`login_type` = #{loginType}
+        order by create_date desc
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="index">

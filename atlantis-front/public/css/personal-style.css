@@ -97,7 +97,14 @@
     border-radius: 150px;
     overflow: hidden;
     /* 设置阴影 */
-    box-shadow: 5px 15px 15px 5px #888888;
+    box-shadow: 0px 0px 15px 10px rgba(233, 29, 42, 0.6);
+
+    transition: all .3s;
+}
+
+#img-box:hover
+{
+    transform: scale(1.02);
 }
 
 #welcome-box
@@ -148,4 +155,11 @@
 {
     transform: scale(1.02);
     cursor: pointer;
+}
+
+.hr
+{
+    margin-top: 20px;
+    border: none; 
+    border-top: solid #eb1d2a;
 }
