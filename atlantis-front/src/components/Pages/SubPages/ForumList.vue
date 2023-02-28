@@ -2,7 +2,6 @@
     <div>
         <div id="content-box">
             <div class="search-box">
-                <!-- 纯粹对齐用 -->
                 <div class="add-button-box">
                     <button class="add-button" @click="doPost()">
                         <img src="imgs/icons/post.png" height="40px" style="transform: translateY(10px); 
@@ -280,5 +279,5 @@ export default {
 }
 </script>
 
-<style scoped src="@/../public/css/subcontent-style.css">
+<style scoped src="@/../public/css/subcontentforum-style.css">
 </style>

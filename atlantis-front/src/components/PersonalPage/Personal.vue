@@ -273,7 +273,7 @@ export default {
 
             // 设置内容
             this.dialogTitle = '管理员申请';
-            this.dialogContent = '加入管理员后，账号不消失，可以不同身份登录。确认申请？';
+            this.dialogContent = '加入管理员后，可以以不同身份登录。确认申请？';
             this.operationType = 'add';
 
             this.isShowBase = true;

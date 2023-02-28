@@ -11,61 +11,121 @@
     font-size: 30px;
 }
 
-#userprofile-form
+.item-box
 {
     /* border: solid; */
-    margin: auto auto;
-}
-
-#operation-box
-{
-    /* border: solid red; */
-    margin: 20px 20px;
-    height: 120px;
-}
-
-.operation
-{
-    display: inline;
-    height: 70px;
-    line-height: 40px;
-    width: 200px;
+    border-radius: 15px;
+    margin: 15px;
+    height: 140px;
+    line-height: 100px;
     font-size: 30px;
-    border-radius: 15px;
-    border: none;
-    overflow: hidden;
-}
-
-.table-operation
-{
-    margin: auto auto;
-}
-
-.table
-{
-    /* border: solid blue; */
-    /* 自动对齐 */
-    margin: auto auto;
-    border-radius: 15px;
-    /* 加入底色 */
     background-color: rgba(81, 81, 81, 0.8);
     box-shadow: 0px 0px 15px 5px rgba(94, 94, 94, 0.7);
 
+    cursor: pointer;
+
+    transition: all .3s;
 }
 
-.form-input
+.item-box:hover
 {
-    /* 由于缩放问题导致，只能暂时缩放回去 */
-    font-size: 20px;
-    border-radius: 7.5px;
-    border: solid #eb1d2a;
-    font-family: 'Microsoft YaHei';
-    width: 100%;
-    zoom: 2;
+    background-color: rgba(233, 29, 42, 0.6);
+    box-shadow: 0px 0px 15px 5px rgba(233, 29, 42, 0.6);
 }
 
-#changepwd-form
+.item-box:hover
+{
+    transform: scale(1.02);
+}
+
+.item-box::after {
+    content:"";
+    /*清除浮动*/
+    clear: both;
+    /*确保该元素是一个块级元素*/
+    display: block;
+}
+
+/* .item-box li
+{
+    transition: all .3s;
+} */
+
+.item-id
+{
+    /* border: solid; */
+    float: left;
+    width: 10%;
+    height: 100%;
+    line-height: 130px;
+    font-size: 40px;
+}
+
+.item-detail
 {
     /* border: solid red; */
-    margin: auto auto;
+    float: left;
+    width: 90%;
+    height: 100%;
+    line-height: 130px;
+    margin-left: 30px;
+}
+
+.item-detail-title
+{
+    /* border: solid blue; */
+    display: inline;
+    float: left;
+    height: 100%;
+    font-size: 40px;
+
+    max-width: 60%;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.item-detail-content
+{
+    /* border: solid blue; */
+    display: inline;
+    float: left;
+    height: 100%;
+    font-size: 30px;
+
+    /* margin-left: 20px; */
+
+    max-width: 40%;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.item-detail-operation
+{
+    /* border: solid black; */
+    border-radius: 15px;
+    display: inline;
+    float: right;
+    height: 100%;
+    margin: 10px;
+}
+
+.item-detail-operation-button {
+    font-size: 30px;
+    margin: 10px;
+    border: none;
+    border-radius: 15px;
+    height: 60px;
+    width: 150px;
+}
+.item-detail-status
+{
+    margin: 10px;
+    /* border: solid yellow; */
+    display: inline;
+    float: right;
+    height: 100%;
 }

@@ -159,7 +159,7 @@ export default {
             if (operation === 'refuse' && objId !== -1)
             {
                 // 删除申请消息
-                request.delete('/' + this.typeStr + '/' + objId).then(res => {
+                request.delete('/' + this.typeStr + '/refuse/' + objId).then(res => {
                     if (res.code === code.DELETE_OK) 
                     {
                         this.$notify.success({
@@ -184,7 +184,7 @@ export default {
                 let hasError = false;
                 for (let i = 0; i < this.items.length; i++) {
                     // 删除申请消息
-                    request.delete('/' + this.typeStr + '/' + this.items[i].id).then(res => {
+                    request.delete('/' + this.typeStr + '/refuse/' + this.items[i].id).then(res => {
                         // 至少有一个存在删除错误，循环跳出
                         if (res.code !== code.DELETE_OK) {
                             hasError = true;

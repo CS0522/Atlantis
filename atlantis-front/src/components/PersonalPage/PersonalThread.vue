@@ -24,8 +24,9 @@
                     <div class="item-box">
                         <li>
                             <!-- 修改 -->  
-                            <div class="item-id" 
-                                @click="goToItemDetail(item.id, item.index)">{{ item.id }}</div>                   
+                            <!-- <div class="item-id" 
+                                @click="goToItemDetail(item.id, item.index)">{{ item.id }}</div>                    
+                            -->
                             <div class="item-detail"
                                 @click="goToItemDetail(item.id, item.index)">
                                 <div class="item-detail-title">

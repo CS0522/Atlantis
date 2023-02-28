@@ -1,8 +1,12 @@
 package com.atlantis.service.impl;
 
 import com.atlantis.mapper.CommentMapper;
-import com.atlantis.pojo.Comment;
-import com.atlantis.pojo.CommentJoinForumArticle;
+import com.atlantis.mapper.ForumArticleMapper;
+import com.atlantis.mapper.UserMapper;
+import com.atlantis.mapper.UserMessageMapper;
+import com.atlantis.mapper.base.ArticleBaseMapper;
+import com.atlantis.mapper.base.BaseMapper;
+import com.atlantis.pojo.*;
 import com.atlantis.service.CommentService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -16,6 +20,12 @@ import java.util.List;
 public class CommentServiceImpl implements CommentService {
     @Autowired
     private CommentMapper commentMapper;
+    @Autowired
+    private ForumArticleMapper forumArticleMapper;
+    @Autowired
+    private UserMapper userMapper;
+    @Autowired
+    private UserMessageMapper userMessageMapper;
 
     @Override
     public List<CommentJoinForumArticle> getAll() {
@@ -67,7 +77,38 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public boolean insert(Comment comment) {
-        return (commentMapper.insert(comment) == 1);
+        // 插入留言后，需要在消息中进行反馈
+        if (commentMapper.insert(comment) == 1)
+        {
+            // get comment info:
+            // loginType
+            String loginType = comment.getLoginType();
+            // id(thread's id, for `source`)
+            Integer threadId = comment.getId();
+            // content(for `content`)
+            String content = comment.getContent();
+            // name(for `title`)
+            String name = comment.getName();
+
+            if ("users".equals(loginType))
+            {
+                // get destination(user id):
+                ForumArticle forumArticle = forumArticleMapper.getById(threadId);
+                User user = userMapper.getByName(forumArticle.getAuthor());
+
+                UserMessage userMessage = new UserMessage();
+                userMessage.setSource(threadId);
+                userMessage.setContent(content);
+                userMessage.setTitle(name + "回复了你的帖子：");
+                userMessage.setDestination(user.getId());
+
+                // insert
+                return (userMessageMapper.insert(userMessage) == 1);
+            }
+
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -77,6 +118,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public boolean delete(Integer index) {
+        // 留言删除后，消息也需要进行删除
         return (commentMapper.delete(index) == 1);
     }
 

@@ -120,12 +120,31 @@ export default {
         // 需要设置为同步
         async afterload() {
             let messageCount = 0;
-            let res1 = await request.get("/applies")
-            if (res1.code === code.GET_OK)
+            if (this.typeStr === 'admins')
             {
-                let items = res1.data;
-                messageCount += items.length;
+                let res1 = await request.get("/applies")
+                if (res1.code === code.GET_OK)
+                {
+                    let items = res1.data;
+                    messageCount += items.length;
+                }
             }
+            // else if (this.typeStr === 'users')
+            // {
+            //     let res2 = await request.get("/usermessages/destination/1/99999" 
+            //                             + this.$storage.get("accountInfo").id);
+            //     if (res2.code === code.GET_OK)
+            //     {
+            //         let items = res2.data.list;
+            //         for (let i = 0; i < items.length; i++)
+            //         {
+            //             if (items[i].status === 0)
+            //             {
+            //                 messageCount += 1;
+            //             }
+            //         }
+            //     }
+            // }
             // let res2 = await request.get("/resets")
             // if (res2.code === code.GET_OK)
             // {
@@ -136,7 +155,7 @@ export default {
             if (messageCount)
             {
                 this.$notify.info({ 
-                    title: messageCount + ' 条消息待处理，请前往消息中心查看',
+                    title: '有' + messageCount + ' 条新消息，请前往消息中心查看',
                     offset: code.OFFSET
                 })
             }
@@ -221,12 +240,9 @@ export default {
                             offset: code.OFFSET
                         })
                         // 登录时弹出消息通知，是否有未读消息
-                        if (this.typeStr === 'admins')
-                        {
-                            setTimeout(() => {
-                                this.afterload();
-                            }, 1500);
-                        }
+                        setTimeout(() => {
+                            this.afterload();
+                        }, 1500);
                     }
                     else if (res.code === code.STATUS_OFF) {
                         this.errorMessage = '该账号无权限登录';

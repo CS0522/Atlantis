@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- SQL映射文件 -->
+
+
+<!-- namespace: 名称空间-->
+<!-- 设置SQL映射文件的 namespace 属性为Mapper接口的全限定名: com.mapper.UsersMapper-->
+<mapper namespace="com.atlantis.mapper.UserMessageMapper">
+    <!--    id: 该select语句的唯一标识
+        result type: 返回结果的类型，属性为全限定名
+-->
+
+    <!--    结果映射：用于表中的列名和实体类中的成员属性名不一致的情况
+            ResultMap：
+                id: resultMap 唯一标识
+                type: 返回的结果类型
+
+                result: 一般字段的映射
+                id: 主键字段的映射
+                    column: 表的列名
+                    property: 要映射到的实体类中的成员属性名
+
+-->
+
+    <!--    ${}: 用于表名、列名
+    #{}: 用于参数
+-->
+    <resultMap id="userMessageResultMap" type="com.atlantis.pojo.UserMessage">
+        <result property="sendDate" column="send_date"></result>
+    </resultMap>
+
+    <select id="getByIndex" resultMap="userMessageResultMap">
+        select * from user_message where `index` = #{index}
+    </select>
+
+    <select id="getAll" resultMap="userMessageResultMap">
+        select * from user_message order by `send_date` desc
+    </select>
+
+    <select id="getByDestination" resultMap="userMessageResultMap">
+        select * from user_message where `destination` = #{destination} order by `send_date` desc
+    </select>
+
+<!--    返回主键-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="index">
+        insert into user_message(`source`, `destination`, `title`, `content`)
+            values(#{source}, #{destination}, #{title}, #{content})
+    </insert>
+
+    <update id="updateStatus">
+        update user_message set `status` = #{status}
+                            where `index` = #{index}
+    </update>
+
+    <delete id="delete">
+        delete from user_message where `index` = #{index}
+    </delete>
+
+</mapper>
